@@ -914,3 +914,14 @@ main *,section *{min-width:0;}
 #packages .grid,#bots .grid{align-items:stretch;}
 #paperMarketCards{grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));}
 
+
+/* Buy/Sell solid colors */
+label:has(input[name=side][value=buy]) span{border:1px solid transparent;}
+label:has(input[name=side][value=sell]) span{border:1px solid transparent;}
+label:has(input[name=side][value=buy]:checked) span{background:#0ecb81 !important;color:#0b0e11 !important;}
+label:has(input[name=side][value=sell]:checked) span{background:#f6465d !important;color:#fff !important;}
+label:has(input[name=side][value=buy]:not(:checked)) span:hover{color:#0ecb81;}
+label:has(input[name=side][value=sell]:not(:checked)) span:hover{color:#f6465d;}
+form:has(input[name=side][value=sell]:checked) #paperSubmit{background:#f6465d !important;color:#fff !important;}
+form:has(input[name=side][value=buy]:checked) #paperSubmit{background:#0ecb81 !important;color:#0b0e11 !important;}
+
