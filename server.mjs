@@ -1,4 +1,4 @@
-import 'dotenv/config';
+﻿import 'dotenv/config';
 import express from 'express';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
@@ -528,7 +528,7 @@ const maskEmail = (email) => {
 };
 const normalizePersonName = (value) => typeof value === 'string' ? value.trim().replace(/\s+/g, ' ') : '';
 const validPersonName = (value) => value.length <= 80
-    && /^[\p{L}\p{M}][\p{L}\p{M}\s.'’-]*$/u.test(value);
+    && /^[\p{L}\p{M}][\p{L}\p{M}\s.'â€™-]*$/u.test(value);
 const base58Alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 const validTronAddress = (address) => {
     if (typeof address !== 'string' || !/^T[1-9A-HJ-NP-Za-km-z]{33}$/.test(address)) return false;
@@ -561,14 +561,37 @@ const baseUnitsToDecimal = (value, decimals) => {
 };
 const sendError = (response, status, code) => response.status(status).json({ error: code });
 
+const isUniqueViolation = (error) => error?.code === 'SQLITE_CONSTRAINT_UNIQUE'
+    || error?.errcode === 2067
+    || /UNIQUE constraint failed/i.test(error?.message || '');
+
+const brevoApiKey = process.env.BREVO_API_KEY || '';
+const parseMailbox = (value) => {
+    const match = /^\s*(?:"?([^"<]*?)"?\s*)?<([^>]+)>\s*$/.exec(value || '');
+    return match ? { name: match[1]?.trim() || undefined, email: match[2].trim() } : { email: (value || '').trim() };
+};
+
 const smtpReady = Boolean(
-    process.env.SMTP_HOST
-    && process.env.SMTP_USER
-    && process.env.SMTP_PASSWORD
-    && process.env.SMTP_FROM
+    process.env.SMTP_FROM
+    && (brevoApiKey || (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASSWORD))
 );
 
-const mailer = smtpReady
+// Railway'in ucretsiz/Hobby planlari giden SMTP'yi engeller; Brevo HTTPS API'si 443 uzerinden calisir.
+const brevoMailer = {
+    async sendMail({ from, to, subject, text }) {
+        const result = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: { 'api-key': brevoApiKey, 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ sender: parseMailbox(from), to: [{ email: to }], subject, textContent: text }),
+            signal: AbortSignal.timeout(15000)
+        });
+        if (!result.ok) throw new Error(`brevo_http_${result.status}: ${(await result.text()).slice(0, 300)}`);
+    }
+};
+
+const mailer = brevoApiKey
+    ? brevoMailer
+    : smtpReady
     ? nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT || 587),
@@ -906,13 +929,13 @@ const buildAssistantInstructions = (assistantKey, assistant) => [
     assistantKnowledgeBase.context[assistantKey]
 ].join('\n\n');
 
-const isTurkishAssistantMessage = (question) => /[ğüşöçıİ]/i.test(question)
+const isTurkishAssistantMessage = (question) => /[ÄŸÃ¼ÅŸÃ¶Ã§Ä±Ä°]/i.test(question)
     || /(?:\b(?:bu|nasilsin|nasilsiniz|nasil|nedir|kim|sen|merhaba|selam|tesekkur|site|bot|botlar|asistan|asistanlar|yapar|kod|kripto|risk|strateji|ucret|ucretsiz)\b)/i.test(
-        question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i')
+        question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/Ä±/g, 'i')
     );
 
 const findAssistantKnowledgeReply = (assistantKey, question) => {
-    const normalized = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i');
+    const normalized = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/Ä±/g, 'i');
     const entry = assistantKnowledgeBase.entries.find((item) => (
         (!item.assistants || item.assistants.includes(assistantKey))
         && item.patterns.some((pattern) => new RegExp(pattern, 'i').test(normalized))
@@ -1057,7 +1080,7 @@ app.post('/api/auth/register', authLimiter, requireSameOrigin, async (request, r
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             `).run(id, email, passwordHash, firstName, lastName, trc20Address, createReferralCode(), referredBy);
         } catch (error) {
-            if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+            if (isUniqueViolation(error)) {
                 return response.status(202).json({ message: 'If eligible, a verification email has been sent.' });
             }
             throw error;
@@ -1196,7 +1219,7 @@ app.post('/api/account/verify-email-change', requireSameOrigin, (request, respon
         db.exec('COMMIT');
     } catch (error) {
         db.exec('ROLLBACK');
-        if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+        if (isUniqueViolation(error)) {
             return sendError(response, 409, 'email_already_in_use');
         }
         throw error;
@@ -1623,7 +1646,7 @@ app.post('/api/admin/staking-reward-payouts/prepare', requireSameOrigin, require
             now + 15 * 60 * 1000
         );
     } catch (error) {
-        if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+        if (isUniqueViolation(error)) {
             return sendError(response, 409, 'staking_reward_already_reserved_or_paid');
         }
         throw error;
@@ -2987,7 +3010,7 @@ app.post('/api/internal/collected-service-fees', (request, response) => {
         db.exec('COMMIT');
     } catch (error) {
         db.exec('ROLLBACK');
-        if (error.code === 'SQLITE_CONSTRAINT_PRIMARYKEY' || error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+        if (error.code === 'SQLITE_CONSTRAINT_PRIMARYKEY' || isUniqueViolation(error)) {
             return sendError(response, 409, 'fee_reference_already_recorded');
         }
         throw error;
