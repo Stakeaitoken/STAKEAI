@@ -2708,6 +2708,11 @@ document.getElementById('avatarInput').addEventListener('change', async (event) 
 document.getElementById('avatarRemove').addEventListener('click', () => saveAvatar('', 'avatarRemoved'));
 
 accountMenuButton.addEventListener('click', () => setProfilePanel(profilePanel.hidden));
+document.getElementById('homeLink').addEventListener('click', (event) => {
+    event.preventDefault();
+    setProfilePanel(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 document.getElementById('profilePanelClose').addEventListener('click', () => setProfilePanel(false));
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') setProfilePanel(false);

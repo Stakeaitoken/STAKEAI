@@ -8,19 +8,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="theme.css?v=20261020w">
+    <link rel="stylesheet" href="theme.css?v=20261020x">
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased min-h-screen flex flex-col">
 
     <!-- Header / Navbar -->
     <header class="border-b border-gray-800 bg-cardbg/80 backdrop-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
-            <div class="flex shrink-0 items-center space-x-2 sm:space-x-3">
+            <a id="homeLink" href="/" aria-label="STAKEAI" class="flex shrink-0 items-center space-x-2 sm:space-x-3">
                 <img src="stakeai-logo.svg" alt="STAKEAI logo" class="w-9 h-9 sm:w-11 sm:h-11">
                 <span class="hidden min-[480px]:inline font-bold text-lg sm:text-xl tracking-wide text-white">
                     STAKE<span class="text-emerald-300">AI</span>
                 </span>
-            </div>
+            </a>
             <nav class="hidden lg:flex whitespace-nowrap gap-4 xl:gap-7 text-[13px] xl:text-sm font-medium text-gray-300">
                 <a href="#bots" data-i18n="navPackages" class="hover:text-emerald-300 transition">Yapay Zeka Botları</a>
                 <a href="#paperTrading" data-i18n="navSimulation" class="hover:text-emerald-300 transition">Al / Sat</a>
@@ -830,6 +830,6 @@
 
     <!-- App JS bağlantısı -->
     <script src="/vendor/ethers.umd.min.js"></script>
-    <script src="app.js?v=20261020w"></script>
+    <script src="app.js?v=20261020x"></script>
 
 </body></html>
