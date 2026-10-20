@@ -30,7 +30,7 @@ if ((stakeaiTokenAddress && !isAddress(stakeaiTokenAddress))
     throw new Error('STAKEAI_TOKEN_ADDRESS and STAKING_CONTRACT_ADDRESS must be valid EVM addresses.');
 }
 const isProduction = process.env.NODE_ENV === 'production';
-const marketDataBaseUrl = new URL(process.env.MARKET_DATA_BASE_URL || 'https://api.binance.com');
+const marketDataBaseUrl = new URL(process.env.MARKET_DATA_BASE_URL || 'https://data-api.binance.vision');
 const localMarketHost = ['localhost', '127.0.0.1', '[::1]'].includes(marketDataBaseUrl.hostname);
 if ((marketDataBaseUrl.protocol !== 'https:' && !(localMarketHost && !isProduction && marketDataBaseUrl.protocol === 'http:'))
     || marketDataBaseUrl.username || marketDataBaseUrl.password
@@ -397,6 +397,7 @@ for (const asset of ['USDT', 'BTC', 'ETH', 'BNB']) {
 }
 
 const app = express();
+if (isProduction) app.set('trust proxy', 2);
 app.disable('x-powered-by');
 app.use(helmet({
     contentSecurityPolicy: {
