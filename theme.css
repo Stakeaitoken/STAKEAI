@@ -900,3 +900,17 @@ button.border-gray-700:hover,button[class*='border-gray-700']:hover{border-color
 button.bg-gray-800{background-color:#3a4252 !important;border:1px solid #6b7587;}
 button.bg-gray-800:hover{background-color:#4a5468 !important;}
 select#languageSelect{border-color:#7c8799 !important;}
+
+/* Symmetry fixes */
+html,body{overflow-x:hidden;max-width:100%;}
+main *,section *{min-width:0;}
+[data-task-card]{display:flex;flex-direction:column;align-items:stretch;text-align:center;height:100%;}
+[data-task-card]>div:first-child{margin-left:auto;margin-right:auto;}
+[data-task-card] h3{min-height:3.5rem;display:flex;align-items:center;justify-content:center;}
+[data-task-card]>p.text-gray-400{min-height:2.75rem;}
+[data-task-card] label{margin-top:auto;text-align:left;}
+[data-task-card]>a,[data-task-card]>div.flex-col{justify-content:center;text-align:center;}
+#tasks .grid{align-items:stretch;}
+#packages .grid,#bots .grid{align-items:stretch;}
+#paperMarketCards{grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));}
+
