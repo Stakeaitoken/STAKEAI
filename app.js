@@ -1680,6 +1680,9 @@ const accountCopy = {
         lastName: 'Last name',
         trc20Address: 'USDT TRC-20 address',
         nameRequired: 'Enter a valid first and last name.',
+        username: 'Username',
+        invalidUsername: 'Username must be 3-20 characters: letters, digits and _ only.',
+        usernameTaken: 'This username is already taken.',
         trc20AddressInvalid: 'Enter a valid TRON TRC-20 address.',
         balanceManagementNotice: 'USDT/STKAI are platform-recorded balances; BTC/ETH/BNB are simulated spot balances. Estimated values are indicative; STKAI uses the app reference price.',
         accountAssetBalances: 'Asset balances',
@@ -1832,6 +1835,9 @@ const accountCopy = {
         lastName: 'Soyad',
         trc20Address: 'USDT TRC-20 adresi',
         nameRequired: 'Geçerli ad ve soyad girin.',
+        username: 'Kullanıcı adı',
+        invalidUsername: 'Kullanıcı adı 3-20 karakter olmalı; yalnızca harf, rakam ve _ kullanılabilir.',
+        usernameTaken: 'Bu kullanıcı adı alınmış.',
         trc20AddressInvalid: 'Geçerli bir TRON TRC-20 adresi girin.',
         balanceManagementNotice: 'USDT/STKAI platformda kaydedilir; BTC/ETH/BNB sanal spot bakiyeleridir. Tahmini değerler gösterge niteliğindedir; STKAI uygulama referans fiyatını kullanır.',
         accountAssetBalances: 'Varlık bakiyeleri',
@@ -1986,6 +1992,7 @@ const authConfirmPassword = document.getElementById('authConfirmPassword');
 const referralCodeRow = document.getElementById('referralCodeRow');
 const registrationRows = [
     ['firstNameRow', 'authFirstName'],
+    ['usernameRow', 'authUsername'],
     ['lastNameRow', 'authLastName'],
     ['trc20AddressRow', 'authTrc20Address']
 ].map(([rowId, inputId]) => ({
@@ -2238,6 +2245,10 @@ authForm?.addEventListener('submit', async (event) => {
         const firstName = String(formData.get('firstName') || '').trim();
         const lastName = String(formData.get('lastName') || '').trim();
         const trc20Address = String(formData.get('trc20Address') || '').trim();
+        if (!/^[A-Za-z0-9_]{3,20}$/.test(String(formData.get('username') || '').trim())) {
+            authStatus.textContent = copy.invalidUsername;
+            return;
+        }
         if (!/^[\p{L}\p{M}][\p{L}\p{M} .'’-]{0,79}$/u.test(firstName)
             || !/^[\p{L}\p{M}][\p{L}\p{M} .'’-]{0,79}$/u.test(lastName)) {
             authStatus.textContent = copy.nameRequired;
@@ -2260,6 +2271,7 @@ authForm?.addEventListener('submit', async (event) => {
                     password: formData.get('password'),
                     referralCode: formData.get('referralCode'),
                     firstName: formData.get('firstName'),
+                    username: formData.get('username'),
                     lastName: formData.get('lastName'),
                     trc20Address: formData.get('trc20Address')
                 })
@@ -2309,6 +2321,10 @@ authForm?.addEventListener('submit', async (event) => {
                 ? errorCopy.apiRateLimited
                 : error.message === 'invalid_referral_code'
                     ? errorCopy.invalidReferralCode
+                : error.message === 'invalid_username'
+                    ? errorCopy.invalidUsername
+                : error.message === 'username_taken'
+                    ? errorCopy.usernameTaken
                 : error.message === 'invalid_name'
                     ? errorCopy.nameRequired
                 : error.message === 'invalid_trc20_address'
@@ -2587,9 +2603,8 @@ async function showAuthenticatedDashboard(session = null) {
     session = session || await apiRequest('/api/auth/session');
     accountEmail = session.email;
     accountDashboard.hidden = false;
-    document.getElementById('accountStatus').textContent = `${accountEmail} · ${currentCopy().loginSuccess}`;
+    document.getElementById('accountStatus').textContent = `${session.username || accountEmail} · ${currentCopy().loginSuccess}`;
     document.getElementById('authActions').hidden = true;
-    document.getElementById('adminDashboardLink').hidden = !session.isAdmin;
     await refreshAccountBalances();
     await refreshTaskCards();
     try {
@@ -2733,7 +2748,6 @@ document.getElementById('logoutDemo')?.addEventListener('click', async () => {
     if (sessionStatus) sessionStatus.textContent = '';
     accountDashboard.hidden = true;
     document.getElementById('authActions').hidden = false;
-    document.getElementById('adminDashboardLink').hidden = true;
     clearPaperPortfolio();
     void refreshPaperTrading();
 });

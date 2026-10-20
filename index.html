@@ -65,6 +65,10 @@
                     <label for="authFirstName" data-i18n="firstName" class="mb-1 block text-sm text-gray-300">Ad</label>
                     <input id="authFirstName" name="firstName" type="text" maxlength="80" autocomplete="given-name" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
                 </div>
+                <div id="usernameRow" hidden="">
+                    <label for="authUsername" data-i18n="username" class="mb-1 block text-sm text-gray-300">Kullanıcı adı</label>
+                    <input id="authUsername" name="username" type="text" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]{3,20}" autocomplete="username" autocapitalize="off" spellcheck="false" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
                 <div id="lastNameRow" hidden="">
                     <label for="authLastName" data-i18n="lastName" class="mb-1 block text-sm text-gray-300">Soyad</label>
                     <input id="authLastName" name="lastName" type="text" maxlength="80" autocomplete="family-name" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
@@ -111,7 +115,6 @@
                 </div>
                 <button id="logoutDemo" type="button" data-i18n="logout" class="rounded-lg border border-gray-700 px-4 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400">Çıkış</button>
             </div>
-            <a id="adminDashboardLink" href="/admin.html" hidden="" data-i18n="adminPanelLink" class="mb-5 inline-flex rounded-lg border border-emerald-400/40 px-4 py-2 text-sm font-semibold text-emerald-200 hover:border-emerald-300">Yönetim panelini aç</a>
             <a href="/referrals.html" data-i18n="referralsPageLink" class="mb-5 inline-flex rounded-lg border border-cyan-400/40 px-4 py-2 text-sm font-semibold text-cyan-200 hover:border-cyan-300">Referanslarım</a>
             <p id="accountStatus" role="status" aria-live="polite" class="mb-6 text-sm text-emerald-200">demo-preview-1aa394@stakeai.local · Signed in.</p>
             <details class="mb-6 overflow-hidden rounded-xl border border-gray-800 bg-cardbg">

@@ -364,6 +364,8 @@ if (!userColumns.has('totp_enabled')) db.exec('ALTER TABLE users ADD COLUMN totp
 if (!userColumns.has('totp_last_used_step')) db.exec('ALTER TABLE users ADD COLUMN totp_last_used_step INTEGER NOT NULL DEFAULT 0');
 if (!userColumns.has('first_name')) db.exec("ALTER TABLE users ADD COLUMN first_name TEXT NOT NULL DEFAULT ''");
 if (!userColumns.has('last_name')) db.exec("ALTER TABLE users ADD COLUMN last_name TEXT NOT NULL DEFAULT ''");
+if (!userColumns.has('username')) db.exec("ALTER TABLE users ADD COLUMN username TEXT NOT NULL DEFAULT ''");
+db.exec("CREATE UNIQUE INDEX IF NOT EXISTS users_username_unique ON users(username COLLATE NOCASE) WHERE username <> ''");
 if (!userColumns.has('trc20_address')) db.exec("ALTER TABLE users ADD COLUMN trc20_address TEXT NOT NULL DEFAULT ''");
 if (!userColumns.has('usdt_balance')) db.exec("ALTER TABLE users ADD COLUMN usdt_balance TEXT NOT NULL DEFAULT '0'");
 if (!userColumns.has('stakeai_balance')) db.exec("ALTER TABLE users ADD COLUMN stakeai_balance TEXT NOT NULL DEFAULT '0'");
@@ -631,7 +633,7 @@ const requireSession = (request, response, next) => {
     if (!token) return sendError(response, 401, 'authentication_required');
 
     const session = db.prepare(`
-        SELECT users.id, users.email, users.email_verified, users.disabled_at,
+        SELECT users.id, users.email, users.username, users.first_name, users.email_verified, users.disabled_at,
                users.referral_code, sessions.token_hash
         FROM sessions JOIN users ON users.id = sessions.user_id
         WHERE sessions.token_hash = ? AND sessions.expires_at > ?
@@ -1050,8 +1052,13 @@ app.post('/api/auth/register', authLimiter, requireSameOrigin, async (request, r
         const referralCode = typeof request.body?.referralCode === 'string'
             ? request.body.referralCode.trim().toUpperCase()
             : '';
+        const username = typeof request.body?.username === 'string' ? request.body.username.trim() : '';
 
         if (!validEmail(email)) return sendError(response, 400, 'invalid_email');
+        if (!/^[A-Za-z0-9_]{3,20}$/.test(username)) return sendError(response, 400, 'invalid_username');
+        if (db.prepare('SELECT 1 FROM users WHERE username = ? COLLATE NOCASE AND email <> ?').get(username, email)) {
+            return sendError(response, 409, 'username_taken');
+        }
         if ((firstName && !validPersonName(firstName)) || (lastName && !validPersonName(lastName))) {
             return sendError(response, 400, 'invalid_name');
         }
@@ -1078,9 +1085,9 @@ app.post('/api/auth/register', authLimiter, requireSameOrigin, async (request, r
         let userId = id;
         try {
             db.prepare(`
-                INSERT INTO users (id, email, password_hash, first_name, last_name, trc20_address, referral_code, referred_by)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            `).run(id, email, passwordHash, firstName, lastName, trc20Address, createReferralCode(), referredBy);
+                INSERT INTO users (id, email, password_hash, first_name, last_name, username, trc20_address, referral_code, referred_by)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `).run(id, email, passwordHash, firstName, lastName, username, trc20Address, createReferralCode(), referredBy);
         } catch (error) {
             if (!isUniqueViolation(error)) throw error;
             // Dogrulanmamis mevcut hesap icin yalnizca dogrulama e-postasi yeniden gonderilir; sifre degistirilmez.
@@ -1319,6 +1326,7 @@ app.get('/api/auth/session', requireSession, (request, response) => {
     response.json({
         authenticated: true,
         email: request.user.email,
+        username: request.user.username || request.user.first_name || request.user.email.split('@')[0],
         isAdmin: request.user.is_admin
     });
 });
