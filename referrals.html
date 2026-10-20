@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My referrals — STAKEAI</title>
+    <meta name="theme-color" content="#0b0e11">
+    <link rel="icon" type="image/svg+xml" href="stakeai-logo.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind.config.js"></script>
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body class="min-h-screen bg-darkbg font-sans text-gray-100 antialiased">
+    <header class="sticky top-0 z-10 border-b border-gray-800 bg-cardbg/90 backdrop-blur">
+        <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
+            <a href="/" class="flex items-center gap-2 font-bold text-white">
+                <img src="stakeai-logo.svg" alt="" class="h-9 w-9">
+                <span>STAKEAI</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <label for="referralLanguage" class="sr-only">Language</label>
+                <select id="referralLanguage" class="rounded-lg border border-gray-700 bg-gray-900 px-2 py-2 text-sm text-gray-200">
+                    <option value="en">English</option>
+                    <option value="tr">Türkçe</option>
+                </select>
+                <button id="referralLogout" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400">Log out</button>
+            </div>
+        </div>
+    </header>
+    <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+        <a id="backToAccount" href="/" class="text-sm font-semibold text-emerald-300 hover:text-emerald-200">← Back to account</a>
+        <div class="mt-6">
+            <p class="text-xs font-semibold uppercase tracking-widest text-emerald-300">STAKEAI</p>
+            <h1 id="pageTitle" class="mt-2 text-3xl font-bold text-white">My referrals</h1>
+            <p id="accountEmail" class="mt-2 text-sm text-gray-400"></p>
+        </div>
+        <section class="mt-8 rounded-2xl border border-gray-800 bg-cardbg p-5 sm:p-7">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                    <h2 id="shareTitle" class="text-xl font-bold text-white">Share your referral link</h2>
+                    <p id="referralNotice" class="mt-2 max-w-2xl text-sm text-gray-400">Referral commissions are not active and no payouts are implemented.</p>
+                </div>
+                <div class="rounded-xl border border-emerald-400/20 bg-emerald-400/5 px-5 py-3 text-center">
+                    <p id="countLabel" class="text-xs font-semibold uppercase tracking-wider text-emerald-200">Direct referrals</p>
+                    <p id="directReferralCount" class="mt-1 text-2xl font-extrabold text-white">—</p>
+                </div>
+            </div>
+            <div class="mt-6">
+                <label id="codeLabel" for="referralCode" class="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-400">Your referral code</label>
+                <div class="flex flex-wrap items-center gap-3">
+                    <code id="referralCode" class="min-w-0 flex-1 break-all rounded-lg bg-gray-900 p-3 text-sm font-bold tracking-wider text-emerald-200">—</code>
+                    <button id="copyReferralCode" type="button" class="rounded-lg border border-gray-700 px-4 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400">Copy code</button>
+                </div>
+            </div>
+            <div class="mt-4">
+                <label id="linkLabel" for="referralLink" class="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-400">Your referral link</label>
+                <div class="flex flex-wrap items-center gap-3">
+                    <code id="referralLink" class="min-w-0 flex-1 break-all rounded-lg bg-gray-900 p-3 text-sm text-emerald-200">—</code>
+                    <button id="copyReferralLink" type="button" class="rounded-lg border border-gray-700 px-4 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400">Copy link</button>
+                </div>
+            </div>
+        </section>
+        <section class="mt-6 rounded-2xl border border-gray-800 bg-cardbg p-5 sm:p-7">
+            <h2 id="referredUsersTitle" class="text-xl font-bold text-white">People you referred</h2>
+            <p id="privacyNotice" class="mt-2 text-sm text-gray-400">Email addresses are masked to protect privacy.</p>
+            <p id="noReferrals" class="mt-5 text-sm text-gray-400" hidden>No referrals yet.</p>
+            <ul id="referredUsersList" class="mt-5 space-y-2 text-sm text-gray-300"></ul>
+            <p id="pageStatus" role="status" aria-live="polite" class="mt-4 text-sm text-amber-200"></p>
+            <a id="loginLink" href="/?login=1" class="mt-4 hidden inline-flex text-sm font-semibold text-emerald-300 hover:text-emerald-200">Log in to view your referrals</a>
+        </section>
+    </main>
+    <script src="referrals.js"></script>
+</body>
+</html>

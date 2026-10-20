@@ -1,0 +1,30 @@
+{
+  "name": "stakeai-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "STAKEAI platform prototype with a fixed-supply BNB Smart Chain token",
+  "scripts": {
+    "start": "node server.mjs",
+    "compile": "hardhat compile",
+    "test": "hardhat test && node --test scripts/admin-api.test.cjs scripts/admin-bootstrap.test.cjs scripts/assistant-demo.test.cjs scripts/assistant-ollama.test.cjs scripts/staking-api.test.cjs",
+    "deploy:bsc-testnet": "hardhat run scripts/deploy-token.cjs --network bscTestnet",
+    "deploy:staking:bsc-testnet": "hardhat run scripts/deploy-staking.cjs --network bscTestnet"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.2.0",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "nodemailer": "^10.1.2"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "chai": "^4.5.0",
+    "hardhat": "^2.26.3"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

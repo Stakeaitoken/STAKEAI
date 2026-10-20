@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="STAKEAI administrator user management.">
+    <meta name="theme-color" content="#0b0e11">
+    <link rel="icon" type="image/svg+xml" href="stakeai-logo.svg">
+    <title>Admin panel — STAKEAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind.config.js"></script>
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body class="min-h-screen bg-darkbg text-gray-100">
+    <header class="sticky top-0 z-10 border-b border-gray-800 bg-cardbg/90 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+            <a href="/" class="flex items-center gap-3 font-bold text-white">
+                <img src="stakeai-logo.svg" alt="" class="h-9 w-9">
+                <span>STAKEAI <span class="text-emerald-300">Admin</span></span>
+            </a>
+            <div class="flex items-center gap-3">
+                <label for="adminLanguage" class="sr-only">Language</label>
+                <select id="adminLanguage" class="rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-gray-200">
+                    <option value="en">English</option>
+                    <option value="tr">Türkçe</option>
+                </select>
+                <a href="/" data-copy="backToSite" class="text-sm font-semibold text-emerald-200 hover:text-emerald-100">Back to site</a>
+                <button id="adminLogout" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm text-gray-200 hover:border-emerald-400" data-copy="logout">Log out</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+        <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-widest text-emerald-300" data-copy="adminArea">Administration</p>
+                <h1 class="mt-2 text-3xl font-bold text-white" data-copy="usersTitle">User management</h1>
+                <p id="adminIdentity" class="mt-2 text-sm text-gray-400"></p>
+            </div>
+            <button id="refreshUsers" type="button" class="rounded-lg border border-gray-700 px-4 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400" data-copy="refresh">Refresh</button>
+        </div>
+
+        <section id="treasurySection" class="mb-6 rounded-2xl border border-cyan-400/30 bg-cardbg p-4 sm:p-6">
+            <div class="mb-4">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <h2 class="text-xl font-bold text-white" data-copy="treasuryTitle">Simulated admin asset pools</h2>
+                    <button id="refreshTreasury" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-cyan-300" data-copy="refreshTreasury">Refresh pools</button>
+                </div>
+                <p class="mt-2 text-sm text-amber-100/90" data-copy="treasuryNotice">These are internal simulation balances, not blockchain wallets or real reserves. STKAI starts with 21,000,000 virtual units. Orders update the pool and user portfolio atomically.</p>
+            </div>
+            <form id="treasuryForm" class="space-y-4">
+                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+                    <label class="text-sm text-gray-300">USDT<input id="treasuryUsdt" name="USDT" type="text" inputmode="decimal" maxlength="48" required class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 font-mono text-white"></label>
+                    <label class="text-sm text-gray-300">BTC<input id="treasuryBtc" name="BTC" type="text" inputmode="decimal" maxlength="48" required class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 font-mono text-white"></label>
+                    <label class="text-sm text-gray-300">ETH<input id="treasuryEth" name="ETH" type="text" inputmode="decimal" maxlength="48" required class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 font-mono text-white"></label>
+                    <label class="text-sm text-gray-300">BNB<input id="treasuryBnb" name="BNB" type="text" inputmode="decimal" maxlength="48" required class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 font-mono text-white"></label>
+                    <label class="text-sm text-gray-300">STKAI<input id="treasuryStkai" name="STKAI" type="text" inputmode="decimal" maxlength="48" required class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 font-mono text-white"></label>
+                </div>
+                <button type="submit" class="rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-500 px-5 py-2.5 font-bold text-gray-950 hover:from-emerald-400 hover:to-cyan-400" data-copy="saveTreasury">Save pool balances</button>
+                <p id="treasuryStatus" role="status" aria-live="polite" class="min-h-5 text-sm text-amber-200"></p>
+            </form>
+            <div class="mt-4 border-t border-gray-800 pt-4">
+                <h3 class="mb-2 text-sm font-semibold text-gray-200" data-copy="treasuryHistory">Recent pool movements</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[650px] text-left text-xs">
+                        <thead class="border-b border-gray-800 text-gray-500"><tr><th class="px-2 py-2" data-copy="transferAmount">Asset / amount</th><th class="px-2 py-2" data-copy="actions">Reason</th><th class="px-2 py-2" data-copy="requestedAt">Date</th></tr></thead>
+                        <tbody id="treasuryMovementRows" class="divide-y divide-gray-800"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="paperFeeSection" class="mb-6 rounded-2xl border border-amber-400/30 bg-cardbg p-4 sm:p-6">
+            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <h2 class="text-xl font-bold text-white" data-copy="paperFeeTitle">Simulated trading-fee pool</h2>
+                    <p class="mt-2 max-w-3xl text-sm text-amber-100/90" data-copy="paperFeeNotice">This pool tracks the 0.5% simulated commission from buy and sell orders. It is not a blockchain gas fee or real funds.</p>
+                </div>
+                <button id="refreshPaperFees" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-amber-300" data-copy="refreshPaperFees">Refresh fee pool</button>
+            </div>
+            <ul id="paperFeeBalances" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-live="polite"></ul>
+            <p id="paperFeeStatus" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200"></p>
+            <div class="mt-4 border-t border-gray-800 pt-4">
+                <h3 class="mb-2 text-sm font-semibold text-gray-200" data-copy="paperFeeHistory">Recent collected commissions</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[650px] text-left text-xs">
+                        <thead class="border-b border-gray-800 text-gray-500"><tr><th class="px-2 py-2" data-copy="transferAmount">Asset / amount</th><th class="px-2 py-2" data-copy="paperFeePair">Pair</th><th class="px-2 py-2" data-copy="paperFeeSide">Order</th><th class="px-2 py-2" data-copy="requestedAt">Date</th></tr></thead>
+                        <tbody id="paperFeeMovementRows" class="divide-y divide-gray-800"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="transferRequestsSection" class="mb-6 rounded-2xl border border-amber-400/30 bg-cardbg p-4 sm:p-6">
+            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-xl font-bold text-white"><span data-copy="transferRequests">Transfer requests</span> <span id="pendingTransferCount" class="rounded-full bg-amber-400/10 px-2.5 py-1 text-sm text-amber-200">0</span></h2>
+                <button id="refreshTransfers" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-amber-300" data-copy="refreshTransfers">Refresh requests</button>
+            </div>
+            <p id="transferStatus" role="status" aria-live="polite" class="mb-3 min-h-5 text-sm text-amber-200"></p>
+            <div id="transferTable" class="overflow-x-auto">
+                <table class="w-full min-w-[850px] text-left text-sm">
+                    <thead class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400">
+                        <tr>
+                            <th class="px-3 py-3" data-copy="sender">Sender</th>
+                            <th class="px-3 py-3" data-copy="recipient">Recipient</th>
+                            <th class="px-3 py-3" data-copy="transferAmount">Amount</th>
+                            <th class="px-3 py-3" data-copy="requestedAt">Requested</th>
+                            <th class="px-3 py-3" data-copy="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transferRows" class="divide-y divide-gray-800"></tbody>
+                </table>
+            </div>
+            <p id="noPendingTransfers" hidden class="py-4 text-sm text-gray-400" data-copy="noPendingTransfers">No pending transfer requests.</p>
+        </section>
+
+        <section id="taskRequestsSection" class="mb-6 rounded-2xl border border-emerald-400/30 bg-cardbg p-4 sm:p-6">
+            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-xl font-bold text-white"><span data-copy="taskRequests">Task reward requests</span> <span id="pendingTaskCount" class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-sm text-emerald-200">0</span></h2>
+                <button id="refreshTasks" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-300" data-copy="refreshTasks">Refresh tasks</button>
+            </div>
+            <p id="taskStatus" role="status" aria-live="polite" class="mb-3 min-h-5 text-sm text-amber-200"></p>
+            <div id="taskTable" class="overflow-x-auto">
+                <table class="w-full min-w-[900px] text-left text-sm">
+                    <thead class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400">
+                        <tr>
+                            <th class="px-3 py-3" data-copy="taskUser">User</th>
+                            <th class="px-3 py-3" data-copy="taskName">Task</th>
+                            <th class="px-3 py-3" data-copy="taskEvidence">Submitted evidence</th>
+                            <th class="px-3 py-3" data-copy="taskSubmittedAt">Submitted</th>
+                            <th class="px-3 py-3" data-copy="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="taskRows" class="divide-y divide-gray-800"></tbody>
+                </table>
+            </div>
+            <p id="noPendingTasks" hidden class="py-4 text-sm text-gray-400" data-copy="noPendingTasks">No pending task submissions.</p>
+            <p class="mt-3 text-xs text-gray-500" data-copy="taskReviewNotice">Approval adds 10 USDT to the user's platform balance and writes an audit record. Verify the evidence manually.</p>
+        </section>
+
+        <section id="stakingRewardSection" hidden class="mb-6 rounded-2xl border border-amber-400/30 bg-cardbg p-4 sm:p-6">
+            <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-xl font-bold text-white" data-copy="stakingRewardsTitle">Manual STAKEAI staking rewards</h2>
+                <button id="connectRewardWallet" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-amber-300" data-copy="connectRewardWallet">Connect payout wallet</button>
+            </div>
+            <p class="mb-4 text-sm text-gray-400" data-copy="stakingRewardsNotice">Rewards are sent manually after maturity from your connected BSC testnet wallet. The server checks the mature position and verifies the exact on-chain token transfer. The platform never stores wallet keys.</p>
+            <p id="rewardAdminWallet" class="mb-4 break-all text-sm text-gray-300"></p>
+            <form id="stakingRewardForm" class="grid gap-3 sm:grid-cols-2">
+                <label class="text-sm text-gray-300">
+                    <span data-copy="rewardRecipientWallet">Recipient wallet</span>
+                    <input id="rewardRecipientWallet" required maxlength="42" autocomplete="off" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white">
+                </label>
+                <label class="text-sm text-gray-300">
+                    <span data-copy="rewardRecipientEmail">Account email (optional)</span>
+                    <input id="rewardRecipientEmail" type="email" maxlength="254" autocomplete="off" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white">
+                </label>
+                <label class="text-sm text-gray-300">
+                    <span data-copy="rewardPositionId">Mature position ID</span>
+                    <input id="rewardPositionId" type="number" min="0" max="999999999" step="1" required class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white">
+                </label>
+                <div class="flex items-end">
+                    <button id="prepareRewardPayout" type="submit" class="w-full rounded-lg border border-gray-700 px-4 py-2.5 text-sm font-semibold text-gray-200 hover:border-amber-300" data-copy="prepareRewardPayout">Verify position and prepare payout</button>
+                </div>
+            </form>
+            <p id="rewardPositionSummary" class="mt-4 break-all text-sm text-gray-300"></p>
+            <p id="stakingRewardStatus" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200"></p>
+            <button id="sendRewardPayout" type="button" disabled class="mt-3 rounded-lg bg-emerald-500 px-4 py-2.5 text-sm font-bold text-gray-950 disabled:cursor-not-allowed disabled:opacity-50" data-copy="sendRewardPayout">Send verified reward</button>
+            <div class="mt-6 border-t border-gray-800 pt-4">
+                <div class="flex items-center justify-between gap-3">
+                    <h3 class="font-semibold text-white" data-copy="recentRewardPayouts">Recent reward payouts</h3>
+                    <button id="refreshRewardPayouts" type="button" class="text-sm text-gray-300 underline" data-copy="refresh">Refresh</button>
+                </div>
+                <div class="mt-3 overflow-x-auto">
+                    <table class="w-full min-w-[800px] text-left text-sm">
+                        <thead class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400">
+                            <tr>
+                                <th class="px-3 py-3" data-copy="rewardRecipientWallet">Recipient wallet</th>
+                                <th class="px-3 py-3" data-copy="rewardAmount">Reward</th>
+                                <th class="px-3 py-3" data-copy="rewardPositionId">Position</th>
+                                <th class="px-3 py-3" data-copy="rewardTransaction">Transaction</th>
+                                <th class="px-3 py-3" data-copy="requestedAt">Paid at</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rewardPayoutRows" class="divide-y divide-gray-800"></tbody>
+                    </table>
+                </div>
+                <p id="noRewardPayouts" class="mt-3 text-sm text-gray-500" data-copy="noRewardPayouts">No recorded payouts yet.</p>
+            </div>
+        </section>
+
+        <section class="rounded-2xl border border-gray-800 bg-cardbg p-4 sm:p-6">
+            <form id="searchForm" class="mb-5 flex flex-col gap-3 sm:flex-row">
+                <label for="userSearch" class="sr-only" data-copy="searchLabel">Search by email</label>
+                <input id="userSearch" type="search" maxlength="100" autocomplete="off" class="min-w-0 flex-1 rounded-lg border border-gray-700 bg-gray-950 px-4 py-3 text-white placeholder:text-gray-500 focus:border-emerald-400 focus:outline-none" placeholder="Search by email">
+                <button type="submit" class="rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-500 px-5 py-3 font-bold text-gray-950 hover:from-emerald-400 hover:to-cyan-400" data-copy="search">Search</button>
+            </form>
+            <p id="adminStatus" role="status" aria-live="polite" class="mb-4 min-h-6 text-sm text-amber-200"></p>
+            <a id="adminLoginLink" href="/?auth=login" hidden class="mb-4 inline-flex rounded-lg border border-emerald-400/40 px-4 py-2 text-sm font-semibold text-emerald-200 hover:border-emerald-300" data-copy="adminLoginLink">Log in with the administrator account</a>
+            <div id="userTable" class="overflow-x-auto">
+                <table class="w-full min-w-[1500px] text-left text-sm">
+                    <thead class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400">
+                        <tr>
+                            <th class="px-3 py-3" data-copy="userEmail">User / email</th>
+                            <th class="px-3 py-3" data-copy="trc20Address">USDT TRC-20</th>
+                            <th class="px-3 py-3" data-copy="accountStatus">Account</th>
+                            <th class="px-3 py-3" data-copy="usdtBalance">USDT balance</th>
+                            <th class="px-3 py-3" data-copy="stakeaiBalance">STKAI balance</th>
+                            <th class="px-3 py-3" data-copy="referral">Referral</th>
+                            <th class="px-3 py-3" data-copy="registered">Registered</th>
+                            <th class="px-3 py-3" data-copy="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userRows" class="divide-y divide-gray-800"></tbody>
+                </table>
+            </div>
+            <div id="paginationControls" class="mt-5 flex items-center justify-between gap-3">
+                <p id="resultCount" class="text-sm text-gray-400"></p>
+                <div class="flex gap-2">
+                    <button id="previousPage" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm text-gray-200 disabled:cursor-not-allowed disabled:opacity-40" data-copy="previous">Previous</button>
+                    <button id="nextPage" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm text-gray-200 disabled:cursor-not-allowed disabled:opacity-40" data-copy="next">Next</button>
+                </div>
+            </div>
+        </section>
+        <p class="mt-5 text-xs text-gray-500" data-copy="adminNotice">Admin access is restricted to addresses configured in ADMIN_EMAILS. Account actions are recorded in the server audit log.</p>
+    </main>
+    <dialog id="balanceDialog" aria-labelledby="balanceDialogTitle" class="w-[calc(100%-2rem)] max-w-lg rounded-2xl border border-gray-700 bg-cardbg p-0 text-gray-100 shadow-2xl backdrop:bg-black/70">
+        <form id="balanceForm" class="space-y-5 p-6 sm:p-8">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h2 id="balanceDialogTitle" class="text-xl font-bold text-white" data-copy="editBalances">Edit balances</h2>
+                    <p id="balanceUserEmail" class="mt-1 break-all text-sm text-gray-400"></p>
+                </div>
+                <button id="closeBalanceDialog" type="button" class="text-xl leading-none text-gray-400 hover:text-white" aria-label="Close">&times;</button>
+            </div>
+            <label class="block text-sm font-medium text-gray-300">
+                <span data-copy="usdtBalance">USDT balance</span>
+                <input id="editUsdtBalance" name="usdtBalance" type="text" inputmode="decimal" required maxlength="36" pattern="[0-9]+([.][0-9]{1,6})?" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+            </label>
+            <label class="block text-sm font-medium text-gray-300">
+                <span data-copy="stakeaiBalance">STKAI balance</span>
+                <input id="editStakeaiBalance" name="stakeaiBalance" type="text" inputmode="decimal" required maxlength="48" pattern="[0-9]+([.][0-9]{1,18})?" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+            </label>
+            <p id="balanceStatus" role="status" aria-live="polite" class="text-sm text-amber-200"></p>
+            <div class="flex justify-end gap-3">
+                <button id="cancelBalanceEdit" type="button" class="rounded-lg border border-gray-700 px-4 py-2.5 text-sm font-semibold text-gray-200 hover:border-gray-500" data-copy="cancel">Cancel</button>
+                <button id="saveBalances" type="submit" class="rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-500 px-4 py-2.5 text-sm font-bold text-gray-950 hover:from-emerald-400 hover:to-cyan-400" data-copy="saveBalances">Save balances</button>
+            </div>
+        </form>
+    </dialog>
+    <script src="/vendor/ethers.umd.min.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

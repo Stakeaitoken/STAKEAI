@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Yönetici hesabı kurulumu — STAKEAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/tailwind.config.js"></script>
+    <link rel="stylesheet" href="/theme.css">
+</head>
+<body class="min-h-screen bg-gray-950 text-gray-100">
+    <main class="mx-auto flex min-h-screen max-w-lg items-center px-4 py-10">
+        <section class="w-full rounded-2xl border border-gray-800 bg-cardbg p-6 shadow-2xl">
+            <p class="text-sm font-semibold uppercase tracking-wider text-emerald-300">STAKEAI</p>
+            <h1 class="mt-2 text-2xl font-bold">Yönetici hesabını oluştur</h1>
+            <p class="mt-3 text-sm text-gray-300">Bu tek seferlik kurulum yalnızca bu bilgisayarda çalışır. Parolanızı bu sayfada belirleyin; sohbet üzerinden paylaşmayın.</p>
+            <p id="setupEmail" class="mt-4 break-all text-sm text-cyan-200" aria-live="polite">Kurulum kontrol ediliyor…</p>
+            <form id="adminSetupForm" class="mt-5 space-y-4" hidden>
+                <label class="block text-sm text-gray-300">
+                    Yeni parola (en az 12 karakter)
+                    <input id="adminPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" required class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-3 text-white focus:border-emerald-400 focus:outline-none">
+                </label>
+                <label class="block text-sm text-gray-300">
+                    Yeni parola (tekrar)
+                    <input id="adminPasswordConfirmation" type="password" minlength="12" maxlength="128" autocomplete="new-password" required class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-3 text-white focus:border-emerald-400 focus:outline-none">
+                </label>
+                <button id="createAdminButton" type="submit" class="w-full rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-500 px-4 py-3 font-bold text-gray-950 disabled:cursor-wait disabled:opacity-60">Hesabı oluştur ve admin paneline gir</button>
+            </form>
+            <p id="setupStatus" role="status" aria-live="polite" class="mt-4 min-h-6 text-sm text-amber-200"></p>
+            <a href="/admin.html" class="mt-3 inline-block text-sm text-cyan-200 underline">Admin panelini aç</a>
+        </section>
+    </main>
+    <script src="/admin-setup.js" defer></script>
+</body>
+</html>

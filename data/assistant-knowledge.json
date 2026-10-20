@@ -1,0 +1,136 @@
+{
+  "entries": [
+    {
+      "id": "greeting",
+      "patterns": ["^(?:hi|hello|hey|merhaba|selam|sa|gunaydin|iyi aksamlar|iyi gunler)[!?. ]*$"],
+      "en": "Hello! I am the STAKEAI assistant. What would you like to know about the site or our assistants?",
+      "tr": "Merhaba! Ben STAKEAI asistanıyım. Site veya asistanlarımız hakkında ne öğrenmek istersiniz?"
+    },
+    {
+      "id": "how-are-you",
+      "patterns": ["^(?:how are you|how are you doing|whats up|naber|ne haber|nasilsin|nasilsiniz|nasil gidiyor)[!?. ]*$"],
+      "en": "I am here and ready to help with questions about STAKEAI. How can I help you?",
+      "tr": "İyiyim, teşekkür ederim! STAKEAI hakkında sorularınızı yanıtlamaya hazırım. Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "id": "thanks",
+      "patterns": ["\\b(?:thank you|thanks|tesekkur|sag ol|sagol)\\b"],
+      "en": "You are welcome! Feel free to ask if you have another question.",
+      "tr": "Rica ederim! Başka bir sorunuz olursa yardımcı olmaya çalışırım."
+    },
+    {
+      "id": "assistant-identity",
+      "patterns": ["(?:who are you|who created you|who made you|your creator|are you a bot|sen kimsin|bot musun|seni kim yapti|seni kim olusturdu|nasil olustun|kim tarafindan olusturuldun)"],
+      "en": "I am one of the assistants built for the STAKEAI project. In this mode, I answer from a locally maintained knowledge library; I am not generating replies with OpenAI.",
+      "tr": "STAKEAI projesi için hazırlanan asistanlardan biriyim. Şu anda yanıtlarımı yerel bilgi kütüphanesinden veriyorum; OpenAI kullanarak yeni yanıt üretmiyorum."
+    },
+    {
+      "id": "about-stakeai",
+      "patterns": ["(?:what is stakeai|about stakeai|stakeai website|stakeai site|stakeai platform|stakeai nedir|stakeai sitesi|bu site nedir|site ne ise yariyor|platform ne ise yariyor)"],
+      "en": "STAKEAI is a project preview with three assistants: coding help, general conversation, and crypto education. The crypto content is educational, not personalized financial advice. Trading strategy previews do not connect to an exchange or place trades.",
+      "tr": "STAKEAI; kodlama desteği, genel sohbet ve kripto eğitimi sunan üç asistanı bulunan bir proje önizlemesidir. Kripto içerikleri eğitim amaçlıdır, kişisel yatırım tavsiyesi değildir. Strateji önizlemeleri borsaya bağlanmaz ve işlem gerçekleştirmez."
+    },
+    {
+      "id": "assistant-overview",
+      "patterns": ["(?:what can.*(?:bots|assistants)|what assistants|three bots|bots.*do|asistanlar ne yapar|botlar ne yapar|hangi botlar|botlarin gorevi|asistanlarin gorevi)"],
+      "en": "STAKEAI has three assistants: the Coding Assistant for programming topics, the Chat Assistant for everyday questions, and the Crypto Guide for general crypto concepts and risks. In local mode, answers come only from the built-in knowledge library.",
+      "tr": "STAKEAI’de üç asistan bulunur: programlama konuları için Kod Asistanı, günlük sorular için Sohbet Asistanı ve genel kripto kavramları ile riskleri için Kripto Rehberi. Yerel modda yanıtlar yalnızca hazır bilgi kütüphanesinden gelir."
+    },
+    {
+      "id": "coding-assistant",
+      "assistants": ["code"],
+      "patterns": ["(?:what can.*(?:coding assistant|code bot)|coding assistant|code assistant|kod asistani|kod botu|kod yaz|programlama|debug|debugging|hata ayiklama|kod|hata|error|bug)"],
+      "en": "The STAKEAI Coding Assistant is intended for programming questions, explaining code, and debugging guidance. In local mode it cannot inspect or execute your code; it can only provide information from this library. Never share passwords or API keys.",
+      "tr": "STAKEAI Kod Asistanı programlama soruları, kod açıklamaları ve hata ayıklama yönlendirmeleri için tasarlanmıştır. Yerel modda kodunuzu inceleyip çalıştıramaz; yalnızca bu kütüphanedeki bilgileri paylaşabilir. Parola veya API anahtarı göndermeyin."
+    },
+    {
+      "id": "crypto-assistant",
+      "assistants": ["strategy"],
+      "patterns": ["(?:crypto guide|crypto assistant|kripto rehberi|kripto asistani|kripto botu ne yapar|kripto botu)"],
+      "en": "The STAKEAI Crypto Guide explains general crypto concepts and risks. It has no live market insight in local mode, does not execute trades, and does not provide personalized investment advice.",
+      "tr": "STAKEAI Kripto Rehberi genel kripto kavramlarını ve risklerini açıklar. Yerel modda canlı piyasa bilgisi sunmaz, işlem yapmaz ve kişisel yatırım tavsiyesi vermez."
+    },
+    {
+      "id": "openai-mode",
+      "patterns": ["(?:openai|chatgpt|real ai|gercek yapay zeka|gercek ai|yapay zeka tarafindan mi|ai powered|api key|api anahtari)"],
+      "en": "The current local mode uses a built-in FAQ library, not OpenAI or ChatGPT. Messages are not sent to an AI provider. OpenAI-generated replies require enabling the provider and its separately billed API usage.",
+      "tr": "Şu anki yerel mod OpenAI veya ChatGPT kullanmaz; yerleşik bir soru-cevap kütüphanesinden yararlanır. Mesajlar bir yapay zekâ sağlayıcısına gönderilmez. OpenAI yanıtları için sağlayıcının etkinleştirilmesi ve ayrıca ücretlendirilen API kullanımının açılması gerekir."
+    },
+    {
+      "id": "assistant-cost",
+      "patterns": ["(?:(?:openai|chatgpt|assistant|asistan|api).*(?:cost|price|free|paid|ucret|ucretsiz|para odemek|fiyat)|(?:cost|price|free|paid|ucret|ucretsiz|para odemek|fiyat).*(?:openai|chatgpt|assistant|asistan|api))"],
+      "en": "The local knowledge-library replies do not call OpenAI and therefore do not incur OpenAI API usage. If OpenAI is enabled later, its API usage is billed separately from a ChatGPT subscription.",
+      "tr": "Yerel bilgi kütüphanesi yanıtları OpenAI’yi çağırmaz ve OpenAI API kullanım ücreti oluşturmaz. İleride OpenAI etkinleştirilirse API kullanımı ChatGPT aboneliğinden ayrı ücretlendirilir."
+    },
+    {
+      "id": "message-privacy",
+      "patterns": ["(?:(?:message|chat|conversation|privacy|data|mesaj|sohbet|konusma|gizlilik|veri).*(?:saved|stored|sent|save|saklan|kayded|gonder|openai)|(?:saved|stored|sent|saklan|kayded|gonder).*(?:message|chat|mesaj|sohbet|openai))"],
+      "en": "In local knowledge-library mode, your message is processed by this site and is not sent to OpenAI. Chat history is kept temporarily in your browser session and is not saved by STAKEAI.",
+      "tr": "Yerel bilgi kütüphanesi modunda mesajınız bu site tarafından işlenir, OpenAI’ye gönderilmez. Sohbet geçmişi tarayıcı oturumunuzda geçici tutulur ve STAKEAI tarafından kaydedilmez."
+    },
+    {
+      "id": "account-registration",
+      "patterns": ["(?:create an account|sign up|register|account|hesap ac|hesap olustur|kayit ol|uye ol)"],
+      "en": "To create an account, use the site's registration form and follow the email verification instructions. Account features may depend on the site's current configuration.",
+      "tr": "Hesap oluşturmak için sitedeki kayıt formunu kullanıp e-posta doğrulama adımlarını tamamlayın. Hesap özellikleri sitenin mevcut yapılandırmasına bağlı olabilir."
+    },
+    {
+      "id": "dca",
+      "assistants": ["strategy"],
+      "patterns": ["(?:dca|dollar.cost|maliyet ortalama|duzenli alim)"],
+      "en": "DCA (dollar-cost averaging) means investing a fixed amount at regular intervals instead of making one purchase at once. It may reduce the impact of choosing a single entry time, but it does not prevent losses or guarantee profit. This is general education, not financial advice.",
+      "tr": "DCA (maliyet ortalaması), tek seferde alım yapmak yerine belirli aralıklarla sabit tutarda alım yapma yaklaşımıdır. Tek bir zamanlama noktasının etkisini azaltabilir; ancak zararı önlemez ve kâr garantisi vermez. Bu genel bilgilendirmedir, yatırım tavsiyesi değildir."
+    },
+    {
+      "id": "paper-staking",
+      "assistants": ["strategy"],
+      "patterns": ["(?:virtual staking|simulated staking|demo staking|paper staking|sanal staking|sanal stake|demo staking|demo stake|stake oranlari|stake getirisi)"],
+      "en": "STAKEAI's virtual staking is only a simulation for STKAI, USDT, BTC, ETH, and BNB. The displayed examples are 7 days at 5%, 30 days at 25%, and 180 days at 200%. The app locks virtual portfolio balances and returns simulated principal and rewards at maturity; no real tokens, wallet, or blockchain are involved. These example rates are not guaranteed or funded yields.",
+      "tr": "STAKEAI sanal stake özelliği yalnızca STKAI, USDT, BTC, ETH ve BNB için bir simülasyondur. Gösterilen örnekler 7 gün %5, 30 gün %25 ve 180 gün %200 şeklindedir. Uygulama sanal portföy bakiyesini kilitler; vade sonunda sanal anapara ve ödül döner. Gerçek token, cüzdan veya blokzincir kullanılmaz. Bu oranlar garanti ya da fonlanmış getiri değildir."
+    },
+    {
+      "id": "testnet-staking",
+      "assistants": ["strategy"],
+      "patterns": ["(?:on.chain staking|real staking|testnet staking|bsc testnet|gercek staking|gercek stake|zincirde stake|zincirde staking|test aginda stake)"],
+      "en": "The separate on-chain staking flow is for BNB Smart Chain testnet and accepts STKAI only. Testnet tokens are not mainnet assets and have no promised cash value. The multi-asset staking screen is a separate simulation and does not send transactions.",
+      "tr": "Ayrı zincir üstü stake akışı BNB Smart Chain testnet içindir ve yalnızca STKAI kabul eder. Testnet tokenları ana ağ varlığı değildir ve nakit değer vaat etmez. Çoklu varlıklı stake ekranı ayrı bir simülasyondur; blokzincir işlemi göndermez."
+    },
+    {
+      "id": "simulated-trading-fee",
+      "patterns": ["(?:paper trading fee|simulated trading fee|trading commission|0\\.5 ?%|komisyon|gas fee|gaz ucreti|islem ucreti|al.?sat ucreti)"],
+      "en": "In the STAKEAI paper-trading simulator, simulated buys and sells charge a 0.5% service commission in the selected quote asset. It is recorded in a separate simulated admin pool. This is not blockchain gas, and no real funds are charged.",
+      "tr": "STAKEAI sanal al-sat simülatöründe alış ve satışlardan seçilen ödeme varlığında %0,5 simülasyon hizmet komisyonu alınır ve ayrı sanal yönetici havuzunda kaydedilir. Bu blokzincir gas ücreti değildir; gerçek para kesilmez."
+    },
+    {
+      "id": "stkai-token",
+      "assistants": ["strategy"],
+      "patterns": ["(?:stkai token|stakeai token|token arz|token supply|21 million|21 milyon|sabit arz|mint function|token basimi|token uretimi)"],
+      "en": "The STAKEAI token has a fixed supply of 21,000,000 STKAI and no mint function. The simulator's 1 USDT STKAI display is only an application reference price; it is not an exchange quote, a backed peg, or a redemption promise.",
+      "tr": "STAKEAI tokenının arzı 21.000.000 STKAI ile sabittir ve yeni token basma işlevi yoktur. Simülatördeki 1 USDT STKAI gösterimi yalnızca uygulama referans fiyatıdır; borsa fiyatı, teminatlı sabit kur veya geri alım vaadi değildir."
+    },
+    {
+      "id": "crypto-risk",
+      "assistants": ["strategy"],
+      "patterns": ["(?:risk|volatil|oynak|zarar|kaybet)"],
+      "en": "Crypto assets can be highly volatile: prices may move sharply, and you could lose some or all of the amount invested. Consider security, liquidity, and your ability to bear losses. STAKEAI does not provide personalized investment advice.",
+      "tr": "Kripto varlıklar yüksek oynaklık gösterebilir; fiyatlar hızla değişebilir ve yatırılan tutarın bir kısmı ya da tamamı kaybedilebilir. Güvenliği, likiditeyi ve olası kayıpları karşılayıp karşılayamayacağınızı değerlendirin. STAKEAI kişisel yatırım tavsiyesi vermez."
+    },
+    {
+      "id": "blockchain",
+      "assistants": ["strategy"],
+      "patterns": ["(?:blockchain|blokzincir|blok zincir)"],
+      "en": "A blockchain is a shared digital record maintained by a network. Transactions are grouped into blocks and linked cryptographically, which makes past records difficult to alter. Networks differ in fees, speed, and security.",
+      "tr": "Blokzincir, bir ağ tarafından tutulan ortak dijital kayıt defteridir. İşlemler bloklarda toplanıp kriptografik olarak birbirine bağlanır; bu da geçmiş kayıtların değiştirilmesini zorlaştırır. Ağlar ücret, hız ve güvenlik açısından farklılık gösterir."
+    }
+  ],
+  "context": {
+    "shared": "STAKEAI is a software prototype. Its paper-trading balances, orders, and multi-asset staking are simulated; they are not exchange funds, blockchain balances, or real deposits and withdrawals. The market simulator's STKAI price is a fixed 1 USDT application reference, not a backed peg or market quote. Never present demo rates as guaranteed or sustainable returns. Do not invent live prices, account balances, admin pool balances, or current deployment status.",
+    "code": "The project uses a Node.js/Express server, SQLite persistence, browser JavaScript/HTML/CSS, and Solidity contracts tested with Hardhat. You cannot inspect the user's local files or run code from chat. Ask for a minimal relevant snippet and exact error when needed; remind users to remove passwords, private keys, recovery phrases, and API secrets before sharing.",
+    "companion": "Do not claim access to the user's account, private data, or live project state. Explain that the three STAKEAI assistants serve coding help, general conversation, and crypto education. Provider and privacy behavior depend on server configuration; do not claim messages are local or private unless the configured mode supports that claim.",
+    "strategy": "The simulated spot market supports BTC, ETH, BNB, and STKAI; BTC, ETH, and BNB prices are public market references and may change. Simulated trading charges a 0.5% commission in the selected quote asset; it is not blockchain gas. Virtual staking supports STKAI, USDT, BTC, ETH, and BNB with example terms of 7 days/5%, 30 days/25%, and 180 days/200%, all simulated. The separate BNB Smart Chain testnet staking contract accepts STKAI only. Provide general education, not personalized financial advice or live trading instructions."
+  },
+  "fallback": {
+    "en": "I could not find that in the STAKEAI knowledge library yet. I can answer common questions about the site, the three assistants, local mode, and basic crypto concepts. This reply is from the local library, not generated by AI.",
+    "tr": "Bu konu STAKEAI bilgi kütüphanesinde henüz yok. Site, üç asistan, yerel yanıt modu ve temel kripto kavramları hakkındaki sık sorulan soruları yanıtlayabilirim. Bu yanıt yerel kütüphaneden gelir, yapay zekâ tarafından üretilmez."
+  }
+}
