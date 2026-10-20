@@ -1,4 +1,4 @@
-﻿import 'dotenv/config';
+import 'dotenv/config';
 import express from 'express';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
@@ -2329,6 +2329,7 @@ app.get('/api/account/summary', requireSession, (request, response) => {
 });
 
 app.post('/api/account/profile', requireSession, requireSameOrigin, (request, response) => {
+    return sendError(response, 403, 'profile_locked');
     const firstName = normalizePersonName(request.body?.firstName);
     const lastName = normalizePersonName(request.body?.lastName);
     if (!validPersonName(firstName) || !validPersonName(lastName)) {
@@ -2388,6 +2389,7 @@ app.post('/api/account/change-password', authLimiter, requireSession, requireSam
 });
 
 app.post('/api/account/change-email', authLimiter, requireSession, requireSameOrigin, async (request, response, next) => {
+    return sendError(response, 403, 'profile_locked');
     try {
         if (!smtpReady) return sendError(response, 503, 'email_service_not_configured');
         const email = normalizeEmail(request.body?.email);
