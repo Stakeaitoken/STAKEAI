@@ -3042,7 +3042,10 @@ app.get('/vendor/ethers.umd.min.js', (_request, response, next) => {
 app.use(express.static(root, {
     dotfiles: 'ignore',
     index: 'index.html',
-    maxAge: isProduction ? '1h' : 0
+    maxAge: isProduction ? '1h' : 0,
+    setHeaders: (response, filePath) => {
+        if (/\.(html|js|css|mjs)$/i.test(filePath)) response.setHeader('Cache-Control', 'no-cache');
+    }
 }));
 
 app.use((error, _request, response, _next) => {
