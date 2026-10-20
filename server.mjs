@@ -1075,20 +1075,25 @@ app.post('/api/auth/register', authLimiter, requireSameOrigin, async (request, r
         if (referralCode && !referrer) return sendError(response, 400, 'invalid_referral_code');
         const referredBy = referrer?.id || null;
 
+        let userId = id;
         try {
             db.prepare(`
                 INSERT INTO users (id, email, password_hash, first_name, last_name, trc20_address, referral_code, referred_by)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             `).run(id, email, passwordHash, firstName, lastName, trc20Address, createReferralCode(), referredBy);
         } catch (error) {
-            if (isUniqueViolation(error)) {
+            if (!isUniqueViolation(error)) throw error;
+            // Dogrulanmamis mevcut hesap icin yalnizca dogrulama e-postasi yeniden gonderilir; sifre degistirilmez.
+            const existing = db.prepare('SELECT id, email_verified, disabled_at FROM users WHERE email = ?').get(email);
+            if (!existing || existing.email_verified || existing.disabled_at) {
                 return response.status(202).json({ message: 'If eligible, a verification email has been sent.' });
             }
-            throw error;
+            userId = existing.id;
+            db.prepare('DELETE FROM email_verifications WHERE user_id = ?').run(userId);
         }
 
         db.prepare('INSERT INTO email_verifications (token_hash, user_id, expires_at) VALUES (?, ?, ?)')
-            .run(verificationHash, id, Date.now() + 30 * 60 * 1000);
+            .run(verificationHash, userId, Date.now() + 30 * 60 * 1000);
         const verificationUrl = new URL('/verify-email.html', publicOrigin);
         verificationUrl.searchParams.set('token', verificationToken);
         try {
@@ -1099,7 +1104,8 @@ app.post('/api/auth/register', authLimiter, requireSameOrigin, async (request, r
                 text: `Verify your STAKEAI account within 30 minutes: ${verificationUrl.toString()}`
             });
         } catch (error) {
-            db.prepare('DELETE FROM users WHERE id = ?').run(id);
+            if (userId === id) db.prepare('DELETE FROM users WHERE id = ?').run(id);
+            else db.prepare('DELETE FROM email_verifications WHERE token_hash = ?').run(verificationHash);
             console.error('Email delivery failed during registration.', error);
             return sendError(response, 503, 'verification_email_unavailable');
         }
