@@ -902,7 +902,7 @@ button.bg-gray-800:hover{background-color:#4a5468 !important;}
 select#languageSelect{border-color:#7c8799 !important;}
 
 /* Symmetry fixes */
-html,body{overflow-x:hidden;max-width:100%;}
+html,body{overflow-x:clip;max-width:100%;}
 main *,section *{min-width:0;}
 [data-task-card]{display:flex;flex-direction:column;align-items:stretch;text-align:center;height:100%;}
 [data-task-card]>div:first-child{margin-left:auto;margin-right:auto;}
@@ -950,3 +950,4 @@ body.profile-page > *:not(header):not(footer):not(script):not(#accountDashboard)
 body.profile-page #accountDashboard > div > *:not(#profilePanel){display:none !important}
 body.profile-page #accountDashboard{border:0;background:transparent;padding-top:2rem;padding-bottom:3rem}
 body.profile-page #profilePanel{display:block}
+header.sticky{position:sticky;top:0;z-index:50}
