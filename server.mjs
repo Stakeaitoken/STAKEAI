@@ -3051,14 +3051,19 @@ app.get('/vendor/ethers.umd.min.js', (_request, response, next) => {
     });
 });
 
-app.use(express.static(root, {
+const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email)\.html|(?:app|admin|admin-setup|referrals|verify-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg)?$/;
+const publicStatic = express.static(root, {
     dotfiles: 'ignore',
     index: 'index.html',
     maxAge: isProduction ? '1h' : 0,
     setHeaders: (response, filePath) => {
         if (/\.(html|js|css|mjs)$/i.test(filePath)) response.setHeader('Cache-Control', 'no-cache');
     }
-}));
+});
+app.use((request, response, next) => {
+    if (!publicFilePattern.test(request.path)) return next();
+    return publicStatic(request, response, next);
+});
 
 app.use((error, _request, response, _next) => {
     console.error('Unhandled request error.', error);

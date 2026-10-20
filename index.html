@@ -2,13 +2,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STAKEAI — Yapay zeka strateji laboratuvarı</title>
-    <meta name="description" content="Strateji botlarını ve risk odaklı fikirleri şeffaf, yalnızca yerel bir simülasyonda keşfedin.">
+    <meta name="description" content="Strateji botlarını ve risk odaklı fikirleri şeffaf biçimde keşfedin.">
     <meta name="theme-color" content="#0b0e11">
     <link rel="icon" type="image/svg+xml" href="stakeai-logo.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="theme.css?v=20261020q">
+    <link rel="stylesheet" href="theme.css?v=20261020r">
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased min-h-screen flex flex-col">
 
@@ -23,7 +23,7 @@
             </div>
             <nav class="hidden lg:flex whitespace-nowrap gap-4 xl:gap-7 text-[13px] xl:text-sm font-medium text-gray-300">
                 <a href="#bots" data-i18n="navPackages" class="hover:text-emerald-300 transition">Yapay Zeka Botları</a>
-                <a href="#paperTrading" data-i18n="navSimulation" class="hover:text-emerald-300 transition">Simülasyon</a>
+                <a href="#paperTrading" data-i18n="navSimulation" class="hover:text-emerald-300 transition">Al / Sat</a>
                 <a href="#packages" data-i18n="navStakePackages" class="hover:text-emerald-300 transition">Paketler</a>
                 <a href="#tasks" data-i18n="navTasks" class="hover:text-emerald-300 transition">Görev Merkezi</a>
                 <a href="#referrals" data-i18n="navReferrals" class="hover:text-emerald-300 transition">Referanslar</a>
@@ -58,7 +58,7 @@
         </div>
         <nav class="lg:hidden flex gap-5 overflow-x-auto whitespace-nowrap border-t border-gray-800 px-4 py-2 text-sm font-medium text-gray-300">
             <a href="#bots" data-i18n="navPackages">Yapay Zeka Botları</a>
-            <a href="#paperTrading" data-i18n="navSimulation">Simülasyon</a>
+            <a href="#paperTrading" data-i18n="navSimulation">Al / Sat</a>
             <a href="#packages" data-i18n="navStakePackages">Paketler</a>
             <a href="#tasks" data-i18n="navTasks">Görev Merkezi</a>
             <a href="#referrals" data-i18n="navReferrals">Referanslar</a>
@@ -213,7 +213,7 @@
                 <p class="text-sm font-medium text-gray-400" data-i18n="trc20WalletLabel">USDT TRC-20 cüzdan adresi</p>
                 <code id="accountTrc20Address" class="mt-2 block break-all font-mono text-sm text-cyan-200">—</code>
             </article>
-            <p class="mb-3 text-xs text-gray-500" data-i18n="balanceManagementNotice">USDT/STKAI are platform-recorded balances; BTC/ETH/BNB are simulated spot balances, not blockchain assets.</p>
+            <p class="mb-3 text-xs text-gray-500" data-i18n="balanceManagementNotice">USDT/STKAI are platform-recorded balances; BTC/ETH/BNB are spot balances.</p>
             <article class="mb-6 overflow-hidden rounded-xl border border-gray-800 bg-cardbg">
                 <div class="flex items-center justify-between border-b border-gray-800 px-4 py-3">
                     <h3 class="text-sm font-semibold text-gray-200" data-i18n="accountAssetBalances">Asset balances</h3>
@@ -350,7 +350,7 @@
             </span>
         </h1>
         <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
-            <span data-i18n="heroDescription">Strateji botlarını keşfedin, sinyallerini inceleyin ve gerçek kullanım düşünmeden önce şeffaf bir simülasyonda deneyin.</span>
+            <span data-i18n="heroDescription">Strateji botlarını keşfedin, sinyallerini inceleyin ve şeffaf bir ortamda deneyin.</span>
         </p>
         <div class="flex justify-center space-x-4">
             <a href="#bots" class="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-gray-950 px-8 py-3.5 rounded-xl font-bold text-lg transition shadow-lg shadow-emerald-500/20">
@@ -430,7 +430,7 @@
             <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
                     <span class="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-200" data-i18n="paperBadge">Paper trading</span>
-                    <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl" data-i18n="paperTitle">Market simulator</h2>
+                    <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl" data-i18n="paperTitle">BUY / SELL</h2>
                     <p class="mt-2 max-w-2xl text-gray-400" data-i18n="paperDescription">Practice spot orders with public market prices and a separate virtual balance.</p>
                 </div>
                 <p class="max-w-lg rounded-xl border border-amber-400/20 bg-amber-400/5 px-4 py-3 text-sm text-amber-100/90" data-i18n="paperWarning">Simulation only. Orders use virtual funds and never connect to a wallet or exchange.</p>
@@ -446,7 +446,7 @@
                     <p id="paperMarketStatus" role="status" aria-live="polite" class="mt-3 text-sm text-amber-200"></p>
                     <div class="mt-7 border-t border-gray-800 pt-6">
                         <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-                            <h3 class="font-bold text-white" data-i18n="paperOrderForm">Place a simulated order</h3>
+                            <h3 class="font-bold text-white" data-i18n="paperOrderForm">Place an order</h3>
                             <span class="rounded-full border border-amber-400/25 bg-amber-400/5 px-3 py-1 text-xs font-semibold text-amber-200" data-i18n="paperFeeRate">Gaz ücretleri · %0,5</span>
                         </div>
                         <form id="paperOrderForm" class="mx-auto grid w-full max-w-xl gap-4">
@@ -507,7 +507,7 @@
                     </div>
                     <div class="mt-5 border-t border-gray-800 pt-4">
                         <div class="mb-3">
-                            <h3 class="font-bold text-white" data-i18n="paperStakingTitle">Virtual staking</h3>
+                            <h3 class="font-bold text-white" data-i18n="paperStakingTitle">Stake</h3>
                             <p class="mt-1 text-xs leading-relaxed text-amber-200/80" data-i18n="paperStakingNotice">Demo only. Coins and rewards are virtual; the listed rates are simulations, not promised returns.</p>
                         </div>
                         <form id="paperStakeForm" class="grid gap-3">
@@ -534,24 +534,24 @@
                                 <input name="amount" type="text" inputmode="decimal" maxlength="48" pattern="[0-9]+([.][0-9]{1,8})?" required class="mt-2 min-h-11 w-full rounded-xl border border-gray-700 bg-gray-950 px-4 py-2.5 font-mono text-white" data-i18n-placeholder="paperQuantityPlaceholder" placeholder="e.g. 0.01">
                             </label>
                             <p id="paperStakePreview" aria-live="polite" class="min-h-5 text-xs text-gray-400"></p>
-                            <button id="paperStakeSubmit" type="submit" class="min-h-11 w-full rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-2.5 font-bold text-emerald-100 transition hover:bg-emerald-400/15 disabled:cursor-not-allowed disabled:opacity-50" data-i18n="paperStakeSubmit">Stake virtually</button>
+                            <button id="paperStakeSubmit" type="submit" class="min-h-11 w-full rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-2.5 font-bold text-emerald-100 transition hover:bg-emerald-400/15 disabled:cursor-not-allowed disabled:opacity-50" data-i18n="paperStakeSubmit">Stake</button>
                         </form>
                         <p id="paperStakeStatus" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200"></p>
-                        <p id="paperStakeNoPositions" class="mt-3 text-sm text-gray-500" data-i18n="paperStakeNoPositions">No virtual stakes yet.</p>
+                        <p id="paperStakeNoPositions" class="mt-3 text-sm text-gray-500" data-i18n="paperStakeNoPositions">No stakes yet.</p>
                         <ul id="paperStakeList" class="mt-3 space-y-2 text-sm text-gray-300"></ul>
                     </div>
                     <div class="mt-5 border-t border-gray-800 pt-4">
-                        <h3 class="font-bold text-white" data-i18n="paperWalletBalances">Simulated wallet balances</h3>
+                        <h3 class="font-bold text-white" data-i18n="paperWalletBalances">Wallet balances</h3>
                         <p id="paperNoPositions" class="mt-3 text-sm text-gray-500" data-i18n="paperNoPositions">No open positions yet.</p>
                         <ul id="paperPositionList" class="mt-3 space-y-2 text-sm text-gray-300"></ul>
                     </div>
                     <div class="mt-5 border-t border-gray-800 pt-4">
-                        <h3 class="font-bold text-white" data-i18n="paperRecentTrades">Recent simulated orders</h3>
-                        <p id="paperNoTrades" class="mt-3 text-sm text-gray-500" data-i18n="paperNoTrades">No simulated orders yet.</p>
+                        <h3 class="font-bold text-white" data-i18n="paperRecentTrades">Recent orders</h3>
+                        <p id="paperNoTrades" class="mt-3 text-sm text-gray-500" data-i18n="paperNoTrades">No orders yet.</p>
                         <ul id="paperTradeList" class="mt-3 space-y-2 text-sm text-gray-300"></ul>
                     </div>
                     <div id="paperLoginNotice" class="mt-5 rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-4" hidden>
-                        <p class="text-sm text-cyan-100" data-i18n="paperLoginRequired">Log in to save your private simulation portfolio.</p>
+                        <p class="text-sm text-cyan-100" data-i18n="paperLoginRequired">Log in to view your portfolio.</p>
                         <button type="button" data-auth-mode="login" class="mt-3 rounded-lg border border-cyan-300/30 px-3 py-2 text-sm font-semibold text-cyan-100 hover:border-cyan-200" data-i18n="paperLoginButton">Log in</button>
                     </div>
                 </article>
@@ -587,7 +587,7 @@
     <section id="packages" class="py-16 max-w-7xl mx-auto px-4 w-full">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-bold text-white mb-2" data-i18n="packagesTitle">STAKEAI paketleri</h2>
-            <p class="text-gray-400" data-i18n="packagesDescription">STAKEAI token ve paket konseptleri, yukarıdaki AI bot simülasyonlarından ayrıdır.</p>
+            <p class="text-gray-400" data-i18n="packagesDescription">STAKEAI token ve paket konseptleri, yukarıdaki AI botlarından ayrıdır.</p>
             <p class="mx-auto mt-3 max-w-3xl text-sm text-amber-200/90" data-i18n="packageProposalNotice">Bu paketler BSC testnet üzerinde STAKEAI stake eder. Ödüller önceden fonlanmış havuzla sınırlıdır; ana ağda etkin değildir.</p>
         </div>
 
@@ -829,6 +829,6 @@
 
     <!-- App JS bağlantısı -->
     <script src="/vendor/ethers.umd.min.js"></script>
-    <script src="app.js?v=20261020q"></script>
+    <script src="app.js?v=20261020r"></script>
 
 </body></html>
