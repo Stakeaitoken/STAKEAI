@@ -3114,6 +3114,7 @@ async function refreshPaperTrading() {
         const summary = await apiRequest('/api/market/summary');
         paperMarkets = summary.markets;
         renderPaperMarkets();
+        if (typeof updatePaperQuote === 'function') updatePaperQuote();
         const locale = document.documentElement.lang === 'tr' ? 'tr-TR' : document.documentElement.lang;
         document.getElementById('paperMarketUpdated').textContent = currentCopy().paperUpdated.replace(
             '{time}',
@@ -3239,9 +3240,35 @@ const updatePaperQuoteAssetVisibility = () => {
     }
     if (!isStkai) paperQuoteAssetSelect.value = 'USDT';
 };
-paperAssetSelect.addEventListener('change', updatePaperQuoteAssetVisibility);
+function updatePaperQuote() {
+    const box = document.getElementById('paperQuote');
+    const quantity = Number(String(paperOrderForm.elements.quantity.value).replace(',', '.'));
+    const base = paperMarkets.find((market) => market.asset === paperAssetSelect.value);
+    const quoteAsset = paperQuoteAssetSelect.value;
+    const quote = quoteAsset === 'USDT' ? { price: 1 } : paperMarkets.find((market) => market.asset === quoteAsset);
+    if (!base || !quote || !Number(base.price) || !Number(quote.price)) {
+        box.textContent = '';
+        return;
+    }
+    const tr = document.documentElement.lang === 'tr';
+    const locale = tr ? 'tr-TR' : document.documentElement.lang;
+    const number = (value, digits) => new Intl.NumberFormat(locale, { maximumFractionDigits: digits }).format(value);
+    const rate = Number(base.price) / Number(quote.price);
+    const rateText = `1 ${base.asset} = ${number(rate, quoteAsset === 'USDT' ? 4 : 8)} ${quoteAsset}`;
+    if (!(quantity > 0)) {
+        box.textContent = `${tr ? 'Güncel kur' : 'Current rate'}: ${rateText}`;
+        return;
+    }
+    const sell = paperOrderForm.elements.side.value === 'sell';
+    const label = sell ? (tr ? 'Alacağınız tutar' : 'You receive') : (tr ? 'Ödeyeceğiniz tutar' : 'You pay');
+    box.textContent = `${label}: ≈ ${number(quantity * rate, quoteAsset === 'USDT' ? 4 : 8)} ${quoteAsset} · ${tr ? 'Güncel kur' : 'Rate'}: ${rateText}`;
+}
+paperAssetSelect.addEventListener('change', () => { updatePaperQuoteAssetVisibility(); updatePaperQuote(); });
+paperQuoteAssetSelect.addEventListener('change', updatePaperQuote);
+paperOrderForm.elements.quantity.addEventListener('input', updatePaperQuote);
+for (const radio of paperOrderForm.querySelectorAll('input[name=side]')) radio.addEventListener('change', updatePaperQuote);
 updatePaperQuoteAssetVisibility();
-
+updatePaperQuote();
 void refreshPaperTrading();
 window.setInterval(() => void refreshPaperTrading(), 30000);
 
