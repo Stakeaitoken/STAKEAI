@@ -365,6 +365,7 @@ if (!userColumns.has('totp_last_used_step')) db.exec('ALTER TABLE users ADD COLU
 if (!userColumns.has('first_name')) db.exec("ALTER TABLE users ADD COLUMN first_name TEXT NOT NULL DEFAULT ''");
 if (!userColumns.has('last_name')) db.exec("ALTER TABLE users ADD COLUMN last_name TEXT NOT NULL DEFAULT ''");
 if (!userColumns.has('username')) db.exec("ALTER TABLE users ADD COLUMN username TEXT NOT NULL DEFAULT ''");
+if (!userColumns.has('avatar')) db.exec("ALTER TABLE users ADD COLUMN avatar TEXT NOT NULL DEFAULT ''");
 db.exec("CREATE UNIQUE INDEX IF NOT EXISTS users_username_unique ON users(username COLLATE NOCASE) WHERE username <> ''");
 if (!userColumns.has('trc20_address')) db.exec("ALTER TABLE users ADD COLUMN trc20_address TEXT NOT NULL DEFAULT ''");
 if (!userColumns.has('usdt_balance')) db.exec("ALTER TABLE users ADD COLUMN usdt_balance TEXT NOT NULL DEFAULT '0'");
@@ -633,7 +634,7 @@ const requireSession = (request, response, next) => {
     if (!token) return sendError(response, 401, 'authentication_required');
 
     const session = db.prepare(`
-        SELECT users.id, users.email, users.username, users.first_name, users.email_verified, users.disabled_at,
+        SELECT users.id, users.email, users.username, users.avatar, users.first_name, users.email_verified, users.disabled_at,
                users.referral_code, sessions.token_hash
         FROM sessions JOIN users ON users.id = sessions.user_id
         WHERE sessions.token_hash = ? AND sessions.expires_at > ?
@@ -1327,6 +1328,7 @@ app.get('/api/auth/session', requireSession, (request, response) => {
         authenticated: true,
         email: request.user.email,
         username: request.user.username || request.user.first_name || request.user.email.split('@')[0],
+        avatar: request.user.avatar || '',
         isAdmin: request.user.is_admin
     });
 });
@@ -2334,6 +2336,16 @@ app.post('/api/account/profile', requireSession, requireSameOrigin, (request, re
     db.prepare('UPDATE users SET first_name = ?, last_name = ? WHERE id = ?')
         .run(firstName, lastName, request.user.id);
     response.json({ firstName, lastName });
+});
+
+app.post('/api/account/avatar', requireSession, requireSameOrigin, (request, response) => {
+    const avatar = request.body?.avatar;
+    if (avatar !== '' && (typeof avatar !== 'string' || avatar.length > 12000
+        || !/^data:image\/jpeg;base64,[A-Za-z0-9+/]+=*$/.test(avatar))) {
+        return sendError(response, 400, 'invalid_avatar');
+    }
+    db.prepare('UPDATE users SET avatar = ? WHERE id = ?').run(avatar, request.user.id);
+    response.json({ avatar });
 });
 
 app.post('/api/account/change-password', authLimiter, requireSession, requireSameOrigin, async (request, response, next) => {

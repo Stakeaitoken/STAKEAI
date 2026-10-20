@@ -10,6 +10,11 @@ const translations = {
         navRoadmap: 'Roadmap',
         navCalculator: 'Calculator',
         navStakePackages: 'Packages',
+        avatarChoose: 'Choose photo',
+        avatarRemove: 'Remove',
+        avatarSaved: 'Profile photo updated.',
+        avatarRemoved: 'Profile photo removed.',
+        avatarError: 'Could not use this image.',
         roadmapBadge: 'Proposed roadmap',
         roadmapTitle: 'STAKEAI Roadmap',
         roadmapDescription: 'Proposed milestones for 2027. The sequence may change as the project develops.',
@@ -266,6 +271,11 @@ const translations = {
         navRoadmap: 'Yol Haritası',
         navCalculator: 'Hesaplayıcı',
         navStakePackages: 'Paketler',
+        avatarChoose: 'Fotoğraf seç',
+        avatarRemove: 'Kaldır',
+        avatarSaved: 'Profil fotoğrafı güncellendi.',
+        avatarRemoved: 'Profil fotoğrafı kaldırıldı.',
+        avatarError: 'Bu görsel kullanılamadı.',
         roadmapBadge: 'Önerilen yol haritası',
         roadmapTitle: 'STAKEAI yol haritası',
         roadmapDescription: '2027 için planlanan hedefler. Proje geliştikçe sıralama değişebilir.',
@@ -2610,12 +2620,71 @@ function setProfilePanel(open) {
     accountMenuButton.setAttribute('aria-expanded', String(open));
 }
 
-function setAccountMenu(visible, name = '') {
+let currentAvatar = '';
+
+function renderAvatar(target, avatar, name) {
+    target.textContent = '';
+    if (avatar) {
+        const image = document.createElement('img');
+        image.src = avatar;
+        image.alt = '';
+        image.className = 'h-full w-full object-cover';
+        target.append(image);
+    } else {
+        target.textContent = (name[0] || '?').toUpperCase();
+    }
+}
+
+function setAccountMenu(visible, name = '', avatar = currentAvatar) {
     accountMenu.hidden = !visible;
     if (!visible) setProfilePanel(false);
+    currentAvatar = avatar || '';
     document.getElementById('accountMenuName').textContent = name;
-    document.getElementById('accountAvatar').textContent = (name[0] || '?').toUpperCase();
+    renderAvatar(document.getElementById('accountAvatar'), currentAvatar, name);
+    renderAvatar(document.getElementById('profileAvatarPreview'), currentAvatar, name);
 }
+
+function resizeAvatar(file) {
+    return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const image = new Image();
+        image.onload = () => {
+            URL.revokeObjectURL(url);
+            const size = 96;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const side = Math.min(image.width, image.height);
+            canvas.getContext('2d').drawImage(image, (image.width - side) / 2, (image.height - side) / 2, side, side, 0, 0, size, size);
+            resolve(canvas.toDataURL('image/jpeg', 0.7));
+        };
+        image.onerror = () => { URL.revokeObjectURL(url); reject(new Error('invalid_image')); };
+        image.src = url;
+    });
+}
+
+async function saveAvatar(avatar, messageKey) {
+    const status = document.getElementById('avatarStatus');
+    try {
+        await apiRequest('/api/account/avatar', { method: 'POST', body: JSON.stringify({ avatar }) });
+        setAccountMenu(true, document.getElementById('accountMenuName').textContent, avatar);
+        status.textContent = currentCopy()[messageKey];
+    } catch {
+        status.textContent = currentCopy().avatarError;
+    }
+}
+
+document.getElementById('avatarInput').addEventListener('change', async (event) => {
+    const file = event.target.files[0];
+    event.target.value = '';
+    if (!file) return;
+    try {
+        await saveAvatar(await resizeAvatar(file), 'avatarSaved');
+    } catch {
+        document.getElementById('avatarStatus').textContent = currentCopy().avatarError;
+    }
+});
+document.getElementById('avatarRemove').addEventListener('click', () => saveAvatar('', 'avatarRemoved'));
 
 accountMenuButton.addEventListener('click', () => setProfilePanel(profilePanel.hidden));
 document.getElementById('profilePanelClose').addEventListener('click', () => setProfilePanel(false));
@@ -2634,7 +2703,7 @@ async function showAuthenticatedDashboard(session = null) {
     accountDashboard.hidden = false;
     document.getElementById('accountStatus').textContent = `${session.username || accountEmail} · ${currentCopy().loginSuccess}`;
     document.getElementById('authActions').hidden = true;
-    setAccountMenu(true, session.username || accountEmail.split('@')[0]);
+    setAccountMenu(true, session.username || accountEmail.split('@')[0], session.avatar || '');
     await refreshAccountBalances();
     await refreshTaskCards();
     try {

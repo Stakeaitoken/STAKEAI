@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="theme.css?v=20261020c">
+    <link rel="stylesheet" href="theme.css?v=20261020d">
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased min-h-screen flex flex-col">
 
@@ -139,6 +139,16 @@
                     <button id="profilePanelClose" type="button" aria-label="Close" class="text-xl leading-none text-gray-400 hover:text-white">×</button>
                 </div>
                 <div class="space-y-6 border-t border-gray-800 p-4 sm:p-6">
+                    <div class="flex items-center gap-4">
+                        <span id="profileAvatarPreview" class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-emerald-400 text-2xl font-bold text-gray-950">?</span>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap gap-2">
+                                <label class="cursor-pointer rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400"><span data-i18n="avatarChoose">Choose photo</span><input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp" class="sr-only"></label>
+                                <button id="avatarRemove" type="button" data-i18n="avatarRemove" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-rose-400">Remove</button>
+                            </div>
+                            <p id="avatarStatus" role="status" aria-live="polite" class="text-xs text-emerald-200"></p>
+                        </div>
+                    </div>
                     <p class="text-sm text-gray-400"><span data-i18n="currentEmail">Current email</span>: <strong id="profileCurrentEmail" class="text-white"></strong></p>
                     <form id="profileForm" class="space-y-3">
                         <h3 data-i18n="profileDetails" class="text-sm font-semibold text-gray-200">Personal details</h3>
@@ -819,6 +829,6 @@
 
     <!-- App JS bağlantısı -->
     <script src="/vendor/ethers.umd.min.js"></script>
-    <script src="app.js?v=20261020c"></script>
+    <script src="app.js?v=20261020d"></script>
 
 </body></html>
