@@ -2657,10 +2657,11 @@ function setAccountMenu(visible, name = '', avatar = currentAvatar) {
 
 function resizeAvatar(file) {
     return new Promise((resolve, reject) => {
-        const url = URL.createObjectURL(file);
+        const reader = new FileReader();
         const image = new Image();
+        reader.onerror = () => reject(new Error('invalid_image'));
+        reader.onload = () => { image.src = reader.result; };
         image.onload = () => {
-            URL.revokeObjectURL(url);
             const size = 96;
             const canvas = document.createElement('canvas');
             canvas.width = size;
@@ -2678,8 +2679,8 @@ function resizeAvatar(file) {
             }
             resolve(result);
         };
-        image.onerror = () => { URL.revokeObjectURL(url); reject(new Error('invalid_image')); };
-        image.src = url;
+        image.onerror = () => reject(new Error('invalid_image'));
+        reader.readAsDataURL(file);
     });
 }
 
