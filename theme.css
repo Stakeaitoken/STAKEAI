@@ -893,3 +893,10 @@ main > article {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* Outline buttons: more visible */
+button.border-gray-700,button[class*='border-gray-700']{border-color:#7c8799 !important;color:#f3f4f6 !important;background-color:rgba(255,255,255,.06);}
+button.border-gray-700:hover,button[class*='border-gray-700']:hover{border-color:#f0b90b !important;color:#f0b90b !important;background-color:rgba(240,185,11,.1);}
+button.bg-gray-800{background-color:#3a4252 !important;border:1px solid #6b7587;}
+button.bg-gray-800:hover{background-color:#4a5468 !important;}
+select#languageSelect{border-color:#7c8799 !important;}
