@@ -944,3 +944,9 @@ header nav a{white-space:nowrap;}
 
 [data-i18n=paperStakingNotice]{display:none !important;}
 
+
+/* Profile as a separate full page */
+body.profile-page > *:not(header):not(footer):not(script):not(#accountDashboard){display:none !important}
+body.profile-page #accountDashboard > div > *:not(#profilePanel){display:none !important}
+body.profile-page #accountDashboard{border:0;background:transparent;padding-top:2rem;padding-bottom:3rem}
+body.profile-page #profilePanel{display:block}

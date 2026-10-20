@@ -2618,8 +2618,18 @@ const accountMenuButton = document.getElementById('accountMenuButton');
 
 function setProfilePanel(open) {
     profilePanel.hidden = !open;
+    document.body.classList.toggle('profile-page', open);
     accountMenuButton.setAttribute('aria-expanded', String(open));
+    if (open) {
+        window.scrollTo(0, 0);
+        if (location.hash !== '#profile') history.pushState(null, '', '#profile');
+    } else if (location.hash === '#profile') {
+        history.replaceState(null, '', location.pathname + location.search);
+    }
 }
+window.addEventListener('popstate', () => {
+    if (location.hash !== '#profile' && !profilePanel.hidden) setProfilePanel(false);
+});
 
 let currentAvatar = '';
 
@@ -2700,11 +2710,6 @@ accountMenuButton.addEventListener('click', () => setProfilePanel(profilePanel.h
 document.getElementById('profilePanelClose').addEventListener('click', () => setProfilePanel(false));
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') setProfilePanel(false);
-});
-document.addEventListener('click', (event) => {
-    if (!profilePanel.hidden && !profilePanel.contains(event.target) && !accountMenu.contains(event.target)) {
-        setProfilePanel(false);
-    }
 });
 
 async function showAuthenticatedDashboard(session = null) {
