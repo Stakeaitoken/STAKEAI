@@ -589,6 +589,7 @@ const brevoMailer = {
     }
 };
 
+console.log(`Mail transport: ${brevoApiKey ? 'brevo-api' : smtpReady ? 'smtp' : 'none'}`);
 const mailer = brevoApiKey
     ? brevoMailer
     : smtpReady
