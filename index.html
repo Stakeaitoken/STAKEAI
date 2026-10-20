@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="theme.css?v=20261020b">
+    <link rel="stylesheet" href="theme.css?v=20261020c">
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased min-h-screen flex flex-col">
 
@@ -21,7 +21,7 @@
                     STAKE<span class="text-emerald-300">AI</span>
                 </span>
             </div>
-            <nav class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+            <nav class="hidden lg:flex whitespace-nowrap gap-4 xl:gap-7 text-[13px] xl:text-sm font-medium text-gray-300">
                 <a href="#bots" data-i18n="navPackages" class="hover:text-emerald-300 transition">Yapay Zeka Botları</a>
                 <a href="#paperTrading" data-i18n="navSimulation" class="hover:text-emerald-300 transition">Simülasyon</a>
                 <a href="#packages" data-i18n="navStakePackages" class="hover:text-emerald-300 transition">Paketler</a>
@@ -56,7 +56,7 @@
                 <button id="logoutDemo" type="button" data-i18n="logout" class="whitespace-nowrap rounded-lg border border-gray-700 px-2 py-2 text-xs font-semibold text-gray-200 hover:border-emerald-400 sm:px-3 sm:text-sm">Çıkış</button>
             </div>
         </div>
-        <nav class="md:hidden flex gap-5 overflow-x-auto whitespace-nowrap border-t border-gray-800 px-4 py-2 text-sm font-medium text-gray-300">
+        <nav class="lg:hidden flex gap-5 overflow-x-auto whitespace-nowrap border-t border-gray-800 px-4 py-2 text-sm font-medium text-gray-300">
             <a href="#bots" data-i18n="navPackages">Yapay Zeka Botları</a>
             <a href="#paperTrading" data-i18n="navSimulation">Simülasyon</a>
             <a href="#packages" data-i18n="navStakePackages">Paketler</a>
@@ -819,6 +819,6 @@
 
     <!-- App JS bağlantısı -->
     <script src="/vendor/ethers.umd.min.js"></script>
-    <script src="app.js?v=20261020b"></script>
+    <script src="app.js?v=20261020c"></script>
 
 </body></html>

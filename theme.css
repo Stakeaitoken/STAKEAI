@@ -925,3 +925,13 @@ label:has(input[name=side][value=sell]:not(:checked)) span:hover{color:#f6465d;}
 form:has(input[name=side][value=sell]:checked) #paperSubmit{background:#f6465d !important;color:#fff !important;}
 form:has(input[name=side][value=buy]:checked) #paperSubmit{background:#0ecb81 !important;color:#0b0e11 !important;}
 
+
+/* Buy/Sell clear */
+label:has(input[name=side]) span{font-size:1rem !important;font-weight:800 !important;letter-spacing:.02em;padding:.8rem 1rem !important;border-width:2px !important;}
+label:has(input[name=side][value=buy]:not(:checked)) span{background:transparent !important;color:#0ecb81 !important;border-color:#0ecb81 !important;}
+label:has(input[name=side][value=sell]:not(:checked)) span{background:transparent !important;color:#f6465d !important;border-color:#f6465d !important;}
+label:has(input[name=side][value=buy]:checked) span{background:#0ecb81 !important;color:#00150a !important;border-color:#0ecb81 !important;}
+label:has(input[name=side][value=sell]:checked) span{background:#e0212f !important;color:#ffffff !important;border-color:#e0212f !important;}
+form:has(input[name=side][value=sell]:checked) #paperSubmit{background:#e0212f !important;color:#fff !important;}
+header nav a{white-space:nowrap;}
+
