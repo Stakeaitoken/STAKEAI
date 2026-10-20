@@ -2288,7 +2288,7 @@ authForm?.addEventListener('submit', async (event) => {
                     trc20Address: formData.get('trc20Address')
                 })
             });
-            authStatus.textContent = copy.registrationSent;
+            window.location.href = '/check-email.html?e=' + encodeURIComponent(String(formData.get('email') || '').trim());
             return;
         }
         if (twoFactorChallenge) {

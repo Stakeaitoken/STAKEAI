@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0b0e11">
+    <title>E-postanızı onaylayın — STAKEAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind.config.js"></script>
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
+    <header class="border-b border-gray-800 px-4 py-4">
+        <a href="/" class="mx-auto flex max-w-5xl items-center gap-3">
+            <img src="stakeai-logo.svg" alt="STAKEAI" class="h-10 w-10">
+            <span class="text-xl font-bold tracking-wide text-white">STAKE<span class="text-emerald-300">AI</span></span>
+        </a>
+    </header>
+    <main class="grid flex-1 place-items-center p-4">
+        <section class="w-full max-w-lg rounded-2xl border border-gray-800 bg-gray-900 p-8 text-center shadow-2xl">
+            <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-emerald-400/30 bg-emerald-400/10">
+                <svg class="h-10 w-10 text-emerald-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5l9 6 9-6M4.5 5h15A1.5 1.5 0 0121 6.5v11a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 17.5v-11A1.5 1.5 0 014.5 5z"/></svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white">E-postanızı onaylayın</h1>
+            <p class="mt-3 text-gray-300">Hesabınızı oluşturduk. Aktifleştirmek için size gönderdiğimiz onay bağlantısına tıklayın.</p>
+            <p id="mailTo" class="mt-4 hidden break-all rounded-lg border border-gray-800 bg-gray-950 px-4 py-3 font-semibold text-emerald-200"></p>
+            <ol class="mt-6 space-y-3 text-left text-sm text-gray-300">
+                <li class="flex gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-xs font-bold text-gray-950">1</span>E-posta kutunuzu açın.</li>
+                <li class="flex gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-xs font-bold text-gray-950">2</span>STAKEAI'den gelen e-postadaki onay bağlantısına tıklayın.</li>
+                <li class="flex gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-xs font-bold text-gray-950">3</span>Onaylandıktan sonra giriş yapabilirsiniz.</li>
+            </ol>
+            <p class="mt-6 rounded-lg border border-amber-400/20 bg-amber-400/5 px-4 py-3 text-sm text-amber-100/90">E-posta birkaç dakika içinde gelmezse spam (gereksiz) klasörünü kontrol edin.</p>
+            <a href="/?auth=login" class="mt-6 inline-block w-full rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-gray-950 transition hover:bg-emerald-300">Giriş sayfasına git</a>
+            <a href="/" class="mt-3 inline-block text-sm text-gray-400 hover:text-white">Ana sayfaya dön</a>
+        </section>
+    </main>
+    <script src="check-email.js"></script>
+</body>
+</html>

@@ -3053,7 +3053,7 @@ app.get('/vendor/ethers.umd.min.js', (_request, response, next) => {
     });
 });
 
-const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email)\.html|(?:app|admin|admin-setup|referrals|verify-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg)?$/;
+const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email|check-email)\.html|(?:app|admin|admin-setup|referrals|verify-email|check-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg)?$/;
 const publicStatic = express.static(root, {
     dotfiles: 'ignore',
     index: 'index.html',
