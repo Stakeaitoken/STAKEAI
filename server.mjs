@@ -16,6 +16,7 @@ import {
 import { promisify } from 'node:util';
 import { mkdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import QRCode from 'qrcode';
 import { fileURLToPath } from 'node:url';
 import { Contract, formatUnits, getAddress, Interface, isAddress, JsonRpcProvider } from 'ethers';
 
@@ -2459,10 +2460,9 @@ app.post('/api/account/2fa/setup', authLimiter, requireSession, requireSameOrigi
             .run(encryptTotpSecret(secret), request.user.id);
         const label = encodeURIComponent(`STAKEAI:${user.email}`);
         const issuer = encodeURIComponent('STAKEAI');
-        response.json({
-            secret,
-            otpauthUrl: `otpauth://totp/${label}?secret=${secret}&issuer=${issuer}&algorithm=SHA1&digits=6&period=30`
-        });
+        const otpauthUrl = `otpauth://totp/${label}?secret=${secret}&issuer=${issuer}&algorithm=SHA1&digits=6&period=30`;
+        const qrSvg = await QRCode.toString(otpauthUrl, { type: 'svg', margin: 2, width: 192 });
+        response.json({ secret, otpauthUrl, qrSvg });
     } catch (error) {
         next(error);
     }

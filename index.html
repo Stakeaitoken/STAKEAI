@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="theme.css?v=20261020s">
+    <link rel="stylesheet" href="theme.css?v=20261020t">
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased min-h-screen flex flex-col">
 
@@ -188,8 +188,9 @@
                         </form>
                         <div id="twoFactorPending" hidden class="space-y-3 rounded-lg border border-amber-400/20 bg-amber-400/5 p-4">
                             <p data-i18n="twoFactorSetupInstructions" class="text-sm text-amber-100">Add this key in your authenticator app, then enter its current code.</p>
+                            <div id="twoFactorQr" class="mx-auto h-48 w-48 overflow-hidden rounded-lg bg-white"></div>
                             <code id="twoFactorSecret" class="block break-all font-mono text-sm text-white"></code>
-                            <a id="twoFactorOtpAuth" class="break-all text-xs text-cyan-300 underline" rel="nofollow"></a>
+                            <a id="twoFactorOtpAuth" hidden class="break-all text-xs text-cyan-300 underline" rel="nofollow"></a>
                             <form id="twoFactorEnableForm" class="space-y-3">
                                 <label class="block text-sm text-gray-400"><span data-i18n="currentPassword">Current password</span><input name="password" type="password" autocomplete="current-password" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
                                 <label class="block text-sm text-gray-400"><span data-i18n="authTwoFactorCode">Authenticator or recovery code</span><input name="code" type="text" autocomplete="one-time-code" maxlength="16" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
@@ -829,6 +830,6 @@
 
     <!-- App JS bağlantısı -->
     <script src="/vendor/ethers.umd.min.js"></script>
-    <script src="app.js?v=20261020s"></script>
+    <script src="app.js?v=20261020t"></script>
 
 </body></html>

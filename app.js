@@ -2465,7 +2465,7 @@ document.getElementById('twoFactorSetupForm')?.addEventListener('submit', async 
         document.getElementById('twoFactorSecret').textContent = result.secret;
         const link = document.getElementById('twoFactorOtpAuth');
         link.href = result.otpauthUrl;
-        link.textContent = result.otpauthUrl;
+        document.getElementById('twoFactorQr').innerHTML = result.qrSvg;
         twoFactorSetupComplete = true;
         document.getElementById('twoFactorSetupForm').hidden = true;
         document.getElementById('twoFactorPending').hidden = false;
@@ -2510,6 +2510,7 @@ document.getElementById('twoFactorDisableForm')?.addEventListener('submit', asyn
         document.getElementById('twoFactorRecovery').hidden = true;
         document.getElementById('twoFactorRecoveryCodes').textContent = '';
         document.getElementById('twoFactorSecret').textContent = '';
+        document.getElementById('twoFactorQr').innerHTML = '';
         document.getElementById('twoFactorOtpAuth').removeAttribute('href');
         document.getElementById('twoFactorOtpAuth').textContent = '';
         twoFactorSetupStarted = false;
