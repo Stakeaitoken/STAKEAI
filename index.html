@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="theme.css?v=20261020r">
+    <link rel="stylesheet" href="theme.css?v=20261020s">
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased min-h-screen flex flex-col">
 
@@ -143,7 +143,7 @@
                         <span id="profileAvatarPreview" class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-emerald-400 text-2xl font-bold text-gray-950">?</span>
                         <div class="space-y-2">
                             <div class="flex flex-wrap gap-2">
-                                <label class="cursor-pointer rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400"><span data-i18n="avatarChoose">Choose photo</span><input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp" class="sr-only"></label>
+                                <label class="cursor-pointer rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400"><span data-i18n="avatarChoose">Choose photo</span><input id="avatarInput" type="file" accept="image/*" class="sr-only"></label>
                                 <button id="avatarRemove" type="button" data-i18n="avatarRemove" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-rose-400">Remove</button>
                             </div>
                             <p id="avatarStatus" role="status" aria-live="polite" class="text-xs text-emerald-200"></p>
@@ -829,6 +829,6 @@
 
     <!-- App JS bağlantısı -->
     <script src="/vendor/ethers.umd.min.js"></script>
-    <script src="app.js?v=20261020r"></script>
+    <script src="app.js?v=20261020s"></script>
 
 </body></html>

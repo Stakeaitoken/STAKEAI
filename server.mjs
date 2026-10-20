@@ -2340,7 +2340,7 @@ app.post('/api/account/profile', requireSession, requireSameOrigin, (request, re
 
 app.post('/api/account/avatar', requireSession, requireSameOrigin, (request, response) => {
     const avatar = request.body?.avatar;
-    if (avatar !== '' && (typeof avatar !== 'string' || avatar.length > 12000
+    if (avatar !== '' && (typeof avatar !== 'string' || avatar.length > 24000
         || !/^data:image\/jpeg;base64,[A-Za-z0-9+/]+=*$/.test(avatar))) {
         return sendError(response, 400, 'invalid_avatar');
     }

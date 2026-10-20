@@ -2655,8 +2655,17 @@ function resizeAvatar(file) {
             canvas.width = size;
             canvas.height = size;
             const side = Math.min(image.width, image.height);
-            canvas.getContext('2d').drawImage(image, (image.width - side) / 2, (image.height - side) / 2, side, side, 0, 0, size, size);
-            resolve(canvas.toDataURL('image/jpeg', 0.7));
+            const context = canvas.getContext('2d');
+            context.fillStyle = '#fff';
+            context.fillRect(0, 0, size, size);
+            context.drawImage(image, (image.width - side) / 2, (image.height - side) / 2, side, side, 0, 0, size, size);
+            let quality = 0.8;
+            let result = canvas.toDataURL('image/jpeg', quality);
+            while (result.length > 20000 && quality > 0.2) {
+                quality -= 0.15;
+                result = canvas.toDataURL('image/jpeg', quality);
+            }
+            resolve(result);
         };
         image.onerror = () => { URL.revokeObjectURL(url); reject(new Error('invalid_image')); };
         image.src = url;
