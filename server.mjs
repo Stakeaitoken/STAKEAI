@@ -64,7 +64,7 @@ if (ollamaBaseUrl.protocol !== 'http:' || !['localhost', '127.0.0.1', '[::1]'].i
 }
 const ollamaModel = process.env.OLLAMA_MODEL || 'qwen3:1.7b';
 const assistantRuntimeMode = assistantProvider === 'library'
-    ? isProduction ? 'unavailable' : 'demo'
+    ? 'demo'
     : assistantProvider === 'openai' && !openAiApiKey
         ? 'unavailable'
         : assistantProvider;
