@@ -2599,12 +2599,40 @@ async function refreshAccountBalances() {
     }
 }
 
+const accountMenu = document.getElementById('accountMenu');
+const profilePanel = document.getElementById('profilePanel');
+const accountMenuButton = document.getElementById('accountMenuButton');
+
+function setProfilePanel(open) {
+    profilePanel.hidden = !open;
+    accountMenuButton.setAttribute('aria-expanded', String(open));
+}
+
+function setAccountMenu(visible, name = '') {
+    accountMenu.hidden = !visible;
+    if (!visible) setProfilePanel(false);
+    document.getElementById('accountMenuName').textContent = name;
+    document.getElementById('accountAvatar').textContent = (name[0] || '?').toUpperCase();
+}
+
+accountMenuButton.addEventListener('click', () => setProfilePanel(profilePanel.hidden));
+document.getElementById('profilePanelClose').addEventListener('click', () => setProfilePanel(false));
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setProfilePanel(false);
+});
+document.addEventListener('click', (event) => {
+    if (!profilePanel.hidden && !profilePanel.contains(event.target) && !accountMenu.contains(event.target)) {
+        setProfilePanel(false);
+    }
+});
+
 async function showAuthenticatedDashboard(session = null) {
     session = session || await apiRequest('/api/auth/session');
     accountEmail = session.email;
     accountDashboard.hidden = false;
     document.getElementById('accountStatus').textContent = `${session.username || accountEmail} · ${currentCopy().loginSuccess}`;
     document.getElementById('authActions').hidden = true;
+    setAccountMenu(true, session.username || accountEmail.split('@')[0]);
     await refreshAccountBalances();
     await refreshTaskCards();
     try {
@@ -2748,6 +2776,7 @@ document.getElementById('logoutDemo')?.addEventListener('click', async () => {
     if (sessionStatus) sessionStatus.textContent = '';
     accountDashboard.hidden = true;
     document.getElementById('authActions').hidden = false;
+    setAccountMenu(false);
     clearPaperPortfolio();
     void refreshPaperTrading();
 });
