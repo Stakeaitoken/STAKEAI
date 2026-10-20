@@ -935,3 +935,6 @@ label:has(input[name=side][value=sell]:checked) span{background:#e0212f !importa
 form:has(input[name=side][value=sell]:checked) #paperSubmit{background:#e0212f !important;color:#fff !important;}
 header nav a{white-space:nowrap;}
 
+
+#paperLoginNotice{display:none !important;}
+
