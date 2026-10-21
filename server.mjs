@@ -81,6 +81,7 @@ const publicOrigin = publicOriginUrl.origin;
 const defaultTaskUrls = {
     TASK_TELEGRAM_URL: 'https://t.me/stakeaiio',
     TASK_X_PROFILE_URL: 'https://x.com/stakeeai',
+    TASK_X_POST_URL: 'https://x.com/stakeeai/status/2112962994632097949',
     TASK_FACEBOOK_URL: 'https://www.facebook.com/profile.php?id=61595915840204'
 };
 const readTaskUrl = (key) => {
