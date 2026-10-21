@@ -2,8 +2,8 @@ let assistantRuntimeMode = 'checking';
 
 const translations = {
     en: {
-        title: 'STAKEAI — AI strategy lab',
-        description: 'Explore strategy bots and risk-aware concepts in a transparent way.',
+        title: 'STAKEAI — AI-powered crypto staking platform',
+        description: 'STAKEAI is an AI-powered crypto staking platform. Transparent staking packages, strategy bots, referrals and a task center in one place.',
         navPackages: 'AI Bots',
         navTasks: 'Task Center',
         navReferrals: 'Referrals',
@@ -267,8 +267,8 @@ const translations = {
         language: 'Language'
     },
     tr: {
-        title: 'STAKEAI — Yapay zeka strateji laboratuvarı',
-        description: 'Strateji botlarını ve risk odaklı fikirleri şeffaf biçimde keşfedin.',
+        title: 'STAKEAI — Yapay zekâ destekli kripto staking platformu',
+        description: 'STAKEAI: yapay zekâ destekli kripto staking platformu. Şeffaf staking paketleri, strateji botları, referans programı ve görev merkezi tek yerde.',
         navPackages: 'Yapay Zeka Botları',
         navTasks: 'Görev Merkezi',
         navReferrals: 'Referanslar',

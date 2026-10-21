@@ -3067,7 +3067,33 @@ app.get('/vendor/ethers.umd.min.js', (_request, response, next) => {
     });
 });
 
-const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email|check-email)\.html|(?:app|admin|admin-setup|referrals|verify-email|check-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg)?$/;
+const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email|check-email)\.html|(?:app|admin|admin-setup|referrals|verify-email|check-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg|og-image\.png)?$/;
+const noindexPattern = /^\/(?:admin|admin-setup|referrals|verify-email|check-email)\.html$/;
+
+app.get('/robots.txt', (_request, response) => {
+    response.type('text/plain').send([
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /admin.html',
+        'Disallow: /admin-setup.html',
+        'Disallow: /verify-email.html',
+        'Disallow: /check-email.html',
+        'Disallow: /referrals.html',
+        'Disallow: /api/',
+        `Sitemap: ${publicOrigin}/sitemap.xml`,
+        ''
+    ].join('\n'));
+});
+
+app.get('/sitemap.xml', (_request, response) => {
+    response.type('application/xml').send(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + `  <url><loc>${publicOrigin}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>\n`
+        + '</urlset>\n'
+    );
+});
+
 const publicStatic = express.static(root, {
     dotfiles: 'ignore',
     index: 'index.html',
@@ -3078,6 +3104,7 @@ const publicStatic = express.static(root, {
 });
 app.use((request, response, next) => {
     if (!publicFilePattern.test(request.path)) return next();
+    if (noindexPattern.test(request.path)) response.setHeader('X-Robots-Tag', 'noindex, nofollow');
     return publicStatic(request, response, next);
 });
 
