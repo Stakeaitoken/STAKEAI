@@ -97,9 +97,10 @@ const readTaskUrl = (key) => {
     }
     return url.toString();
 };
+const isTaskConfigured = (task) => task.links.slice(0, task.requiredLinks ?? task.links.length).every(Boolean);
 const taskDefinitions = [
     { key: 'telegram', links: [readTaskUrl('TASK_TELEGRAM_URL')] },
-    { key: 'x', links: [readTaskUrl('TASK_X_PROFILE_URL'), readTaskUrl('TASK_X_POST_URL')] },
+    { key: 'x', requiredLinks: 1, links: [readTaskUrl('TASK_X_PROFILE_URL'), readTaskUrl('TASK_X_POST_URL')] },
     { key: 'facebook', links: [readTaskUrl('TASK_FACEBOOK_URL')] }
 ];
 const sessionSecret = process.env.SESSION_SECRET || '';
@@ -1424,7 +1425,7 @@ app.get('/api/tasks', (_request, response) => {
         tasks: taskDefinitions.map((task) => ({
             key: task.key,
             links: task.links,
-            configured: task.links.every(Boolean)
+            configured: isTaskConfigured(task)
         }))
     });
 });
@@ -1443,7 +1444,7 @@ app.get('/api/account/tasks', requireSession, (request, response) => {
             return {
                 key: task.key,
                 links: task.links,
-                configured: task.links.every(Boolean),
+                configured: isTaskConfigured(task),
                 status: submission?.status || 'available',
                 proof: submission?.proof || '',
                 submittedAt: submission?.created_at || null,
@@ -1458,7 +1459,7 @@ app.post('/api/account/tasks', requireSameOrigin, requireSession, (request, resp
     const proof = typeof request.body?.proof === 'string' ? request.body.proof.trim() : '';
     const task = taskDefinitions.find((definition) => definition.key === taskKey);
     if (!task) return sendError(response, 400, 'invalid_task');
-    if (!task.links.every(Boolean)) return sendError(response, 409, 'task_not_configured');
+    if (!isTaskConfigured(task)) return sendError(response, 409, 'task_not_configured');
     if (!proof || proof.length > 1000 || /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(proof)) {
         return sendError(response, 400, 'invalid_task_proof');
     }
