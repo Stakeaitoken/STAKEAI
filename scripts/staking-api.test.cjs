@@ -45,6 +45,7 @@ test('staking config is exposed without secrets and the browser ethers bundle is
         env: {
             ...process.env,
             PORT: String(port),
+            STAKING_CONTRACT_VERSION: '1',
             PUBLIC_ORIGIN: baseUrl,
             DATABASE_PATH: path.join(directory, 'test.sqlite'),
             SESSION_SECRET: 'staking-api-test-session-secret-32-chars',
@@ -76,6 +77,7 @@ test('staking config is exposed without secrets and the browser ethers bundle is
     assert.deepEqual(await configResponse.json(), {
         enabled: true,
         chainId: 97,
+        contractVersion: 1,
         tokenAddress: '0x0000000000000000000000000000000000000001',
         stakingAddress: '0x0000000000000000000000000000000000000002'
     });

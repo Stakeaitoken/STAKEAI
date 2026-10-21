@@ -94,3 +94,76 @@ describe('STAKEAIStaking', function () {
         await expectRevert(staking.connect(staker).stake(0, 0), 'zero amount');
     });
 });
+
+describe('STAKEAIStakingV2', function () {
+    async function deployStaking() {
+        const [owner, staker, other] = await ethers.getSigners();
+        const token = await ethers.deployContract('STAKEAI');
+        const staking = await ethers.deployContract('STAKEAIStakingV2', [await token.getAddress()]);
+        const stakeAmount = ethers.parseUnits('100', 18);
+        await token.transfer(staker.address, stakeAmount);
+        return { owner, staker, other, token, staking, stakeAmount };
+    }
+
+    it('requires owner-funded rewards and reserves them when a position is created', async function () {
+        const { owner, staker, token, staking, stakeAmount } = await deployStaking();
+        const stakingAddress = await staking.getAddress();
+        const reward = ethers.parseUnits('5', 18);
+
+        await token.connect(staker).approve(stakingAddress, stakeAmount);
+        await expectRevert(staking.connect(staker).stake(0, stakeAmount), 'insufficient reward pool');
+
+        await token.approve(stakingAddress, reward);
+        await staking.fundRewards(reward);
+        expect(await staking.availableRewards()).to.equal(reward);
+        await staking.connect(staker).stake(0, stakeAmount);
+
+        expect(await staking.availableRewards()).to.equal(0n);
+        expect(await staking.reservedRewards()).to.equal(reward);
+        expect(await staking.totalStaked()).to.equal(stakeAmount);
+        const [position] = await staking.getUserPositions(staker.address);
+        expect(position.reward).to.equal(reward);
+        expect(position.withdrawn).to.equal(false);
+    });
+
+    it('returns principal and reward together at maturity and protects reserved rewards', async function () {
+        const { staker, token, staking, stakeAmount } = await deployStaking();
+        const stakingAddress = await staking.getAddress();
+        const reward = ethers.parseUnits('5', 18);
+        const unallocated = ethers.parseUnits('10', 18);
+
+        await token.approve(stakingAddress, reward + unallocated);
+        await staking.fundRewards(reward + unallocated);
+        await token.connect(staker).approve(stakingAddress, stakeAmount);
+        await staking.connect(staker).stake(0, stakeAmount);
+
+        expect(await staking.availableRewards()).to.equal(unallocated);
+        expect(await staking.reservedRewards()).to.equal(reward);
+        await expectRevert(staking.connect(staker).withdraw(0), 'position is locked');
+        await expectRevert(
+            staking.withdrawUnallocatedRewards(unallocated + 1n),
+            'exceeds available rewards'
+        );
+        await staking.withdrawUnallocatedRewards(unallocated);
+        expect(await staking.availableRewards()).to.equal(0n);
+        expect(await staking.reservedRewards()).to.equal(reward);
+
+        await ethers.provider.send('evm_increaseTime', [7 * 24 * 60 * 60]);
+        await ethers.provider.send('evm_mine');
+        const balanceBefore = await token.balanceOf(staker.address);
+        await staking.connect(staker).withdraw(0);
+        expect(await token.balanceOf(staker.address)).to.equal(balanceBefore + stakeAmount + reward);
+        expect(await staking.totalStaked()).to.equal(0n);
+        expect(await staking.reservedRewards()).to.equal(0n);
+        expect((await staking.getUserPositions(staker.address))[0].withdrawn).to.equal(true);
+        await expectRevert(staking.connect(staker).withdraw(0), 'already withdrawn');
+    });
+
+    it('restricts reward-pool funding and withdrawal to the owner', async function () {
+        const { staker, token, staking } = await deployStaking();
+        const amount = ethers.parseUnits('1', 18);
+        await expectRevert(staking.connect(staker).fundRewards(amount), 'OwnableUnauthorizedAccount');
+        await expectRevert(staking.connect(staker).withdrawUnallocatedRewards(amount), 'OwnableUnauthorizedAccount');
+        await expectRevert(staking.fundRewards(0), 'zero amount');
+    });
+});

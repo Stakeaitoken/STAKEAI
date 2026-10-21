@@ -99,9 +99,26 @@ const copy = {
         taskDecisionFailed: 'Could not process the task submission.',
         confirmApproveTask: 'Verify the evidence and credit 10 USDT to this account?',
         confirmRejectTask: 'Reject this task submission?',
-        stakingRewardsTitle: 'Manual STAKEAI staking rewards',
-        connectRewardWallet: 'Connect payout wallet',
-        stakingRewardsNotice: 'Rewards are sent manually after maturity from your connected BSC testnet wallet. The server checks the mature position and verifies the exact on-chain token transfer. The platform never stores wallet keys.',
+        stakingRewardsTitle: 'STAKEAI staking reward management',
+        connectRewardWallet: 'Connect BSC testnet wallet',
+        stakingRewardsNotice: 'Legacy V1 rewards are sent manually after maturity from the connected BSC testnet wallet.',
+        stakingRewardPoolNotice: 'The owner funds rewards in advance. Each new stake reserves its full reward; reserved rewards cannot be withdrawn.',
+        rewardPoolAmount: 'STKAI amount',
+        fundRewardPool: 'Fund reward pool',
+        withdrawRewardPool: 'Withdraw unallocated rewards',
+        rewardPoolBalance: 'Unallocated STKAI rewards: {amount}',
+        rewardPoolOwner: 'Contract owner: {address}',
+        rewardPoolConnected: 'Connected staking owner wallet: {address}',
+        rewardPoolFunded: 'Reward pool funded. Transaction: {transactionHash}',
+        rewardPoolWithdrawn: 'Unallocated rewards withdrawn. Transaction: {transactionHash}',
+        rewardPoolNotOwner: 'Connect the staking contract owner wallet to manage this pool.',
+        rewardPoolInvalidAmount: 'Enter a valid positive amount with up to 18 decimal places.',
+        rewardPoolInsufficientBalance: 'The connected wallet does not have enough STKAI.',
+        rewardPoolConfirmFund: 'Fund the staking contract reward pool with {amount} STKAI?',
+        rewardPoolConfirmWithdraw: 'Withdraw {amount} unallocated STKAI rewards to the contract owner wallet?',
+        rewardPoolTransaction: 'Confirm the reward-pool transaction in your wallet.',
+        rewardPoolFailed: 'The reward-pool transaction failed. Check your wallet and try again.',
+        rewardPoolUnloaded: 'Connect the owner wallet to load the reward pool.',
         rewardRecipientWallet: 'Recipient wallet',
         rewardRecipientEmail: 'Account email (optional)',
         rewardPositionId: 'Mature position ID',
@@ -229,9 +246,26 @@ const copy = {
         taskDecisionFailed: 'Görev gönderimi işlenemedi.',
         confirmApproveTask: 'Kanıtı doğrulayıp bu hesaba 10 USDT eklensin mi?',
         confirmRejectTask: 'Bu görev gönderimi reddedilsin mi?',
-        stakingRewardsTitle: 'Manuel STAKEAI stake ödülleri',
-        connectRewardWallet: 'Ödeme cüzdanını bağla',
-        stakingRewardsNotice: 'Ödüller vade sonunda bağlı BSC testnet cüzdanından manuel gönderilir. Sunucu vadesi dolmuş pozisyonu ve zincirdeki token transferinin tam tutar/alıcı eşleşmesini doğrular. Platform cüzdan anahtarlarını saklamaz.',
+        stakingRewardsTitle: 'STAKEAI stake ödül yönetimi',
+        connectRewardWallet: 'BSC testnet cüzdanını bağla',
+        stakingRewardsNotice: 'Eski V1 sürümünde ödüller vade sonunda bağlı BSC testnet cüzdanından manuel gönderilir.',
+        stakingRewardPoolNotice: 'Sözleşme sahibi ödülleri önceden havuza yatırır. Her stake için gereken ödül ayrılır ve ayrılmış ödüller çekilemez.',
+        rewardPoolAmount: 'STKAI miktarı',
+        fundRewardPool: 'Ödül havuzunu fonla',
+        withdrawRewardPool: 'Ayrılmamış ödülü çek',
+        rewardPoolBalance: 'Ayrılmamış STKAI ödülü: {amount}',
+        rewardPoolOwner: 'Sözleşme sahibi: {address}',
+        rewardPoolConnected: 'Bağlı staking sahibi cüzdanı: {address}',
+        rewardPoolFunded: 'Ödül havuzu fonlandı. İşlem: {transactionHash}',
+        rewardPoolWithdrawn: 'Ayrılmamış ödül çekildi. İşlem: {transactionHash}',
+        rewardPoolNotOwner: 'Bu havuzu yönetmek için staking sözleşmesinin sahibi cüzdanını bağlayın.',
+        rewardPoolInvalidAmount: '18 ondalık basamağa kadar geçerli ve sıfırdan büyük bir miktar girin.',
+        rewardPoolInsufficientBalance: 'Bağlı cüzdanda yeterli STKAI yok.',
+        rewardPoolConfirmFund: 'Staking sözleşmesinin ödül havuzuna {amount} STKAI aktarılsın mı?',
+        rewardPoolConfirmWithdraw: '{amount} ayrılmamış STKAI ödülü sözleşme sahibi cüzdanına çekilsin mi?',
+        rewardPoolTransaction: 'Cüzdanınızda ödül havuzu işlemini onaylayın.',
+        rewardPoolFailed: 'Ödül havuzu işlemi başarısız oldu. Cüzdanınızı kontrol edip yeniden deneyin.',
+        rewardPoolUnloaded: 'Ödül havuzunu görüntülemek için sahibi cüzdanını bağlayın.',
         rewardRecipientWallet: 'Alıcı cüzdanı',
         rewardRecipientEmail: 'Hesap e-postası (isteğe bağlı)',
         rewardPositionId: 'Vadesi dolmuş pozisyon kimliği',
@@ -287,6 +321,7 @@ let total = 0;
 let authorized = false;
 let stakingConfig = null;
 let connectedRewardWallet = '';
+let rewardPoolOwnerAddress = '';
 let preparedRewardPayout = null;
 let submittedRewardTransactionHash = '';
 
@@ -648,7 +683,16 @@ async function changeStatus(user, button) {
 }
 
 const rewardTokenAbi = [
+    'function balanceOf(address account) view returns (uint256)',
+    'function allowance(address owner, address spender) view returns (uint256)',
+    'function approve(address spender, uint256 amount) returns (bool)',
     'function transfer(address to, uint256 amount) returns (bool)'
+];
+const rewardPoolAbi = [
+    'function owner() view returns (address)',
+    'function availableRewards() view returns (uint256)',
+    'function fundRewards(uint256 amount)',
+    'function withdrawUnallocatedRewards(uint256 amount)'
 ];
 
 async function getRewardWallet() {
@@ -690,6 +734,131 @@ async function getRewardWallet() {
 function setRewardStatus(message, isError = false) {
     rewardStatus.textContent = message;
     rewardStatus.className = `mt-3 min-h-5 text-sm ${isError ? 'text-rose-300' : 'text-amber-200'}`;
+}
+
+function parseRewardPoolAmount() {
+    const value = document.getElementById('rewardPoolAmount').value.trim();
+    if (!/^(?:0|[1-9]\d*)(?:\.\d{1,18})?$/.test(value)) {
+        throw new Error('invalid_amount');
+    }
+    const amount = window.ethers.parseUnits(value, 18);
+    if (amount <= 0n) throw new Error('invalid_amount');
+    return { amount, display: window.ethers.formatUnits(amount, 18) };
+}
+
+async function loadRewardPool() {
+    if (!authorized || !stakingConfig?.enabled || stakingConfig.contractVersion !== 2) return;
+    if (!connectedRewardWallet) {
+        rewardPoolOwnerAddress = '';
+        document.getElementById('fundRewardPool').disabled = true;
+        document.getElementById('withdrawRewardPool').disabled = true;
+        document.getElementById('rewardPoolBalance').textContent = text('rewardPoolUnloaded');
+        return;
+    }
+    try {
+        const { signer, address } = await getRewardWallet();
+        connectedRewardWallet = address;
+        const staking = new window.ethers.Contract(stakingConfig.stakingAddress, rewardPoolAbi, signer);
+        const [owner, availableRewards] = await Promise.all([staking.owner(), staking.availableRewards()]);
+        rewardPoolOwnerAddress = owner;
+        document.getElementById('rewardPoolOwner').textContent = text('rewardPoolOwner', { address: owner });
+        document.getElementById('rewardAdminWallet').textContent = text('rewardPoolConnected', { address });
+        document.getElementById('rewardPoolBalance').textContent = text('rewardPoolBalance', {
+            amount: `${window.ethers.formatUnits(availableRewards, 18)} STKAI`
+        });
+        const isOwner = owner.toLowerCase() === address.toLowerCase();
+        document.getElementById('fundRewardPool').disabled = !isOwner;
+        document.getElementById('withdrawRewardPool').disabled = !isOwner;
+        if (!isOwner) setRewardStatus(text('rewardPoolNotOwner'), true);
+    } catch (error) {
+        console.error('Could not load the on-chain STAKEAI reward pool.', error);
+        setRewardStatus(text(error.message === 'wallet_unavailable'
+            ? 'rewardWalletUnavailable'
+            : error.message === 'wrong_network'
+                ? 'rewardWrongNetwork'
+                : 'rewardPoolFailed'), true);
+    }
+}
+
+async function submitRewardPoolFunding(event) {
+    event.preventDefault();
+    const button = document.getElementById('fundRewardPool');
+    button.disabled = true;
+    try {
+        const { amount, display } = parseRewardPoolAmount();
+        const { signer, address } = await getRewardWallet();
+        const staking = new window.ethers.Contract(stakingConfig.stakingAddress, rewardPoolAbi, signer);
+        const owner = await staking.owner();
+        if (owner.toLowerCase() !== address.toLowerCase()) throw new Error('reward_pool_not_owner');
+        if (!window.confirm(text('rewardPoolConfirmFund', { amount: display }))) return;
+
+        const token = new window.ethers.Contract(stakingConfig.tokenAddress, rewardTokenAbi, signer);
+        if (await token.balanceOf(address) < amount) throw new Error('reward_pool_insufficient_balance');
+        if (await token.allowance(address, stakingConfig.stakingAddress) < amount) {
+            setRewardStatus(text('rewardPoolTransaction'));
+            await (await token.approve(stakingConfig.stakingAddress, amount)).wait();
+        }
+        setRewardStatus(text('rewardPoolTransaction'));
+        const transaction = await staking.fundRewards(amount);
+        await transaction.wait();
+        setRewardStatus(text('rewardPoolFunded', { transactionHash: transaction.hash }));
+        document.getElementById('rewardPoolAmount').value = '';
+        await loadRewardPool();
+    } catch (error) {
+        console.error('Could not fund the on-chain STAKEAI reward pool.', error);
+        const message = error.message === 'wallet_unavailable'
+            ? 'rewardWalletUnavailable'
+            : error.message === 'wrong_network'
+                ? 'rewardWrongNetwork'
+                : error.message === 'reward_pool_not_owner'
+                    ? 'rewardPoolNotOwner'
+                    : error.message === 'invalid_amount'
+                        ? 'rewardPoolInvalidAmount'
+                        : error.message === 'reward_pool_insufficient_balance'
+                            ? 'rewardPoolInsufficientBalance'
+                            : 'rewardPoolFailed';
+        setRewardStatus(text(message), true);
+    } finally {
+        button.disabled = !connectedRewardWallet
+            || !rewardPoolOwnerAddress
+            || rewardPoolOwnerAddress.toLowerCase() !== connectedRewardWallet.toLowerCase();
+    }
+}
+
+async function withdrawUnallocatedRewards() {
+    const button = document.getElementById('withdrawRewardPool');
+    button.disabled = true;
+    try {
+        const { amount, display } = parseRewardPoolAmount();
+        const { signer, address } = await getRewardWallet();
+        const staking = new window.ethers.Contract(stakingConfig.stakingAddress, rewardPoolAbi, signer);
+        const owner = await staking.owner();
+        if (owner.toLowerCase() !== address.toLowerCase()) throw new Error('reward_pool_not_owner');
+        if (!window.confirm(text('rewardPoolConfirmWithdraw', { amount: display }))) return;
+
+        setRewardStatus(text('rewardPoolTransaction'));
+        const transaction = await staking.withdrawUnallocatedRewards(amount);
+        await transaction.wait();
+        setRewardStatus(text('rewardPoolWithdrawn', { transactionHash: transaction.hash }));
+        document.getElementById('rewardPoolAmount').value = '';
+        await loadRewardPool();
+    } catch (error) {
+        console.error('Could not withdraw unallocated STAKEAI rewards.', error);
+        const message = error.message === 'wallet_unavailable'
+            ? 'rewardWalletUnavailable'
+            : error.message === 'wrong_network'
+                ? 'rewardWrongNetwork'
+                : error.message === 'reward_pool_not_owner'
+                    ? 'rewardPoolNotOwner'
+                    : error.message === 'invalid_amount'
+                        ? 'rewardPoolInvalidAmount'
+                        : 'rewardPoolFailed';
+        setRewardStatus(text(message), true);
+    } finally {
+        button.disabled = !connectedRewardWallet
+            || !rewardPoolOwnerAddress
+            || rewardPoolOwnerAddress.toLowerCase() !== connectedRewardWallet.toLowerCase();
+    }
 }
 
 async function loadRewardPayouts() {
@@ -850,7 +1019,15 @@ async function loadStakingRewardConfig() {
     try {
         stakingConfig = await api('/api/staking/config');
         document.getElementById('stakingRewardSection').hidden = !stakingConfig.enabled;
-        if (stakingConfig.enabled) await loadRewardPayouts();
+        document.getElementById('legacyRewardControls').hidden =
+            !stakingConfig.enabled || stakingConfig.contractVersion !== 1;
+        document.getElementById('autoRewardPoolControls').hidden =
+            !stakingConfig.enabled || stakingConfig.contractVersion !== 2;
+        if (stakingConfig.enabled && stakingConfig.contractVersion === 1) {
+            await loadRewardPayouts();
+        } else if (stakingConfig.enabled && stakingConfig.contractVersion === 2) {
+            await loadRewardPool();
+        }
     } catch (error) {
         console.error('Could not load BSC testnet staking configuration in admin.', error);
         document.getElementById('stakingRewardSection').hidden = true;
@@ -931,12 +1108,19 @@ document.getElementById('refreshTasks').addEventListener('click', () => void loa
 document.getElementById('refreshRewardPayouts').addEventListener('click', () => void loadRewardPayouts());
 document.getElementById('stakingRewardForm').addEventListener('submit', (event) => void prepareRewardPayout(event));
 document.getElementById('sendRewardPayout').addEventListener('click', () => void sendRewardPayout());
+document.getElementById('rewardPoolForm').addEventListener('submit', (event) => void submitRewardPoolFunding(event));
+document.getElementById('withdrawRewardPool').addEventListener('click', () => void withdrawUnallocatedRewards());
+document.getElementById('refreshRewardPool').addEventListener('click', () => void loadRewardPool());
 document.getElementById('connectRewardWallet').addEventListener('click', async () => {
     try {
         const { address } = await getRewardWallet();
         connectedRewardWallet = address;
-        document.getElementById('rewardAdminWallet').textContent = text('rewardWalletConnected', { address });
+        document.getElementById('rewardAdminWallet').textContent = text(
+            stakingConfig.contractVersion === 2 ? 'rewardPoolConnected' : 'rewardWalletConnected',
+            { address }
+        );
         setRewardStatus('');
+        if (stakingConfig.contractVersion === 2) await loadRewardPool();
     } catch (error) {
         console.error('Could not connect the administrator reward wallet.', error);
         setRewardStatus(text(error.message === 'wallet_unavailable'

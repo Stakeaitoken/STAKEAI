@@ -205,11 +205,12 @@ const translations = {
         termEstimate: 'Example profit over selected term',
         totalAfterTerm: 'Example total including principal',
         tokenValueNotice: 'The market simulator shows STKAI at a fixed 1 USDT app reference price. This is not an exchange quote, backing, or redemption guarantee.',
-        packageProposalNotice: 'These packages lock STAKEAI on BNB Smart Chain testnet until maturity. Principal can then be withdrawn by the staker; admins send rewards manually.',
+        packageProposalNotice: 'These packages lock STAKEAI on BNB Smart Chain testnet until maturity. Reward handling depends on the configured staking contract version.',
         simplePrincipalOnly: 'Simple example on original principal',
         noCompound: 'No compounding or live payout',
         stakingDialogTitle: 'STAKEAI testnet staking',
         stakingDisclaimer: 'BSC testnet only. Principal remains locked until maturity and can then be withdrawn by the staker. Rewards are sent manually by an admin.',
+        stakingAutoDisclaimer: 'BSC testnet only. The reward is reserved when you stake. At maturity, claim your principal and reward together.',
         stakingNotConfigured: 'Testnet contract addresses have not been configured yet.',
         stakingConnectPrompt: 'Connect your wallet to stake.',
         stakingConnect: 'Connect wallet',
@@ -222,8 +223,11 @@ const translations = {
         stakingReward: 'Reward',
         stakingUnlocks: 'Unlocks',
         stakingWithdraw: 'Withdraw',
+        stakingClaim: 'Claim principal + reward',
         stakingLocked: 'Locked until',
         stakingConnected: 'Connected',
+        stakingRewardPoolBalance: 'Available reward pool',
+        stakingInsufficientRewardPool: 'The reward pool does not have enough unallocated STKAI for this offer.',
         stakingInsufficientBalance: 'Your wallet does not have enough STKAI for this stake.',
         stakingWalletUnavailable: 'No browser wallet was found. Install a wallet such as MetaMask.',
         stakingWrongNetwork: 'Switch your wallet to BNB Smart Chain testnet (chain 97) and try again.',
@@ -237,7 +241,7 @@ const translations = {
         stakingLock7: '7-day lock period',
         stakingLock30: '30-day lock period',
         stakingLock180: '180-day lock period',
-        stakingPoolOnly: 'Reward is paid manually by an administrator after maturity.',
+        stakingPoolOnly: 'Reward handling depends on the configured staking contract version.',
         days: 'days',
         paymentTitle: 'Manual payment instructions',
         paymentNotice: 'Rates are proposals, not guaranteed returns. Payments are not automatically verified; this does not activate staking or a package.',
@@ -466,11 +470,12 @@ const translations = {
         termEstimate: 'Seçilen dönemde örnek kâr',
         totalAfterTerm: 'Ana para dahil örnek toplam',
         tokenValueNotice: 'Piyasa simülatöründe STKAI sabit 1 USDT uygulama referans fiyatıyla gösterilir. Bu, borsa fiyatı, teminat veya geri alım garantisi değildir.',
-        packageProposalNotice: 'Bu paketlerde STAKEAI, BNB Smart Chain testnet üzerinde vade sonuna kadar kilitlenir. Vade sonunda kullanıcı ana parasını çeker; ödül admin tarafından manuel gönderilir.',
+        packageProposalNotice: 'Bu paketlerde STAKEAI, BNB Smart Chain testnet üzerinde vade sonuna kadar kilitlenir. Ödül akışı yapılandırılmış staking sözleşmesi sürümüne bağlıdır.',
         simplePrincipalOnly: 'Yalnızca ana para üzerinden basit örnek',
         noCompound: 'Bileşik getiri veya canlı ödeme yok',
         stakingDialogTitle: 'STAKEAI testnet stake',
         stakingDisclaimer: 'Yalnızca BSC testnet. Ana para vade sonuna kadar kilitli kalır; vade sonunda kullanıcı çekebilir. Ödüller admin tarafından manuel gönderilir.',
+        stakingAutoDisclaimer: 'Yalnızca BSC testnet. Stake sırasında ödül rezerve edilir. Vade sonunda ana para ve ödül birlikte çekilir.',
         stakingNotConfigured: 'Testnet kontrat adresleri henüz yapılandırılmadı.',
         stakingConnectPrompt: 'Stake etmek için cüzdanınızı bağlayın.',
         stakingConnect: 'Cüzdanı bağla',
@@ -483,8 +488,11 @@ const translations = {
         stakingReward: 'Ödül',
         stakingUnlocks: 'Açılma zamanı',
         stakingWithdraw: 'Çek',
+        stakingClaim: 'Ana para + ödülü çek',
         stakingLocked: 'Şu tarihe kadar kilitli',
         stakingConnected: 'Bağlandı',
+        stakingRewardPoolBalance: 'Kullanılabilir ödül havuzu',
+        stakingInsufficientRewardPool: 'Bu paket için ödül havuzunda yeterli ayrılmamış STKAI yok.',
         stakingInsufficientBalance: 'Cüzdanınızda bu stake için yeterli STKAI yok.',
         stakingWalletUnavailable: 'Tarayıcı cüzdanı bulunamadı. MetaMask gibi bir cüzdan yükleyin.',
         stakingWrongNetwork: 'Cüzdanınızı BNB Smart Chain testnet ağına (chain 97) geçirip yeniden deneyin.',
@@ -498,7 +506,7 @@ const translations = {
         stakingLock7: '7 gün kilit süresi',
         stakingLock30: '30 gün kilit süresi',
         stakingLock180: '180 gün kilit süresi',
-        stakingPoolOnly: 'Ödül vade sonunda yönetici tarafından manuel ödenir.',
+        stakingPoolOnly: 'Ödül akışı yapılandırılmış staking sözleşmesi sürümüne bağlıdır.',
         days: 'gün',
         paymentTitle: 'Manuel ödeme bilgileri',
         paymentNotice: 'Oranlar öneridir, garanti getiri değildir. Ödemeler otomatik doğrulanmaz; ödeme paketi etkinleştirmez veya stake başlatmaz.',
@@ -1992,6 +2000,7 @@ const calcPackage = document.getElementById('calcPackage');
 const weeklyReturn = document.getElementById('weeklyReturn');
 const monthlyReturn = document.getElementById('monthlyReturn');
 const stakingDialog = document.getElementById('stakingDialog');
+let stakingConfig = null;
 const authDialog = document.getElementById('authDialog');
 const authForm = document.getElementById('authForm');
 const authTitle = document.getElementById('authTitle');
@@ -2153,6 +2162,7 @@ function setLanguage(language) {
         languageSelect.setAttribute('aria-label', copy.language);
         document.querySelector('label[for="languageSelect"]').textContent = copy.language;
     }
+    updateStakingDisclaimerCopy();
 
     setAuthMode(authMode, copy);
     updateTransferRecipientField();
@@ -3282,7 +3292,6 @@ const packageOffers = [
     { nameKey: 'silverTerm', rateKey: 'silverPercent', rateBps: 2_500, durationDays: 30 },
     { nameKey: 'goldTerm', rateKey: 'goldPercent', rateBps: 20_000, durationDays: 180 }
 ];
-let stakingConfig = null;
 let selectedStakeOfferId = 0;
 
 const stakingTokenAbi = [
@@ -3313,6 +3322,30 @@ const stakingContractAbi = [
         type: 'function'
     }
 ];
+const stakingContractV2Abi = [
+    'function availableRewards() view returns (uint256)',
+    'function previewReward(uint8 offerId, uint256 amount) view returns (uint256)',
+    'function stake(uint8 offerId, uint256 amount)',
+    'function withdraw(uint256 positionId)',
+    {
+        inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+        name: 'getUserPositions',
+        outputs: [{
+            components: [
+                { internalType: 'uint256', name: 'amount', type: 'uint256' },
+                { internalType: 'uint256', name: 'reward', type: 'uint256' },
+                { internalType: 'uint64', name: 'unlockAt', type: 'uint64' },
+                { internalType: 'uint8', name: 'offerId', type: 'uint8' },
+                { internalType: 'bool', name: 'withdrawn', type: 'bool' }
+            ],
+            internalType: 'struct STAKEAIStakingV2.Position[]',
+            name: '',
+            type: 'tuple[]'
+        }],
+        stateMutability: 'view',
+        type: 'function'
+    }
+];
 
 function setStakingStatus(message, isError = false) {
     const status = document.getElementById('stakingStatus');
@@ -3320,11 +3353,19 @@ function setStakingStatus(message, isError = false) {
     status.className = `min-h-5 text-sm ${isError ? 'text-rose-300' : 'text-gray-300'}`;
 }
 
+function updateStakingDisclaimerCopy() {
+    const copy = currentCopy();
+    const key = stakingConfig?.contractVersion === 2 ? 'stakingAutoDisclaimer' : 'stakingDisclaimer';
+    document.querySelector('[data-i18n="stakingDisclaimer"]').textContent =
+        copy[key] || translations.en[key];
+}
+
 async function loadStakingConfig() {
     try {
         stakingConfig = await apiRequest('/api/staking/config');
         document.getElementById('stakingConfigNotice').hidden = stakingConfig.enabled;
         document.getElementById('stakingControls').hidden = !stakingConfig.enabled;
+        updateStakingDisclaimerCopy();
     } catch (error) {
         console.error('Could not load testnet staking configuration.', error);
         document.getElementById('stakingConfigNotice').textContent = currentCopy().stakingNotConfigured;
@@ -3381,17 +3422,24 @@ async function refreshStakingPositions() {
     if (!stakingConfig?.enabled || !window.ethereum) return;
 
     const { signer, account } = await getStakingWallet();
-    const staking = new window.ethers.Contract(stakingConfig.stakingAddress, stakingContractAbi, signer);
+    const isAutoReward = stakingConfig.contractVersion === 2;
+    const staking = new window.ethers.Contract(
+        stakingConfig.stakingAddress,
+        isAutoReward ? stakingContractV2Abi : stakingContractAbi,
+        signer
+    );
     const token = new window.ethers.Contract(stakingConfig.tokenAddress, stakingTokenAbi, signer);
-    const [positions, tokenBalance] = await Promise.all([
+    const requests = [
         staking.getUserPositions(account),
         token.balanceOf(account)
-    ]);
+    ];
+    if (isAutoReward) requests.push(staking.availableRewards());
+    const [positions, tokenBalance, availableRewards] = await Promise.all(requests);
     const copy = currentCopy();
     list.replaceChildren();
 
     positions.forEach((position, index) => {
-        if (position.principalWithdrawn) return;
+        if (isAutoReward ? position.withdrawn : position.principalWithdrawn) return;
         const row = document.createElement('li');
         row.className = 'flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-950/70 p-3 sm:flex-row sm:items-center sm:justify-between';
         const details = document.createElement('p');
@@ -3403,7 +3451,9 @@ async function refreshStakingPositions() {
         withdraw.className = 'shrink-0 rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 disabled:opacity-60';
         const isMature = BigInt(Math.floor(Date.now() / 1000)) >= position.unlockAt;
         withdraw.disabled = !isMature;
-        withdraw.textContent = isMature ? copy.stakingWithdraw : `${copy.stakingLocked} ${unlockDate.toLocaleDateString(document.documentElement.lang)}`;
+        withdraw.textContent = isMature
+            ? isAutoReward ? copy.stakingClaim || translations.en.stakingClaim : copy.stakingWithdraw
+            : `${copy.stakingLocked} ${unlockDate.toLocaleDateString(document.documentElement.lang)}`;
         withdraw.addEventListener('click', () => void withdrawStakePosition(index, withdraw));
         row.append(details, withdraw);
         list.append(row);
@@ -3411,14 +3461,24 @@ async function refreshStakingPositions() {
     empty.hidden = list.childElementCount > 0;
     document.getElementById('stakingWalletAddress').textContent =
         `${copy.stakingConnected}: ${account} · ${formatTokenBalance(tokenBalance.toString(), 18)} STKAI`;
+    document.getElementById('stakingRewardPoolBalance').textContent = isAutoReward
+        ? `${copy.stakingRewardPoolBalance || translations.en.stakingRewardPoolBalance}: ${formatTokenBalance(availableRewards.toString(), 18)} STKAI`
+        : '';
 }
 
 async function withdrawStakePosition(positionId, button) {
     button.disabled = true;
     try {
         const { signer } = await getStakingWallet();
-        const staking = new window.ethers.Contract(stakingConfig.stakingAddress, stakingContractAbi, signer);
-        const transaction = await staking.withdrawPrincipal(positionId);
+        const isAutoReward = stakingConfig.contractVersion === 2;
+        const staking = new window.ethers.Contract(
+            stakingConfig.stakingAddress,
+            isAutoReward ? stakingContractV2Abi : stakingContractAbi,
+            signer
+        );
+        const transaction = await (isAutoReward
+            ? staking.withdraw(positionId)
+            : staking.withdrawPrincipal(positionId));
         setStakingStatus(currentCopy().stakingConfirmTransaction);
         await transaction.wait();
         setStakingStatus(currentCopy().stakingTransactionDone);
@@ -3469,7 +3529,12 @@ async function submitStake() {
         const { signer, account } = await getStakingWallet();
         const amount = window.ethers.parseUnits(value, 18);
         const token = new window.ethers.Contract(stakingConfig.tokenAddress, stakingTokenAbi, signer);
-        const staking = new window.ethers.Contract(stakingConfig.stakingAddress, stakingContractAbi, signer);
+        const isAutoReward = stakingConfig.contractVersion === 2;
+        const staking = new window.ethers.Contract(
+            stakingConfig.stakingAddress,
+            isAutoReward ? stakingContractV2Abi : stakingContractAbi,
+            signer
+        );
         if (await token.balanceOf(account) < amount) {
             setStakingStatus(copy.stakingInsufficientBalance, true);
             return;
@@ -3478,6 +3543,12 @@ async function submitStake() {
         if (reward === 0n) {
             setStakingStatus(copy.stakingAmountTooSmall, true);
             return;
+        }
+        if (isAutoReward) {
+            if (await staking.availableRewards() < reward) {
+                setStakingStatus(copy.stakingInsufficientRewardPool, true);
+                return;
+            }
         }
 
         if (await token.allowance(account, stakingConfig.stakingAddress) < amount) {
@@ -3496,6 +3567,8 @@ async function submitStake() {
             ? copy.stakingWalletUnavailable
             : error.message === 'wrong_network'
                 ? copy.stakingWrongNetwork
+                : error.reason === 'insufficient reward pool'
+                    ? copy.stakingInsufficientRewardPool || translations.en.stakingInsufficientRewardPool
                 : copy.stakingOperationFailed, true);
     } finally {
         submit.disabled = false;

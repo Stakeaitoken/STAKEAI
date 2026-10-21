@@ -11,7 +11,8 @@
     "compile": "hardhat compile",
     "test": "hardhat test && node --test scripts/admin-api.test.cjs scripts/admin-bootstrap.test.cjs scripts/assistant-demo.test.cjs scripts/assistant-ollama.test.cjs scripts/staking-api.test.cjs",
     "deploy:bsc-testnet": "hardhat run scripts/deploy-token.cjs --network bscTestnet",
-    "deploy:staking:bsc-testnet": "hardhat run scripts/deploy-staking.cjs --network bscTestnet"
+    "deploy:staking:bsc-testnet": "hardhat run scripts/deploy-staking.cjs --network bscTestnet",
+    "deploy:staking-v2:bsc-testnet": "hardhat run scripts/deploy-staking-v2.cjs --network bscTestnet"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.2.0",

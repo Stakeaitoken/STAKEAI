@@ -26,6 +26,10 @@ const port = Number(process.env.PORT || 3000);
 const databasePath = path.resolve(root, process.env.DATABASE_PATH || './data/stakeai.sqlite');
 const stakeaiTokenAddress = process.env.STAKEAI_TOKEN_ADDRESS?.trim() || '';
 const stakingContractAddress = process.env.STAKING_CONTRACT_ADDRESS?.trim() || '';
+const stakingContractVersion = process.env.STAKING_CONTRACT_VERSION?.trim() || '1';
+if (!['1', '2'].includes(stakingContractVersion)) {
+    throw new Error('STAKING_CONTRACT_VERSION must be 1 or 2.');
+}
 if ((stakeaiTokenAddress && !isAddress(stakeaiTokenAddress))
     || (stakingContractAddress && !isAddress(stakingContractAddress))) {
     throw new Error('STAKEAI_TOKEN_ADDRESS and STAKING_CONTRACT_ADDRESS must be valid EVM addresses.');
@@ -1568,6 +1572,7 @@ app.get('/api/staking/config', (_request, response) => {
     response.set('Cache-Control', 'no-store').json({
         enabled,
         chainId: 97,
+        contractVersion: Number(stakingContractVersion),
         tokenAddress: enabled ? stakeaiTokenAddress : null,
         stakingAddress: enabled ? stakingContractAddress : null
     });
@@ -1588,6 +1593,9 @@ function getBscTestnetProvider() {
 }
 
 app.get('/api/admin/staking-reward-payouts', requireAdmin, (request, response) => {
+    if (stakingContractVersion !== '1') {
+        return sendError(response, 409, 'legacy_staking_rewards_disabled');
+    }
     const payouts = db.prepare(`
         SELECT id, admin_wallet AS adminWallet, recipient_wallet AS recipientWallet,
             recipient_email AS recipientEmail, position_id AS positionId,
@@ -1602,6 +1610,9 @@ app.get('/api/admin/staking-reward-payouts', requireAdmin, (request, response) =
 });
 
 app.post('/api/admin/staking-reward-payouts/prepare', requireSameOrigin, requireAdmin, async (request, response) => {
+    if (stakingContractVersion !== '1') {
+        return sendError(response, 409, 'legacy_staking_rewards_disabled');
+    }
     if (!stakeaiTokenAddress || !stakingContractAddress) {
         return sendError(response, 503, 'staking_not_configured');
     }
@@ -1682,6 +1693,9 @@ app.post('/api/admin/staking-reward-payouts/prepare', requireSameOrigin, require
 });
 
 app.post('/api/admin/staking-reward-payouts/:payoutId/confirm', requireSameOrigin, requireAdmin, async (request, response) => {
+    if (stakingContractVersion !== '1') {
+        return sendError(response, 409, 'legacy_staking_rewards_disabled');
+    }
     const payoutId = request.params.payoutId;
     if (typeof payoutId !== 'string' || !/^[a-f0-9]{32}$/.test(payoutId)) {
         return sendError(response, 400, 'invalid_staking_reward_payout');

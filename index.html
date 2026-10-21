@@ -310,13 +310,14 @@
                 </div>
                 <button id="closeStakingDialog" type="button" data-i18n-aria="close" aria-label="Kapat" class="text-xl leading-none text-gray-400 hover:text-white">×</button>
             </div>
-            <p class="mt-4 rounded-lg border border-amber-400/20 bg-amber-400/5 p-3 text-sm text-amber-100" data-i18n="stakingDisclaimer">Yalnızca BSC testnet. Ana para süre boyunca kontratta kilitlenir; vade sonunda kullanıcı ana parasını çeker. Ödüller admin panelinden manuel gönderilir.</p>
+            <p class="mt-4 rounded-lg border border-amber-400/20 bg-amber-400/5 p-3 text-sm text-amber-100" data-i18n="stakingDisclaimer">Yalnızca BSC testnet. Ana para vade sonuna kadar kilitli kalır; ödül işleyişi sözleşme sürümüne bağlıdır.</p>
             <p id="stakingConfigNotice" role="status" class="mt-4 rounded-xl border border-gray-800 bg-gray-950/70 p-4 text-sm text-gray-300" data-i18n="stakingNotConfigured">Testnet kontrat adresleri henüz yapılandırılmadı.</p>
             <div id="stakingControls" class="mt-5 space-y-4" hidden>
                 <div class="flex flex-wrap items-center justify-between gap-3">
                     <p id="stakingWalletAddress" class="break-all text-sm text-gray-400" data-i18n="stakingConnectPrompt">Stake etmek için cüzdanınızı bağlayın.</p>
                     <button id="connectStakingWallet" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-gray-500" data-i18n="stakingConnect">Cüzdanı bağla</button>
                 </div>
+                <p id="stakingRewardPoolBalance" class="text-sm text-gray-400"></p>
                 <label for="stakingAmount" class="block text-sm font-semibold text-gray-300" data-i18n="stakingAmountLabel">Stake edilecek STKAI miktarı</label>
                 <input id="stakingAmount" type="text" inputmode="decimal" maxlength="40" autocomplete="off" placeholder="0.0" class="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-3 text-white focus:border-emerald-400 focus:outline-none">
                 <p id="stakingPreview" class="text-sm text-gray-400"></p>

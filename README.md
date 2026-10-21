@@ -41,17 +41,19 @@ The task center includes a Telegram group join, an X account follow plus post re
 
 ## BSC testnet staking
 
-The package cards submit STAKEAI staking transactions directly from the connected wallet. The testnet-only contract has three fixed offers: 5% after 7 days, 25% after 30 days, and 200% after 180 days. The contract locks only the principal and stores the expected reward for the position. After maturity, the user can withdraw principal from the contract. An administrator separately sends the reward from an administrator-controlled wallet through the admin panel; rewards are not reserved or automatically paid by the staking contract. The 200% offer is additional to principal (3x total value if the reward is sent).
+The package cards submit STAKEAI staking transactions directly from the connected wallet. The testnet-only contracts have three fixed offers: 5% after 7 days, 25% after 30 days, and 200% after 180 days. V1 locks the principal and stores the expected reward; after maturity the user withdraws principal and an administrator sends the reward separately. V2 reserves each reward from a contract-owned reward pool at stake time. At maturity, the user withdraws principal and reward together. A stake is rejected if the unallocated pool cannot cover its full reward. The owner can fund the pool and withdraw only unallocated rewards; rewards reserved for positions cannot be withdrawn. The 200% offer is additional to principal (3x total value).
 
-The site exposes user staking and admin rewards only when both `STAKEAI_TOKEN_ADDRESS` and `STAKING_CONTRACT_ADDRESS` are configured. The browser wallet must be on BSC testnet (chain ID 97). The admin panel reads the specified recipient wallet's on-chain position, permits rewards only after maturity, reserves one payout per position for 15 minutes, and verifies the completed token transfer and exact amount against BSC testnet before recording the payout. The page uses the packaged ethers v6 browser build served locally by the application. The platform never receives or stores wallet private keys.
+The site exposes staking only when both `STAKEAI_TOKEN_ADDRESS` and `STAKING_CONTRACT_ADDRESS` are configured. `STAKING_CONTRACT_VERSION` defaults to `1`; set it to `2` when using a newly deployed V2 contract. The browser wallet must be on BSC testnet (chain ID 97). The V2 admin panel lets the contract owner fund or withdraw unallocated rewards directly from a connected wallet. V1 keeps its existing verified manual payout flow. The platform never receives or stores wallet private keys.
 
-For a testnet deployment:
+For a V2 testnet deployment:
 
 1. Set `DEPLOYER_PRIVATE_KEY` to a dedicated test wallet with testnet BNB for gas. Never use a mainnet key.
 2. Run `npm run deploy:bsc-testnet`, then put the printed token address in `STAKEAI_TOKEN_ADDRESS`.
-3. Run `npm run deploy:staking:bsc-testnet` and put the printed contract address in `STAKING_CONTRACT_ADDRESS`.
-4. Restart the server and use separate testnet wallets for staking and admin payouts. Fund them with test BNB for gas; transfer test STAKEAI to stakers and keep enough in the admin payout wallet for rewards.
-5. Add BSC testnet (chain 97) to each wallet. For a manual reward, an admin connects the payout wallet, enters the staker's wallet and mature position ID, verifies the exact reward, sends it from the wallet, and waits for the server to confirm the testnet transaction.
+3. Run `npm run deploy:staking-v2:bsc-testnet`, put the printed contract address in `STAKING_CONTRACT_ADDRESS`, and set `STAKING_CONTRACT_VERSION=2`.
+4. Restart the server, connect the contract owner's wallet in the admin panel, and fund the reward pool. The owner must approve STAKEAI before funding. Use test wallets only and fund them with test BNB for gas.
+5. Add BSC testnet (chain 97) to each wallet and transfer test STAKEAI to users for staking.
+
+V1 and V2 are separate, non-upgradeable contracts, and the app displays one configured staking contract at a time. Positions are not migrated between versions. Before switching to V2, allow existing V1 users to withdraw their principal and receive their manual rewards; otherwise, temporarily restore the V1 address and `STAKING_CONTRACT_VERSION=1` to operate the legacy flow. Switching back to V1 also hides V2 positions until the V2 address/version is restored.
 
 These contracts and rates are a testnet prototype, not audited or approved for mainnet or public financial use. Do not deploy to mainnet or solicit real funds. Production use requires independent contract and application security reviews, legal/compliance review, documented tokenomics and reward funding, monitoring, and a separate mainnet deployment process. The BSC/Bitcoin/Ethereum/TRON payment destinations are configured in `app.js`; update and verify them before deployment. The 1 STAKEAI = 1 USDT statement is a planned target only until reserves, redemption terms, and legal/operational controls actually exist.
 
@@ -60,7 +62,8 @@ These contracts and rates are a testnet prototype, not audited or approved for m
 - `npm test` compiles the contract and runs its tests.
 - `npm run compile` compiles without running tests.
 - `npm run deploy:bsc-testnet` deploys the token only to BSC testnet.
-- `npm run deploy:staking:bsc-testnet` deploys the staking contract.
+- `npm run deploy:staking:bsc-testnet` deploys the legacy V1 staking contract.
+- `npm run deploy:staking-v2:bsc-testnet` deploys the pre-funded auto-reward V2 staking contract.
 
 The token is named `STAKEAI`, uses the `STKAI` ticker, and mints 21,000,000 tokens once to the deployer with no mint function. The market simulator displays STKAI at a fixed 1 USDT application reference price; this is not an exchange quote, a backed peg, or a redemption guarantee. Deployment scripts refuse any chain other than BSC testnet. Referral rates remain proposals; the fee-recording endpoint is internal and requires a separately configured `INTERNAL_SERVICE_API_KEY`.
 
