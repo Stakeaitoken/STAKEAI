@@ -144,7 +144,8 @@ const copy = {
         rewardPoolTransferMismatch: 'The confirmed transaction does not match the exact recipient and reward amount.',
         rewardRpcUnavailable: 'Could not verify the BNB testnet transaction. Try again shortly.',
         rewardStatusUnknown: 'The wallet transfer may have been submitted, but the server could not verify it. Do not send again until checking the transaction hash.',
-        signOut: 'Log out first, then sign in with an administrator account.',
+        signOut: 'This account is not an administrator. Log out, then sign in with the administrator account.',
+        notSignedIn: 'You are not signed in. Sign in with the administrator account.',
     },
     tr: {
         backToSite: 'Siteye dön',
@@ -291,7 +292,8 @@ const copy = {
         rewardPoolTransferMismatch: 'Onaylanan işlem, beklenen alıcı ve ödül tutarıyla eşleşmiyor.',
         rewardRpcUnavailable: 'BNB testnet işlemi doğrulanamadı. Biraz sonra tekrar deneyin.',
         rewardStatusUnknown: 'Cüzdan transferi gönderilmiş olabilir ancak sunucu doğrulayamadı. İşlem hashini kontrol etmeden tekrar göndermeyin.',
-        signOut: 'Önce oturumu kapatın, ardından yönetici hesabıyla giriş yapın.',
+        signOut: 'Bu hesap yönetici değil. Oturumu kapatıp yönetici hesabıyla giriş yapın.',
+        notSignedIn: 'Giriş yapmadınız. Yönetici hesabıyla giriş yapın.',
     }
 };
 
@@ -1052,7 +1054,7 @@ async function initialize() {
     } catch (error) {
         console.error('Could not initialize administrator panel.', error);
         status.textContent = text(error.status === 401 || error.status === 403 ? 'denied' : 'sessionFailed');
-        document.getElementById('adminIdentity').textContent = text('signOut');
+        document.getElementById('adminIdentity').textContent = text(error.status === 403 ? 'signOut' : 'notSignedIn');
         document.getElementById('adminLoginLink').hidden = false;
         document.getElementById('searchForm').hidden = true;
         document.getElementById('refreshUsers').hidden = true;
