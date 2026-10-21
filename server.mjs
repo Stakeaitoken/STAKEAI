@@ -3067,7 +3067,7 @@ app.get('/vendor/ethers.umd.min.js', (_request, response, next) => {
     });
 });
 
-const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email|check-email)\.html|(?:app|admin|admin-setup|referrals|verify-email|check-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg|og-image\.png)?$/;
+const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email|check-email|staking-rehberi)\.html|(?:app|admin|admin-setup|referrals|verify-email|check-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg|og-image\.png)?$/;
 const noindexPattern = /^\/(?:admin|admin-setup|referrals|verify-email|check-email)\.html$/;
 
 app.get('/robots.txt', (_request, response) => {
@@ -3090,6 +3090,7 @@ app.get('/sitemap.xml', (_request, response) => {
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + `  <url><loc>${publicOrigin}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>\n`
+        + `  <url><loc>${publicOrigin}/staking-rehberi.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`
         + '</urlset>\n'
     );
 });
