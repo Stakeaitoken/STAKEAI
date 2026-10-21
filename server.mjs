@@ -78,8 +78,12 @@ if (publicOriginUrl.username || publicOriginUrl.password || publicOriginUrl.path
     throw new Error('PUBLIC_ORIGIN must be an origin URL without credentials, path, query, or fragment.');
 }
 const publicOrigin = publicOriginUrl.origin;
+const defaultTaskUrls = {
+    TASK_TELEGRAM_URL: 'https://t.me/stakeaiio',
+    TASK_FACEBOOK_URL: 'https://www.facebook.com/profile.php?id=61595915840204'
+};
 const readTaskUrl = (key) => {
-    const value = process.env[key]?.trim() || '';
+    const value = process.env[key]?.trim() || defaultTaskUrls[key] || '';
     if (!value) return '';
     let url;
     try {
