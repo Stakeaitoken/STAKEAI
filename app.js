@@ -2131,11 +2131,6 @@ function saveLanguage(language) {
 }
 
 function detectLanguage() {
-    const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
-    for (const browserLanguage of browserLanguages) {
-        const language = browserLanguage.toLowerCase().split('-')[0];
-        if (Object.hasOwn(translations, language)) return language;
-    }
     return 'en';
 }
 
