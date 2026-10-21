@@ -80,6 +80,7 @@ if (publicOriginUrl.username || publicOriginUrl.password || publicOriginUrl.path
 const publicOrigin = publicOriginUrl.origin;
 const defaultTaskUrls = {
     TASK_TELEGRAM_URL: 'https://t.me/stakeaiio',
+    TASK_X_PROFILE_URL: 'https://x.com/stakeeai',
     TASK_FACEBOOK_URL: 'https://www.facebook.com/profile.php?id=61595915840204'
 };
 const readTaskUrl = (key) => {
