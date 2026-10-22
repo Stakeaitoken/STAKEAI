@@ -3083,7 +3083,7 @@ app.get('/vendor/ethers.umd.min.js', (_request, response, next) => {
     });
 });
 
-const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email|check-email|staking-rehberi)\.html|(?:app|admin|admin-setup|referrals|verify-email|check-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg|og-image\.png)?$/;
+const publicFilePattern = /^\/(?:(?:index|admin|admin-setup|referrals|verify-email|check-email|staking-rehberi|staking-guide)\.html|(?:app|admin|admin-setup|referrals|verify-email|check-email|tailwind\.config)\.js|theme\.css|stakeai-logo\.svg|og-image\.png)?$/;
 const noindexPattern = /^\/(?:admin|admin-setup|referrals|verify-email|check-email)\.html$/;
 
 app.get('/robots.txt', (_request, response) => {
@@ -3104,9 +3104,10 @@ app.get('/robots.txt', (_request, response) => {
 app.get('/sitemap.xml', (_request, response) => {
     response.type('application/xml').send(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
         + `  <url><loc>${publicOrigin}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>\n`
-        + `  <url><loc>${publicOrigin}/staking-rehberi.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`
+        + `  <url><loc>${publicOrigin}/staking-rehberi.html</loc><xhtml:link rel="alternate" hreflang="tr" href="${publicOrigin}/staking-rehberi.html"/><xhtml:link rel="alternate" hreflang="en" href="${publicOrigin}/staking-guide.html"/><xhtml:link rel="alternate" hreflang="x-default" href="${publicOrigin}/staking-guide.html"/></url>\n`
+        + `  <url><loc>${publicOrigin}/staking-guide.html</loc><xhtml:link rel="alternate" hreflang="tr" href="${publicOrigin}/staking-rehberi.html"/><xhtml:link rel="alternate" hreflang="en" href="${publicOrigin}/staking-guide.html"/><xhtml:link rel="alternate" hreflang="x-default" href="${publicOrigin}/staking-guide.html"/></url>\n`
         + '</urlset>\n'
     );
 });

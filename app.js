@@ -264,6 +264,7 @@ const translations = {
         closePayment: 'Close',
         totalSupplyLabel: 'Planned Total Supply',
         copyright: '© 2026 STAKEAI. All rights reserved.',
+        footerGuideLink: 'Crypto staking guide',
         faqTitle: 'Frequently asked questions',
         faqStakeaiQuestion: 'What is STAKEAI?',
         faqStakeaiAnswer: 'STAKEAI is an AI-powered crypto staking platform. It offers staking packages, strategy bots, a referral program and a task center in one place.',
@@ -271,6 +272,7 @@ const translations = {
         faqStakingAnswerStart: 'Staking means locking crypto assets in a smart contract for a fixed period. When the term ends, the position can be withdrawn under the contract terms. See our',
         faqGuideLink: 'staking guide',
         faqStakingAnswerEnd: 'for details.',
+        faqGuideHref: '/staking-guide.html',
         faqReturnsQuestion: 'Is any return guaranteed?',
         faqReturnsAnswer: 'No. Crypto assets involve risk and no return is guaranteed. The calculator on the site is for illustration only.',
         faqAccountQuestion: 'How do I create an account?',
@@ -540,6 +542,7 @@ const translations = {
         closePayment: 'Kapat',
         totalSupplyLabel: 'Planlanan toplam arz',
         copyright: '© 2026 STAKEAI. Tüm hakları saklıdır.',
+        footerGuideLink: 'Kripto staking rehberi',
         faqTitle: 'Sıkça sorulan sorular',
         faqStakeaiQuestion: 'STAKEAI nedir?',
         faqStakeaiAnswer: 'STAKEAI, yapay zekâ destekli bir kripto staking platformudur. Staking paketleri, strateji botları, referans programı ve görev merkezini tek bir yerde sunar.',
@@ -547,6 +550,7 @@ const translations = {
         faqStakingAnswerStart: 'Staking, kripto varlıkları belirli bir süre boyunca akıllı sözleşmede kilitlemektir. Süre sona erdiğinde pozisyon, sözleşme koşullarına göre çekilebilir. Ayrıntılar için',
         faqGuideLink: 'staking rehberimizi',
         faqStakingAnswerEnd: 'inceleyin.',
+        faqGuideHref: '/staking-rehberi.html',
         faqReturnsQuestion: 'Herhangi bir getiri garanti edilir mi?',
         faqReturnsAnswer: 'Hayır. Kripto varlıklar risk içerir ve hiçbir getiri garanti edilmez. Sitedeki hesaplayıcı yalnızca örnek amaçlıdır.',
         faqAccountQuestion: 'Nasıl hesap oluşturabilirim?',
@@ -2167,6 +2171,9 @@ function setLanguage(language) {
     document.querySelector('meta[name="description"]').content = copy.description;
     document.querySelectorAll('[data-i18n]').forEach((element) => {
         element.textContent = translated(element.dataset.i18n);
+    });
+    document.querySelectorAll('[data-i18n-href]').forEach((element) => {
+        element.setAttribute('href', translated(element.dataset.i18nHref));
     });
     document.querySelectorAll('[data-i18n-aria]').forEach((element) => {
         element.setAttribute('aria-label', translated(element.dataset.i18nAria));
