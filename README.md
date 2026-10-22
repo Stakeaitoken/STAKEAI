@@ -15,6 +15,12 @@ Requirements: Node.js 22.13 or later.
 5. Start the site and API with `npm start`, then open `http://localhost:3000`.
 6. Register an account, follow the emailed verification link, and log in. Email verification is required; registration remains unavailable until SMTP is configured.
 
+## Railway deployment
+
+Railway uses `railway.json` to start the app and check `/health`; the health endpoint verifies that the SQLite database is accessible. Connect the repository's `main` branch to a Railway service and set `NODE_ENV=production`, `PUBLIC_ORIGIN` to the service's HTTPS origin, a unique `SESSION_SECRET` of at least 32 characters, `ADMIN_EMAILS`, and `SMTP_FROM`. Configure either `BREVO_API_KEY` or SMTP credentials (`SMTP_HOST`, `SMTP_USER`, and `SMTP_PASSWORD`) so email verification works. Keep all secrets in Railway variables, not in this repository.
+
+Attach a Railway Volume to the service at `/data` and set `DATABASE_PATH=/data/stakeai.sqlite` before serving users; the default SQLite file is not persistent across Railway deploys. Back up the volume regularly. Configure token/staking contract addresses only for the BSC testnet deployment, and use `STAKING_CONTRACT_VERSION` that matches the deployed contract. This repository is a testnet prototype and is not approved for mainnet or real-fund use.
+
 ## Admin user management
 
 After logging in, users can open `/referrals.html` from the account dashboard to see their referral code, shareable link, direct referral count, and referred users' masked email addresses. Referral data requires an authenticated session.

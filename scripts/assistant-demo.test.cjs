@@ -87,8 +87,8 @@ test('local assistant test mode replies for all three assistants without calling
     };
 
     const identityReply = await ask('companion', 'Sen nasıl oluştun?');
-    assert.match(identityReply, /yerel bilgi kütüphanesi/);
-    assert.match(identityReply, /yerel bilgi kütüphanesi/);
+    assert.match(identityReply, /yerel bilgi kütüphanesinden/);
+    assert.match(identityReply, /OpenAI kullanarak yeni yanıt üretmiyorum/);
 
     const codeReply = await ask('code', 'Bu kodumdaki hatayı bulur musun?');
     assert.match(codeReply, /kodunuzu inceleyip çalıştıramaz/);

@@ -374,8 +374,8 @@ test('admin API restricts access and audits account status changes', async (cont
         },
         body: JSON.stringify({ firstName: 'Member', lastName: 'Example' })
     });
-    assert.equal(profileUpdate.status, 200);
-    assert.deepEqual(await profileUpdate.json(), { firstName: 'Member', lastName: 'Example' });
+    assert.equal(profileUpdate.status, 403);
+    assert.deepEqual(await profileUpdate.json(), { error: 'profile_locked' });
     const invalidProfileUpdate = await fetch(`${origin}/api/account/profile`, {
         method: 'POST',
         headers: {
@@ -385,7 +385,8 @@ test('admin API restricts access and audits account status changes', async (cont
         },
         body: JSON.stringify({ firstName: '', lastName: 'Example' })
     });
-    assert.equal(invalidProfileUpdate.status, 400);
+    assert.equal(invalidProfileUpdate.status, 403);
+    assert.deepEqual(await invalidProfileUpdate.json(), { error: 'profile_locked' });
     const unavailableEmailChange = await fetch(`${origin}/api/account/change-email`, {
         method: 'POST',
         headers: {
@@ -398,7 +399,8 @@ test('admin API restricts access and audits account status changes', async (cont
             currentPassword: memberPassword
         })
     });
-    assert.equal(unavailableEmailChange.status, 503);
+    assert.equal(unavailableEmailChange.status, 403);
+    assert.deepEqual(await unavailableEmailChange.json(), { error: 'profile_locked' });
     const storedTrc20Address = `T${'1'.repeat(33)}`;
     const profileDb = new DatabaseSync(databasePath);
     profileDb.prepare('UPDATE users SET trc20_address = ? WHERE id = ?')
@@ -440,8 +442,8 @@ test('admin API restricts access and audits account status changes', async (cont
     });
     assert.deepEqual(await updatedSummary.json(), {
         email: 'member@example.test',
-        firstName: 'Member',
-        lastName: 'Example',
+        firstName: '',
+        lastName: '',
         trc20Address: storedTrc20Address,
         usdtBalance: balances.usdtBalance,
         stakeaiBalance: balances.stakeaiBalance,

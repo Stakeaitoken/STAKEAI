@@ -430,6 +430,11 @@ app.use(helmet({
 }));
 app.use(express.json({ limit: '16kb', strict: true }));
 
+app.get('/health', (_request, response) => {
+    db.prepare('SELECT 1').get();
+    response.json({ status: 'ok' });
+});
+
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 10,
@@ -945,13 +950,17 @@ const buildAssistantInstructions = (assistantKey, assistant) => [
     assistantKnowledgeBase.context[assistantKey]
 ].join('\n\n');
 
-const isTurkishAssistantMessage = (question) => /[ÄŸÃ¼ÅŸÃ¶Ã§Ä±Ä°]/i.test(question)
+const normalizeAssistantText = (question) => question.toLowerCase().normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ı/g, 'i');
+
+const isTurkishAssistantMessage = (question) => /[çğıöşü]/i.test(question)
     || /(?:\b(?:bu|nasilsin|nasilsiniz|nasil|nedir|kim|sen|merhaba|selam|tesekkur|site|bot|botlar|asistan|asistanlar|yapar|kod|kripto|risk|strateji|ucret|ucretsiz)\b)/i.test(
-        question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/Ä±/g, 'i')
+        normalizeAssistantText(question)
     );
 
 const findAssistantKnowledgeReply = (assistantKey, question) => {
-    const normalized = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/Ä±/g, 'i');
+    const normalized = normalizeAssistantText(question);
     const entry = assistantKnowledgeBase.entries.find((item) => (
         (!item.assistants || item.assistants.includes(assistantKey))
         && item.patterns.some((pattern) => new RegExp(pattern, 'i').test(normalized))

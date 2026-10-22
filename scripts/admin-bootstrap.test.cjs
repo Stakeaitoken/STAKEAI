@@ -97,6 +97,8 @@ test('local admin bootstrap creates a verified, authenticated one-time admin acc
     assert.deepEqual(await sessionResponse.json(), {
         authenticated: true,
         email: 'bootstrap@example.test',
+        username: 'Admin',
+        avatar: '',
         isAdmin: true
     });
 

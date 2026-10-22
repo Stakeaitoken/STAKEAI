@@ -74,6 +74,10 @@ test('staking config is exposed without secrets and the browser ethers bundle is
     }
     assert.ok(configResponse, 'server did not start');
     assert.equal(configResponse.status, 200);
+    const healthResponse = await fetch(`${baseUrl}/health`);
+    assert.equal(healthResponse.status, 200);
+    assert.deepEqual(await healthResponse.json(), { status: 'ok' });
+
     assert.deepEqual(await configResponse.json(), {
         enabled: true,
         chainId: 97,
