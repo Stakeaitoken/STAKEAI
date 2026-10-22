@@ -741,6 +741,74 @@ body > footer {
     background: #090c0f !important;
 }
 
+body > footer .footer-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+body > footer .footer-social-link {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 1rem 0.45rem 0.55rem;
+    border: 1px solid rgb(162 170 179 / 0.16);
+    border-radius: 999px;
+    background: linear-gradient(145deg, rgb(255 255 255 / 0.055), rgb(255 255 255 / 0.018));
+    color: #e4e8ec;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-decoration: none;
+    transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+body > footer .footer-social-link:hover {
+    border-color: color-mix(in srgb, var(--social-color) 52%, transparent);
+    background: color-mix(in srgb, var(--social-color) 10%, #11161b);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--social-color) 13%, transparent);
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+body > footer .footer-social-icon {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--social-color);
+    color: #fff;
+}
+
+body > footer .footer-social-icon svg {
+    display: block;
+    width: 1.15rem;
+    height: 1.15rem;
+    fill: currentColor;
+}
+
+body > footer [data-social="facebook"] {
+    --social-color: #1877f2;
+}
+
+body > footer [data-social="x"] {
+    --social-color: #f5f5f5;
+    color: #f5f5f5;
+}
+
+body > footer [data-social="x"] .footer-social-icon {
+    background: #f5f5f5;
+    color: #090c0f;
+}
+
+body > footer [data-social="telegram"] {
+    --social-color: #229ed9;
+}
+
 body > footer a:hover {
     color: var(--accent-strong) !important;
 }
