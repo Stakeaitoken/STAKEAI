@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="tr" class="dark">
-<head>
+<html lang="en" class="dark" dir="ltr"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STAKEAI — GPU kiralama ve kripto madenciliği</title>
-    <meta name="description" content="STAKEAI kripto üretim tesisi ve GPU kiralama hizmeti. Madencilik süreci, paket koşulları ve kullanıcı payı hakkında şeffaf bilgi alın.">
+    <title>STAKEAI — AI-powered crypto staking platform</title>
+    <meta name="description" content="STAKEAI is an AI-powered crypto staking platform. Transparent staking packages, strategy bots, a referral program and a task center in one place.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="theme-color" content="#0b0e11">
     <link rel="canonical" href="https://www.stakeai.io/">
@@ -12,171 +10,887 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="STAKEAI">
     <meta property="og:url" content="https://www.stakeai.io/">
-    <meta property="og:title" content="STAKEAI — GPU kiralama ve kripto madenciliği">
-    <meta property="og:description" content="Kripto üretim tesisi, GPU kapasitesi ve madencilik hizmeti hakkında bilgi alın.">
+    <meta property="og:title" content="STAKEAI — AI-powered crypto staking">
+    <meta property="og:description" content="AI-powered crypto staking, simple and transparent. Staking packages, strategy bots and referrals in one place.">
     <meta property="og:image" content="https://www.stakeai.io/og-image.png">
+    <meta property="og:image:width" content="1500">
+    <meta property="og:image:height" content="500">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="STAKEAI — GPU kiralama ve kripto madenciliği">
-    <meta name="twitter:description" content="Kripto üretim tesisi ve GPU kiralama hizmeti hakkında bilgi alın.">
+    <meta name="twitter:title" content="STAKEAI — AI-powered crypto staking">
+    <meta name="twitter:description" content="AI-powered crypto staking, simple and transparent.">
     <meta name="twitter:image" content="https://www.stakeai.io/og-image.png">
-    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.stakeai.io/#org","name":"STAKEAI","url":"https://www.stakeai.io/","logo":"https://www.stakeai.io/stakeai-logo.svg","sameAs":["https://www.facebook.com/profile.php?id=61595915840204","https://t.me/stakeaiio","https://x.com/stakeeai"]},{"@type":"WebSite","@id":"https://www.stakeai.io/#website","url":"https://www.stakeai.io/","name":"STAKEAI","description":"Kripto üretim tesisi ve GPU kiralama hizmeti.","inLanguage":"tr","publisher":{"@id":"https://www.stakeai.io/#org"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"STAKEAI hizmeti nasıl çalışır?","acceptedAnswer":{"@type":"Answer","text":"Kullanıcılar GPU kapasitesi için bir kiralama paketi seçer. Tesis bu kapasiteyi kripto madenciliğinde kullanır; havuz, ücretler, çalışma süresi ve kullanıcı payı paket koşullarında açıklanır."}},{"@type":"Question","name":"Kazanç garanti midir?","acceptedAnswer":{"@type":"Answer","text":"Hayır. Kripto madenciliğinde kazanç garanti edilmez. Ağ zorluğu, varlık fiyatı, elektrik ve işletme giderleri ile cihaz çalışma süresi sonucu etkiler."}},{"@type":"Question","name":"Paket koşullarını nerede görebilirim?","acceptedAnswer":{"@type":"Answer","text":"Bir paket satın almadan önce GPU modeli ve kapasitesi, süre, ücretler, hesaplama yöntemi ve ödeme koşulları açıkça yayımlanmalıdır. Açıklanmayan koşulları satın almadan önce STAKEAI ile teyit edin."}}]}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.stakeai.io/#org","name":"STAKEAI","url":"https://www.stakeai.io/","logo":"https://www.stakeai.io/stakeai-logo.svg","sameAs":["https://www.facebook.com/profile.php?id=61595915840204","https://t.me/stakeaiio","https://x.com/stakeeai"]},{"@type":"WebSite","@id":"https://www.stakeai.io/#website","url":"https://www.stakeai.io/","name":"STAKEAI","description":"AI-powered crypto staking platform","inLanguage":["tr","en"],"publisher":{"@id":"https://www.stakeai.io/#org"}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is STAKEAI?","acceptedAnswer":{"@type":"Answer","text":"STAKEAI is an AI-powered crypto staking platform. It offers staking packages, strategy bots, a referral program and a task center in one place."}},{"@type":"Question","name":"What is crypto staking?","acceptedAnswer":{"@type":"Answer","text":"Staking means locking crypto assets in a smart contract for a fixed period. When the term ends, the position can be withdrawn under the contract terms."}},{"@type":"Question","name":"Is any return guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. Crypto assets involve risk and no return is guaranteed."}},{"@type":"Question","name":"How do I create an account?","acceptedAnswer":{"@type":"Answer","text":"Sign up, click the verification link sent to your email, and log in."}}]}</script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="theme.css?v=20261023a">
+    <link rel="stylesheet" href="theme.css?v=20261022a">
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased min-h-screen flex flex-col">
-    <header class="sticky top-0 z-50 border-b border-gray-800 bg-cardbg/90 backdrop-blur">
-        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4">
-            <a href="/" aria-label="STAKEAI" class="flex shrink-0 items-center gap-3">
-                <img src="stakeai-logo.svg" alt="" class="h-10 w-10">
-                <span class="font-bold tracking-wide text-white">STAKE<span class="text-emerald-300">AI</span></span>
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-gray-800 bg-cardbg/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+            <a id="homeLink" href="/" aria-label="STAKEAI" class="flex shrink-0 items-center space-x-2 sm:space-x-3">
+                <img src="stakeai-logo.svg" alt="STAKEAI logo" class="w-9 h-9 sm:w-11 sm:h-11">
+                <span class="hidden min-[480px]:inline font-bold text-lg sm:text-xl tracking-wide text-white">
+                    STAKE<span class="text-emerald-300">AI</span>
+                </span>
             </a>
-            <nav class="hidden items-center gap-6 text-sm text-gray-300 md:flex" aria-label="Main navigation">
-                <a href="#service" data-copy="navService" class="hover:text-emerald-300">Hizmet</a>
-                <a href="#process" data-copy="navProcess" class="hover:text-emerald-300">Nasıl çalışır?</a>
-                <a href="#packages" data-copy="navPackages" class="hover:text-emerald-300">Paketler</a>
-                <a href="#transparency" data-copy="navTransparency" class="hover:text-emerald-300">Şeffaflık</a>
-                <a href="#contact" data-copy="navContact" class="hover:text-emerald-300">İletişim</a>
+            <nav class="hidden lg:flex whitespace-nowrap gap-4 xl:gap-7 text-[13px] xl:text-sm font-medium text-gray-300">
+                <a href="#bots" data-i18n="navPackages" class="hover:text-emerald-300 transition">AI Bots</a>
+                <a href="#paperTrading" data-i18n="navSimulation" class="hover:text-emerald-300 transition">Buy / Sell</a>
+                <a href="#packages" data-i18n="navStakePackages" class="hover:text-emerald-300 transition">Packages</a>
+                <a href="#tasks" data-i18n="navTasks" class="hover:text-emerald-300 transition">Task Center</a>
+                <a href="#referrals" data-i18n="navReferrals" class="hover:text-emerald-300 transition">Referrals</a>
+                <a href="#roadmap" data-i18n="navRoadmap" class="hover:text-emerald-300 transition">Roadmap</a>
+                <a href="#calculator" data-i18n="navCalculator" class="hover:text-emerald-300 transition">Calculator</a>
             </nav>
-            <div class="flex items-center gap-2" aria-label="Language">
-                <button type="button" data-language="tr" aria-pressed="true" class="rounded-md border border-gray-700 px-2 py-1 text-xs font-semibold text-white">TR</button>
-                <button type="button" data-language="en" aria-pressed="false" class="rounded-md border border-gray-700 px-2 py-1 text-xs font-semibold text-gray-400">EN</button>
+            <label class="sr-only" for="languageSelect">Dil</label>
+            <select id="languageSelect" aria-label="Dil" class="w-20 sm:w-auto min-w-0 bg-gray-900 border border-gray-700 text-gray-200 text-xs sm:text-sm rounded-lg px-1 sm:px-2 py-2 focus:outline-none focus:border-emerald-400">
+                <option value="en">English</option>
+                <option value="tr">Türkçe</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="pt">Português</option>
+                <option value="it">Italiano</option>
+                <option value="ru">Русский</option>
+                <option value="ar">العربية</option>
+                <option value="zh">中文</option>
+                <option value="ja">日本語</option>
+            </select>
+            <div id="authActions" class="flex items-center gap-2" hidden="">
+                <button type="button" data-auth-mode="login" data-i18n="login" class="whitespace-nowrap border border-gray-700 hover:border-emerald-400 text-gray-200 px-2 sm:px-3 py-2 rounded-lg font-semibold text-xs sm:text-sm transition">Log in</button>
+                <button type="button" data-auth-mode="signup" data-i18n="signup" class="whitespace-nowrap bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-gray-950 px-2 sm:px-3 py-2 rounded-lg font-semibold text-xs sm:text-sm transition">Sign up</button>
+            </div>
+            <div id="accountMenu" class="flex min-w-0 items-center gap-1 sm:gap-2" hidden>
+                <button id="accountMenuButton" type="button" aria-expanded="false" aria-controls="profilePanel" class="flex min-w-0 max-w-[7rem] items-center gap-2 rounded-lg border border-gray-700 px-2 py-2 text-xs font-semibold text-gray-100 hover:border-emerald-400 sm:max-w-[12rem] sm:px-3 sm:text-sm">
+                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-xs font-bold text-gray-950" id="accountAvatar" aria-hidden="true">?</span>
+                    <span id="accountMenuName" class="truncate"></span>
+                </button>
+                <button id="logoutDemo" type="button" data-i18n="logout" class="whitespace-nowrap rounded-lg border border-gray-700 px-2 py-2 text-xs font-semibold text-gray-200 hover:border-emerald-400 sm:px-3 sm:text-sm">Log out</button>
             </div>
         </div>
-        <nav class="flex gap-5 overflow-x-auto whitespace-nowrap border-t border-gray-800 px-4 py-2 text-sm text-gray-300 md:hidden" aria-label="Mobile navigation">
-            <a href="#service" data-copy="navService">Hizmet</a>
-            <a href="#process" data-copy="navProcess">Nasıl çalışır?</a>
-            <a href="#packages" data-copy="navPackages">Paketler</a>
-            <a href="#transparency" data-copy="navTransparency">Şeffaflık</a>
-            <a href="#contact" data-copy="navContact">İletişim</a>
+        <nav class="lg:hidden flex gap-5 overflow-x-auto whitespace-nowrap border-t border-gray-800 px-4 py-2 text-sm font-medium text-gray-300">
+            <a href="#bots" data-i18n="navPackages">AI Bots</a>
+            <a href="#paperTrading" data-i18n="navSimulation">Buy / Sell</a>
+            <a href="#packages" data-i18n="navStakePackages">Packages</a>
+            <a href="#tasks" data-i18n="navTasks">Task Center</a>
+            <a href="#referrals" data-i18n="navReferrals">Referrals</a>
+            <a href="#roadmap" data-i18n="navRoadmap">Roadmap</a>
+            <a href="#calculator" data-i18n="navCalculator">Calculator</a>
         </nav>
     </header>
 
-    <main class="flex-1">
-        <section id="service" class="relative overflow-hidden px-4 py-20 text-center md:py-28">
-            <div class="absolute -top-40 left-1/2 -z-10 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl"></div>
-            <span class="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-4 py-2 text-sm text-emerald-200">
-                <i class="fa-solid fa-server" aria-hidden="true"></i>
-                <span data-copy="eyebrow">Kripto üretim tesisi · GPU kiralama</span>
-            </span>
-            <h1 class="mx-auto max-w-4xl text-4xl font-extrabold tracking-tight text-white md:text-6xl" data-copy="heroTitle">GPU gücüyle kripto madenciliği</h1>
-            <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-300" data-copy="heroDescription">STAKEAI, kullanıcıların GPU kapasitesi kiralayarak kripto madenciliğine katılmasını sağlayan bir hizmet sunar. Kullanılan kapasite, ücretler ve hesaplama yöntemi satın alma öncesinde açıkça belirtilmelidir.</p>
-            <div class="mt-9 flex flex-wrap justify-center gap-4">
-                <a href="#packages" data-copy="heroPrimary" class="rounded-xl bg-emerald-400 px-6 py-3 font-bold text-gray-950 transition hover:bg-emerald-300">Paket bilgilerini gör</a>
-                <a href="#transparency" data-copy="heroSecondary" class="rounded-xl border border-gray-700 px-6 py-3 font-semibold text-gray-200 transition hover:border-gray-500">Kazanç nasıl hesaplanır?</a>
-            </div>
-            <p class="mx-auto mt-8 max-w-3xl rounded-xl border border-amber-400/20 bg-amber-400/5 p-4 text-sm leading-6 text-amber-100" data-copy="riskNotice">Madencilik getirisi garanti değildir. Ağ zorluğu, kripto varlık fiyatı, elektrik ve işletme giderleri ile GPU çalışma süresi sonucu değiştirebilir.</p>
-        </section>
-
-        <section class="border-y border-gray-800 bg-gray-900/50 px-4 py-16">
-            <div class="mx-auto max-w-7xl">
-                <div class="mb-10 text-center">
-                    <p class="text-sm font-semibold uppercase tracking-widest text-emerald-300" data-copy="processEyebrow">Hizmet akışı</p>
-                    <h2 class="mt-3 text-3xl font-bold text-white md:text-4xl" data-copy="processTitle">Kapasite kiralamadan ödemeye</h2>
-                </div>
-                <div id="process" class="grid gap-5 md:grid-cols-3">
-                    <article class="rounded-2xl border border-gray-800 bg-cardbg p-6">
-                        <span class="text-sm font-bold text-emerald-300">01</span>
-                        <h3 class="mt-3 text-xl font-bold text-white" data-copy="stepOneTitle">GPU paketini seçin</h3>
-                        <p class="mt-3 leading-7 text-gray-400" data-copy="stepOneText">Model, kapasite, süre, toplam ücret ve varsa ek giderleri inceleyin. Bu bilgiler açıklanmadan satın alma yapmayın.</p>
-                    </article>
-                    <article class="rounded-2xl border border-gray-800 bg-cardbg p-6">
-                        <span class="text-sm font-bold text-emerald-300">02</span>
-                        <h3 class="mt-3 text-xl font-bold text-white" data-copy="stepTwoTitle">Madencilik çalışmasını izleyin</h3>
-                        <p class="mt-3 leading-7 text-gray-400" data-copy="stepTwoText">Atanan GPU kapasitesi, havuz paylaşımları, çalışma süresi ve kesintiler kullanıcı hesabında izlenebilir olmalıdır.</p>
-                    </article>
-                    <article class="rounded-2xl border border-gray-800 bg-cardbg p-6">
-                        <span class="text-sm font-bold text-emerald-300">03</span>
-                        <h3 class="mt-3 text-xl font-bold text-white" data-copy="stepThreeTitle">Hakediş ve ödemeyi görün</h3>
-                        <p class="mt-3 leading-7 text-gray-400" data-copy="stepThreeText">Brüt üretim, kesintiler, komisyon oranı, net kullanıcı payı, ödeme eşiği ve ödeme geçmişi işlemden önce açıklanmalıdır.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section id="packages" class="mx-auto w-full max-w-7xl px-4 py-16">
-            <div class="mx-auto max-w-3xl text-center">
-                <p class="text-sm font-semibold uppercase tracking-widest text-cyan-300" data-copy="packagesEyebrow">GPU kiralama</p>
-                <h2 class="mt-3 text-3xl font-bold text-white md:text-4xl" data-copy="packagesTitle">Paket koşulları</h2>
-                <p class="mt-4 leading-7 text-gray-300" data-copy="packagesText">Paket seçmeden önce GPU modeli ve adedi, kiralanan kapasite, süre, fiyat, elektrik/işletim giderleri, madencilik havuzu ve net pay hesabı gösterilmelidir. Bu bilgiler doğrulanıp yayımlanana kadar bu sayfada satın alma veya ödeme alınmaz.</p>
-                <a href="mailto:info@stakeai.io" data-copy="packagesContact" class="mt-6 inline-flex rounded-xl border border-gray-700 px-5 py-3 font-semibold text-emerald-200 transition hover:border-emerald-400">Paket koşullarını sor</a>
-            </div>
-            <div class="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-3">
-                <div class="rounded-xl border border-gray-800 bg-cardbg p-5 text-center">
-                    <i class="fa-solid fa-microchip text-2xl text-emerald-300" aria-hidden="true"></i>
-                    <h3 class="mt-3 font-bold text-white" data-copy="packageGpu">GPU modeli ve kapasitesi</h3>
-                    <p class="mt-2 text-sm text-gray-400" data-copy="packageGpuNote">Paket şartlarında açıkça listelenmeli</p>
-                </div>
-                <div class="rounded-xl border border-gray-800 bg-cardbg p-5 text-center">
-                    <i class="fa-solid fa-receipt text-2xl text-emerald-300" aria-hidden="true"></i>
-                    <h3 class="mt-3 font-bold text-white" data-copy="packageFees">Ücret ve kesintiler</h3>
-                    <p class="mt-2 text-sm text-gray-400" data-copy="packageFeesNote">Tüm giderler önceden belirtilmeli</p>
-                </div>
-                <div class="rounded-xl border border-gray-800 bg-cardbg p-5 text-center">
-                    <i class="fa-solid fa-chart-line text-2xl text-emerald-300" aria-hidden="true"></i>
-                    <h3 class="mt-3 font-bold text-white" data-copy="packagePayout">Üretim ve ödeme kayıtları</h3>
-                    <p class="mt-2 text-sm text-gray-400" data-copy="packagePayoutNote">Gerçek ölçümlerle doğrulanmalı</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="transparency" class="border-y border-gray-800 bg-gray-900/50 px-4 py-16">
-            <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-2 md:items-center">
+    <dialog id="authDialog" aria-labelledby="authTitle" class="w-[calc(100%-2rem)] max-w-md rounded-2xl border border-gray-700 bg-cardbg p-0 text-gray-100 shadow-2xl backdrop:bg-black/70">
+        <div class="p-6 sm:p-8">
+            <div class="flex items-start justify-between gap-4 mb-5">
                 <div>
-                    <p class="text-sm font-semibold uppercase tracking-widest text-emerald-300" data-copy="transparencyEyebrow">Önce doğrulanabilir bilgi</p>
-                    <h2 class="mt-3 text-3xl font-bold text-white md:text-4xl" data-copy="transparencyTitle">Madencilikte şeffaflık önemlidir</h2>
-                    <p class="mt-4 leading-7 text-gray-300" data-copy="transparencyText">Bir tahmini kazanç, gerçek ödeme değildir. Sonuç; kazılan varlığa, ağ koşullarına, piyasa fiyatına, havuz ve tesis giderlerine ve cihazların çalışma süresine bağlı olarak değişir. Kullanıcı payı hesaplaması ve geçmiş ödemeler doğrulanabilir kayıtlarla desteklenmelidir.</p>
+                    <h2 id="authTitle" class="text-2xl font-bold" data-i18n="login">Log in</h2>
+                    <p class="text-sm text-gray-400 mt-1">STAKEAI</p>
                 </div>
-                <ul class="space-y-4 rounded-2xl border border-gray-800 bg-cardbg p-6 text-gray-300">
-                    <li class="flex gap-3"><i class="fa-solid fa-circle-check mt-1 text-emerald-300" aria-hidden="true"></i><span data-copy="transparencyItemOne">Paket ücreti, süre ve iptal/çekim şartları</span></li>
-                    <li class="flex gap-3"><i class="fa-solid fa-circle-check mt-1 text-emerald-300" aria-hidden="true"></i><span data-copy="transparencyItemTwo">GPU çalışma süresi ve havuz üretim kayıtları</span></li>
-                    <li class="flex gap-3"><i class="fa-solid fa-circle-check mt-1 text-emerald-300" aria-hidden="true"></i><span data-copy="transparencyItemThree">Komisyon, gider ve net kullanıcı payı hesabı</span></li>
-                    <li class="flex gap-3"><i class="fa-solid fa-circle-check mt-1 text-emerald-300" aria-hidden="true"></i><span data-copy="transparencyItemFour">Ödeme eşiği, ağı ve geçmiş işlem kayıtları</span></li>
-                </ul>
+                <button id="closeAuthDialog" type="button" data-i18n-aria="close" aria-label="Close" class="text-gray-400 hover:text-white text-xl leading-none">×</button>
             </div>
-        </section>
-
-        <section id="faq" class="mx-auto max-w-4xl px-4 py-16">
-            <h2 class="mb-7 text-center text-3xl font-bold text-white" data-copy="faqTitle">Sıkça sorulan sorular</h2>
-            <div class="space-y-4">
-                <details class="rounded-xl border border-gray-800 bg-cardbg p-5">
-                    <summary class="cursor-pointer font-semibold text-white" data-copy="faqHowQuestion">Hizmet nasıl çalışır?</summary>
-                    <p class="mt-3 leading-7 text-gray-400" data-copy="faqHowAnswer">Kullanıcı, kendisine ayrılan GPU kapasitesini ve sözleşme koşullarını görerek kiralama yapar. Tesis bu kapasiteyi madencilikte kullanır ve kullanıcı payı açıklanan hesaplama yöntemiyle belirlenir.</p>
-                </details>
-                <details class="rounded-xl border border-gray-800 bg-cardbg p-5">
-                    <summary class="cursor-pointer font-semibold text-white" data-copy="faqReturnsQuestion">Kazanç garanti midir?</summary>
-                    <p class="mt-3 leading-7 text-gray-400" data-copy="faqReturnsAnswer">Hayır. Kripto madenciliğinde gelir veya anapara getirisi garanti edilmez. Piyasa ve ağ koşulları ile elektrik, havuz ve işletim giderleri sonucu değiştirebilir; zarar riski vardır.</p>
-                </details>
-                <details class="rounded-xl border border-gray-800 bg-cardbg p-5">
-                    <summary class="cursor-pointer font-semibold text-white" data-copy="faqBeforeQuestion">Satın almadan önce neleri kontrol etmeliyim?</summary>
-                    <p class="mt-3 leading-7 text-gray-400" data-copy="faqBeforeAnswer">GPU modeli ve kapasitesi, paket süresi, toplam ücret, tüm kesintiler, net pay hesaplama yöntemi, ödeme koşulları ve sözleşme şartlarını kontrol edin. Anlaşılmayan veya yazılı olmayan koşullarla ödeme yapmayın.</p>
-                </details>
+            <p data-i18n="authNotice" class="mb-5 rounded-lg border border-amber-400/20 bg-amber-400/5 p-3 text-sm text-amber-100/90">Account access requires the STAKEAI API and a verified email.</p>
+            <form id="authForm" autocomplete="on" class="space-y-4">
+                <div id="firstNameRow" hidden="">
+                    <label for="authFirstName" data-i18n="firstName" class="mb-1 block text-sm text-gray-300">First name</label>
+                    <input id="authFirstName" name="firstName" type="text" maxlength="80" autocomplete="given-name" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <div id="lastNameRow" hidden="">
+                    <label for="authLastName" data-i18n="lastName" class="mb-1 block text-sm text-gray-300">Last name</label>
+                    <input id="authLastName" name="lastName" type="text" maxlength="80" autocomplete="family-name" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <div id="usernameRow" hidden="">
+                    <label for="authUsername" data-i18n="username" class="mb-1 block text-sm text-gray-300">Username</label>
+                    <input id="authUsername" name="username" type="text" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]{3,20}" autocomplete="username" autocapitalize="off" spellcheck="false" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <div id="trc20AddressRow" hidden="">
+                    <label for="authTrc20Address" data-i18n="trc20Address" class="mb-1 block text-sm text-gray-300">USDT TRC-20 address</label>
+                    <input id="authTrc20Address" name="trc20Address" type="text" maxlength="34" autocomplete="off" autocapitalize="off" spellcheck="false" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <div>
+                    <label for="authEmail" data-i18n="email" class="mb-1 block text-sm text-gray-300">Email</label>
+                    <input id="authEmail" name="email" type="email" autocomplete="email" required="" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <div>
+                    <label for="authPassword" data-i18n="password" class="mb-1 block text-sm text-gray-300">Password</label>
+                    <input id="authPassword" name="password" type="password" autocomplete="current-password" required="" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <div id="confirmPasswordRow" hidden="">
+                    <label for="authConfirmPassword" data-i18n="confirmPassword" class="mb-1 block text-sm text-gray-300">Confirm password</label>
+                    <input id="authConfirmPassword" name="confirmPassword" type="password" autocomplete="new-password" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <div id="authTwoFactorRow" hidden="">
+                    <label for="authTwoFactorCode" data-i18n="authTwoFactorCode" class="mb-1 block text-sm text-gray-300">Authenticator or recovery code</label>
+                    <input id="authTwoFactorCode" name="twoFactorCode" type="text" autocomplete="one-time-code" maxlength="16" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <div id="referralCodeRow" hidden="">
+                    <label for="signupReferralCode" data-i18n="referralCodeLabel" class="mb-1 block text-sm text-gray-300">Referral code (optional)</label>
+                    <input id="signupReferralCode" name="referralCode" type="text" maxlength="32" autocomplete="off" class="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                </div>
+                <button id="authSubmit" type="submit" data-i18n="login" class="w-full rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-500 py-3 font-bold text-gray-950 transition hover:from-emerald-400 hover:to-cyan-400">Log in</button>
+            </form>
+            <p id="authStatus" role="status" aria-live="polite" class="mt-4 text-sm text-amber-200"></p>
+            <div class="mt-5 border-t border-gray-800 pt-4 text-center text-sm">
+                <span id="authSwitchPrompt" data-i18n="noAccount" class="text-gray-400">Don't have an account?</span>
+                <button id="authSwitch" type="button" data-auth-mode="signup" data-i18n="signup" class="ml-1 font-semibold text-emerald-300 hover:text-emerald-200">Sign up</button>
             </div>
-        </section>
-    </main>
-
-    <footer id="contact" class="mt-auto border-t border-gray-800 bg-cardbg px-4 py-8 text-center text-sm text-gray-400">
-        <div class="mb-4 flex items-center justify-center gap-2">
-            <img src="stakeai-logo.svg" alt="" class="h-7 w-7">
-            <span class="font-semibold tracking-wide text-gray-200">STAKEAI</span>
         </div>
-        <p data-copy="contactText">GPU kiralama ve kripto üretim tesisi hizmeti hakkında bilgi için bize ulaşın.</p>
-        <p class="mt-2"><a href="mailto:info@stakeai.io" class="text-emerald-300 hover:text-emerald-200">info@stakeai.io</a></p>
-        <nav class="footer-social-links mt-5" aria-label="STAKEAI social media">
-            <a href="https://www.facebook.com/profile.php?id=61595915840204" target="_blank" rel="noopener noreferrer me" aria-label="STAKEAI on Facebook" class="footer-social-link" data-social="facebook">
-                <span class="footer-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M13.4 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.5 1.6-1.5h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.2v3.2H10V21h3.4Z"/></svg></span><span>Facebook</span>
+    </dialog>
+
+    <section id="accountDashboard" class="border-b border-emerald-400/20 bg-gray-900/70 py-10" hidden>
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-white">STAKEAI</h2>
+                </div>
+            </div>
+            <a href="/referrals.html" data-i18n="referralsPageLink" class="mb-5 inline-flex rounded-lg border border-cyan-400/40 px-4 py-2 text-sm font-semibold text-cyan-200 hover:border-cyan-300">My referrals</a>
+            <p id="accountStatus" role="status" aria-live="polite" class="mb-6 text-sm text-emerald-200">demo-preview-1aa394@stakeai.local · Signed in.</p>
+            <div id="profilePanel" hidden class="mx-auto w-full max-w-2xl rounded-xl border border-gray-700 bg-cardbg shadow-2xl">
+                <div class="flex items-center justify-between px-4 py-3">
+                    <h3 data-i18n="profileSettings" class="text-sm font-semibold text-white">Profile and security</h3>
+                    <button id="profilePanelClose" type="button" aria-label="Close" class="text-xl leading-none text-gray-400 hover:text-white">×</button>
+                </div>
+                <div class="space-y-6 border-t border-gray-800 p-4 sm:p-6">
+                    <div class="flex items-center gap-4">
+                        <span id="profileAvatarPreview" class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-emerald-400 text-2xl font-bold text-gray-950">?</span>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap gap-2">
+                                <label class="cursor-pointer rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400"><span data-i18n="avatarChoose">Choose photo</span><input id="avatarInput" type="file" accept="image/*" class="sr-only"></label>
+                                <button id="avatarRemove" type="button" data-i18n="avatarRemove" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-rose-400">Remove</button>
+                            </div>
+                            <p id="avatarStatus" role="status" aria-live="polite" class="text-xs text-emerald-200"></p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400"><span data-i18n="currentEmail">Current email</span>: <strong id="profileCurrentEmail" class="text-white"></strong></p>
+                    <form id="profileForm" class="space-y-3">
+                        <h3 data-i18n="profileDetails" class="text-sm font-semibold text-gray-200">Personal details</h3>
+                        <div class="grid gap-3 sm:grid-cols-2">
+                            <label class="text-sm text-gray-400"><span data-i18n="firstName">First name</span><input id="profileFirstName" name="firstName" readonly maxlength="80" autocomplete="given-name" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                            <label class="text-sm text-gray-400"><span data-i18n="lastName">Last name</span><input id="profileLastName" name="lastName" readonly maxlength="80" autocomplete="family-name" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                        </div>
+                        
+                        <p id="profileStatus" role="status" aria-live="polite" class="text-sm text-emerald-200"></p>
+                    </form>
+                    <form id="changeEmailForm" hidden class="space-y-3 border-t border-gray-800 pt-5">
+                        <h3 data-i18n="changeEmail" class="text-sm font-semibold text-gray-200">Change email address</h3>
+                        <label class="block text-sm text-gray-400"><span data-i18n="newEmail">New email address</span><input id="newAccountEmail" name="email" type="email" autocomplete="email" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                        <label class="block text-sm text-gray-400"><span data-i18n="currentPassword">Current password</span><input name="currentPassword" type="password" autocomplete="current-password" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                        <label id="emailChangeTwoFactorRow" hidden class="block text-sm text-gray-400"><span data-i18n="authTwoFactorCode">Authenticator or recovery code</span><input name="twoFactorCode" type="text" autocomplete="one-time-code" maxlength="16" class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                        <button data-i18n="sendEmailVerification" class="rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700" type="submit">Send verification email</button>
+                        <p id="emailChangeStatus" role="status" aria-live="polite" class="text-sm text-emerald-200"></p>
+                    </form>
+                    <form id="changePasswordForm" class="space-y-3 border-t border-gray-800 pt-5">
+                        <h3 data-i18n="changePassword" class="text-sm font-semibold text-gray-200">Change password</h3>
+                        <label class="block text-sm text-gray-400"><span data-i18n="currentPassword">Current password</span><input name="currentPassword" type="password" autocomplete="current-password" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                        <label class="block text-sm text-gray-400"><span data-i18n="newPassword">New password (12 characters minimum)</span><input id="newAccountPassword" name="newPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                        <label class="block text-sm text-gray-400"><span data-i18n="confirmPassword">Confirm password</span><input id="confirmAccountPassword" name="confirmPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                        <label id="passwordChangeTwoFactorRow" hidden class="block text-sm text-gray-400"><span data-i18n="authTwoFactorCode">Authenticator or recovery code</span><input name="twoFactorCode" type="text" autocomplete="one-time-code" maxlength="16" class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                        <button data-i18n="updatePassword" class="rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700" type="submit">Update password</button>
+                        <p id="passwordChangeStatus" role="status" aria-live="polite" class="text-sm text-emerald-200"></p>
+                    </form>
+                    <section class="space-y-3 border-t border-gray-800 pt-5">
+                        <div>
+                            <h3 data-i18n="twoFactorTitle" class="text-sm font-semibold text-gray-200">Two-factor authentication</h3>
+                            <p id="twoFactorStatus" class="mt-1 text-xs text-gray-400"></p>
+                        </div>
+                        <button id="twoFactorStart" type="button" data-i18n="enableTwoFactor" class="rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700">Enable authenticator app</button>
+                        <form id="twoFactorSetupForm" hidden class="space-y-3">
+                            <label class="block text-sm text-gray-400"><span data-i18n="currentPassword">Current password</span><input name="password" type="password" autocomplete="current-password" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                            <button data-i18n="startTwoFactorSetup" class="rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700" type="submit">Continue setup</button>
+                        </form>
+                        <div id="twoFactorPending" hidden class="space-y-3 rounded-lg border border-amber-400/20 bg-amber-400/5 p-4">
+                            <p data-i18n="twoFactorSetupInstructions" class="text-sm text-amber-100">Add this key in your authenticator app, then enter its current code.</p>
+                            <div id="twoFactorQr" class="mx-auto h-48 w-48 overflow-hidden rounded-lg bg-white"></div>
+                            <code id="twoFactorSecret" class="block break-all font-mono text-sm text-white"></code>
+                            <a id="twoFactorOtpAuth" hidden class="break-all text-xs text-cyan-300 underline" rel="nofollow"></a>
+                            <form id="twoFactorEnableForm" class="space-y-3">
+                                <label class="block text-sm text-gray-400"><span data-i18n="currentPassword">Current password</span><input name="password" type="password" autocomplete="current-password" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                                <label class="block text-sm text-gray-400"><span data-i18n="authTwoFactorCode">Authenticator or recovery code</span><input name="code" type="text" autocomplete="one-time-code" maxlength="16" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                                <button data-i18n="confirmEnableTwoFactor" class="rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-gray-950" type="submit">Confirm and enable</button>
+                            </form>
+                        </div>
+                        <div id="twoFactorRecovery" hidden class="rounded-lg border border-amber-400/30 bg-amber-400/5 p-4">
+                            <p data-i18n="recoveryCodesNotice" class="mb-2 text-sm font-semibold text-amber-100">Save these one-time recovery codes somewhere safe. They are shown only once.</p>
+                            <pre id="twoFactorRecoveryCodes" class="whitespace-pre-wrap break-all font-mono text-sm text-white"></pre>
+                        </div>
+                        <form id="twoFactorDisableForm" hidden class="space-y-3">
+                            <label class="block text-sm text-gray-400"><span data-i18n="currentPassword">Current password</span><input name="password" type="password" autocomplete="current-password" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                            <label class="block text-sm text-gray-400"><span data-i18n="authTwoFactorCode">Authenticator or recovery code</span><input name="code" type="text" autocomplete="one-time-code" maxlength="16" required class="mt-1 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none"></label>
+                            <button data-i18n="disableTwoFactor" class="rounded-lg border border-red-400/40 px-4 py-2 text-sm font-semibold text-red-200 hover:border-red-300" type="submit">Disable 2FA</button>
+                        </form>
+                        <p id="twoFactorActionStatus" role="status" aria-live="polite" class="text-sm text-emerald-200"></p>
+                    </section>
+                </div>
+            </div>
+            <article class="mb-6 rounded-2xl border border-gray-800 bg-cardbg p-5">
+                <p class="text-sm font-medium text-gray-400" data-i18n="trc20WalletLabel">USDT TRC-20 wallet address</p>
+                <code id="accountTrc20Address" class="mt-2 block break-all font-mono text-sm text-cyan-200">—</code>
+            </article>
+            <p class="mb-3 text-xs text-gray-500" data-i18n="balanceManagementNotice">USDT/STKAI are platform-recorded balances; BTC/ETH/BNB are spot balances. Estimated values are indicative; STKAI uses the app reference price.</p>
+            <article class="mb-6 overflow-hidden rounded-xl border border-gray-800 bg-cardbg">
+                <div class="flex items-center justify-between border-b border-gray-800 px-4 py-3">
+                    <h3 class="text-sm font-semibold text-gray-200" data-i18n="accountAssetBalances">Asset balances</h3>
+                    <span class="text-[11px] uppercase tracking-wide text-gray-500" data-i18n="accountEstimatedValue">Estimated value</span>
+                </div>
+                <ul class="divide-y divide-gray-800/80">
+                    <li class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="flex items-center gap-3"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#26A17B]" aria-hidden="true"><svg viewBox="0 0 32 32" class="h-5 w-5 fill-white"><path d="M17.8 14.2v-2.5h6.1V8H8.1v3.7h6.1v2.5c-4.9.2-8.6 1.1-8.6 2.2s3.7 2 8.6 2.2v7h3.6v-7c4.9-.2 8.6-1.1 8.6-2.2s-3.7-2-8.6-2.2Zm-1.8 2.5c-5.5 0-9.9-.7-9.9-1.5 0-.7 3.6-1.3 8.1-1.5v3.1c.6 0 1.2.1 1.8.1s1.2 0 1.8-.1v-3.1c4.5.2 8.1.8 8.1 1.5 0 .8-4.4 1.5-9.9 1.5Z"/></svg></span><span class="text-sm font-semibold text-white">USDT</span></span>
+                        <span class="text-right"><span id="accountUsdtBalance" class="block text-sm font-medium tabular-nums text-white">—</span><span id="accountUsdtValue" class="text-xs tabular-nums text-gray-500">—</span></span>
+                    </li>
+                    <li class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="flex items-center gap-3"><span class="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#F0B90B]" aria-hidden="true"><img src="/stakeai-logo.svg" alt="" class="h-8 w-8 object-cover"></span><span class="text-sm font-semibold text-white">STKAI</span></span>
+                        <span class="text-right"><span id="accountStakeaiBalance" class="block text-sm font-medium tabular-nums text-white">—</span><span id="accountStakeaiValue" class="text-xs tabular-nums text-gray-500">—</span></span>
+                    </li>
+                    <li class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="flex items-center gap-3"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7931A]" aria-hidden="true"><svg viewBox="0 0 32 32" class="h-5 w-5 fill-white"><path d="M21.2 14.3c1.4-.8 2.1-2.1 1.8-3.8-.4-2.2-2.2-3.1-4.8-3.4V4h-2.3v3h-1.8V4h-2.3v3H7.9v2.5h2c.5 0 .7.2.7.6v11.7c0 .4-.2.6-.6.6H8v2.5h3.8v3h2.3v-3h1.8v3h2.3v-3.1c3.4-.3 5.5-1.5 5.8-4.2.3-2.1-.7-3.5-2.8-4.2 1.3-.6 2-1.4 2-2.8Zm-8-5h3.2c1.8 0 2.7.6 2.7 1.9s-.9 2-2.7 2h-3.2V9.3Zm3.7 11.7h-3.7v-4.8h3.7c2 0 3 .8 3 2.4 0 1.7-1 2.4-3 2.4Z"/></svg></span><span class="text-sm font-semibold text-white">BTC</span></span>
+                        <span class="text-right"><span id="accountBtcBalance" class="block text-sm font-medium tabular-nums text-white">—</span><span id="accountBtcValue" class="text-xs tabular-nums text-gray-500">—</span></span>
+                    </li>
+                    <li class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="flex items-center gap-3"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#627EEA]" aria-hidden="true"><svg viewBox="0 0 32 32" class="h-5 w-5"><path fill="#fff" d="M16 3 7.6 16.6 16 21.5l8.4-4.9L16 3Z"/><path fill="#D6DFFF" d="m16 3-8.4 13.6 8.4-3.8V3Z"/><path fill="#fff" d="m16 23.1-8.4-5L16 29l8.4-10.9-8.4 5Z"/><path fill="#D6DFFF" d="m7.6 18.1 8.4 10.9v-5.9l-8.4-5Z"/></svg></span><span class="text-sm font-semibold text-white">ETH</span></span>
+                        <span class="text-right"><span id="accountEthBalance" class="block text-sm font-medium tabular-nums text-white">—</span><span id="accountEthValue" class="text-xs tabular-nums text-gray-500">—</span></span>
+                    </li>
+                    <li class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="flex items-center gap-3"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F0B90B]" aria-hidden="true"><svg viewBox="0 0 32 32" class="h-5 w-5 fill-[#0B0E11]"><path d="m16 3 4.3 4.3L16 11.6l-4.3-4.3L16 3Zm-8.1 8.1 4.3 4.3-4.3 4.3-4.3-4.3 4.3-4.3Zm16.2 0 4.3 4.3-4.3 4.3-4.3-4.3 4.3-4.3ZM16 13.9l4.3 4.3-4.3 4.3-4.3-4.3 4.3-4.3Zm-8.1 8.1 4.3 4.3-4.3 4.3-4.3-4.3 4.3-4.3Zm16.2 0 4.3 4.3-4.3 4.3-4.3-4.3 4.3-4.3ZM16 22l4.3 4.3L16 30.6l-4.3-4.3L16 22Z" transform="translate(0 -1.8) scale(1 .94)"/></svg></span><span class="text-sm font-semibold text-white">BNB</span></span>
+                        <span class="text-right"><span id="accountBnbBalance" class="block text-sm font-medium tabular-nums text-white">—</span><span id="accountBnbValue" class="text-xs tabular-nums text-gray-500">—</span></span>
+                    </li>
+                </ul>
+            </article>
+            <article class="mb-6 rounded-2xl border border-gray-800 bg-cardbg p-6">
+                <h3 class="text-lg font-bold text-white" data-i18n="transferTitle">Request an internal transfer</h3>
+                <p class="mt-2 text-sm text-gray-400" data-i18n="transferNotice">BTC, ETH, and BNB requests move spot balances only after administrator approval. They are not blockchain transfers.</p>
+                <form id="transferRequestForm" class="mt-5 grid gap-4 sm:grid-cols-2">
+                    <label class="text-sm font-medium text-gray-300">
+                        <span id="transferRecipientLabel" data-i18n="transferRecipientTrc20">Recipient USDT TRC-20 address</span>
+                        <input id="transferRecipientInfo" name="recipientInfo" type="text" maxlength="34" autocomplete="off" autocapitalize="off" spellcheck="false" required="" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none" pattern="T[1-9A-HJ-NP-Za-km-z]{33}" aria-label="Recipient USDT TRC-20 address">
+                    </label>
+                    <label class="text-sm font-medium text-gray-300">
+                        <span data-i18n="transferAsset">Asset</span>
+                        <select id="transferAsset" name="asset" required="" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                            <option value="USDT">USDT</option>
+                            <option value="STAKEAI">STKAI</option>
+                            <option value="BTC">BTC</option>
+                            <option value="ETH">ETH</option>
+                            <option value="BNB">BNB</option>
+                        </select>
+                    </label>
+                    <label class="text-sm font-medium text-gray-300">
+                        <span data-i18n="transferAmount">Amount</span>
+                        <input id="transferAmount" name="amount" type="text" inputmode="decimal" maxlength="48" pattern="[0-9]+([.][0-9]{1,18})?" required="" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none">
+                    </label>
+                    <div class="flex items-end">
+                        <button id="submitTransferRequest" type="submit" class="w-full rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-500 px-4 py-2.5 font-bold text-gray-950 hover:from-emerald-400 hover:to-cyan-400" data-i18n="submitTransferRequest">Confirm withdrawal</button>
+                    </div>
+                </form>
+                <p id="transferRequestStatus" role="status" aria-live="polite" class="mt-3 text-sm text-amber-200">Unable to reach the STAKEAI API. Your request was not completed.</p>
+                <div class="mt-5 border-t border-gray-800 pt-4">
+                    <h4 class="mb-3 text-sm font-semibold text-gray-200" data-i18n="transferHistory">Transfer history</h4>
+                    <p id="noTransferHistory" class="text-sm text-gray-400" data-i18n="noTransferHistory">No transfer requests yet.</p>
+                    <ul id="accountTransferHistory" class="space-y-2 text-sm text-gray-300"></ul>
+                </div>
+            </article>
+            <article class="mt-6 rounded-2xl border border-gray-800 bg-cardbg p-6">
+                <h3 class="text-lg font-bold text-white" data-i18n="accountReferralsTitle">Your referral code and link</h3>
+                <p class="mt-2 text-sm text-gray-400" data-i18n="accountReferralsNotice">Referral commissions are not active and no payouts are implemented.</p>
+                <div class="mt-4">
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400" data-i18n="yourReferralCode">Your referral code</p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <code id="referralCodeValue" class="min-w-0 flex-1 break-all rounded-lg bg-gray-900 p-3 text-sm font-bold tracking-wider text-emerald-200">366D3B3D28451BB0</code>
+                        <button id="copyReferralCode" type="button" data-i18n="copyReferralCode" class="rounded-lg border border-gray-700 px-4 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400">Copy code</button>
+                    </div>
+                </div>
+                <div class="mt-4 flex flex-wrap items-center gap-3">
+                    <code id="referralInviteLink" class="min-w-0 flex-1 break-all rounded-lg bg-gray-900 p-3 text-sm text-emerald-200">http://localhost:3000/?ref=366D3B3D28451BB0</code>
+                    <button id="copyReferralLink" type="button" data-i18n="copyReferralLink" class="rounded-lg border border-gray-700 px-4 py-2 text-sm font-semibold text-gray-200 hover:border-emerald-400">Copy link</button>
+                </div>
+                <p class="mt-3 text-sm text-gray-300"><span data-i18n="directReferralsCount">Direct referrals:</span> <span id="directReferralCount">0</span></p>
+                <div class="mt-5 border-t border-gray-800 pt-4">
+                    <h4 class="mb-3 text-sm font-semibold text-gray-200" data-i18n="referredUsersTitle">People you referred</h4>
+                    <p id="noReferredUsers" class="text-sm text-gray-400" data-i18n="noReferredUsers">No referrals yet.</p>
+                    <ul id="referredUsersList" class="space-y-2 text-sm text-gray-300"></ul>
+                </div>
+                <p id="referralStatus" role="status" aria-live="polite" class="mt-2 text-sm text-amber-200"></p>
+            </article>
+        </div>
+    </section>
+
+    <dialog id="stakingDialog" aria-labelledby="stakingTitle" class="w-[calc(100%-2rem)] max-w-2xl rounded-2xl border border-gray-700 bg-cardbg p-0 text-gray-100 shadow-2xl backdrop:bg-black/70">
+        <div class="p-6 sm:p-8">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h2 id="stakingTitle" class="text-2xl font-bold text-white" data-i18n="stakingDialogTitle">STAKEAI testnet staking</h2>
+                    <p id="stakingOfferSummary" class="mt-2 text-sm text-gray-300"></p>
+                </div>
+                <button id="closeStakingDialog" type="button" data-i18n-aria="close" aria-label="Close" class="text-xl leading-none text-gray-400 hover:text-white">×</button>
+            </div>
+            <p class="mt-4 rounded-lg border border-amber-400/20 bg-amber-400/5 p-3 text-sm text-amber-100" data-i18n="stakingDisclaimer">BSC testnet only. Principal remains locked until maturity and can then be withdrawn by the staker. Rewards are sent manually by an admin.</p>
+            <p id="stakingConfigNotice" role="status" class="mt-4 rounded-xl border border-gray-800 bg-gray-950/70 p-4 text-sm text-gray-300" data-i18n="stakingNotConfigured">Testnet contract addresses have not been configured yet.</p>
+            <div id="stakingControls" class="mt-5 space-y-4" hidden>
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <p id="stakingWalletAddress" class="break-all text-sm text-gray-400" data-i18n="stakingConnectPrompt">Connect your wallet to stake.</p>
+                    <button id="connectStakingWallet" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:border-gray-500" data-i18n="stakingConnect">Connect wallet</button>
+                </div>
+                <p id="stakingRewardPoolBalance" class="text-sm text-gray-400"></p>
+                <label for="stakingAmount" class="block text-sm font-semibold text-gray-300" data-i18n="stakingAmountLabel">STKAI amount to stake</label>
+                <input id="stakingAmount" type="text" inputmode="decimal" maxlength="40" autocomplete="off" placeholder="0.0" class="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-3 text-white focus:border-emerald-400 focus:outline-none">
+                <p id="stakingPreview" class="text-sm text-gray-400"></p>
+                <button id="submitStake" type="button" class="w-full rounded-lg bg-emerald-500 px-4 py-3 font-bold text-gray-950 hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-50" data-i18n="stakingSubmit">Stake</button>
+                <p id="stakingStatus" role="status" aria-live="polite" class="min-h-5 text-sm text-amber-200"></p>
+                <div class="border-t border-gray-800 pt-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <h3 class="font-semibold text-white" data-i18n="stakingPositionsTitle">My wallet positions</h3>
+                        <button id="refreshStakingPositions" type="button" class="text-sm text-gray-300 underline" data-i18n="stakingRefresh">Refresh</button>
+                    </div>
+                    <ul id="stakingPositions" class="mt-3 space-y-2"></ul>
+                    <p id="stakingNoPositions" class="mt-3 text-sm text-gray-500" data-i18n="stakingNoPositions">No staking positions yet.</p>
+                </div>
+            </div>
+            <div class="mt-5 flex justify-end">
+                <button id="closeStakingDone" type="button" data-i18n="close" class="rounded-lg bg-gray-800 px-4 py-2.5 font-semibold text-white hover:bg-gray-700">Close</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Hero Section -->
+    <section id="hero" class="py-20 px-4 text-center relative overflow-hidden">
+        <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl -z-10"></div>
+        <div class="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-4 py-2 text-sm text-emerald-200 mb-7">
+            <img src="stakeai-logo.svg" alt="" class="w-6 h-6">
+            <span data-i18n="welcome">STAKEAI · Smart AI, stronger earning potential</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+            <span data-i18n="heroTitle">Put intelligence to work</span><br>
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-400">
+                <span data-i18n="heroAccent">Meet your AI strategy studio</span>
+            </span>
+        </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
+            <span data-i18n="heroDescription">Explore strategy bots, understand their signals, and experiment in a transparent environment.</span>
+        </p>
+        <div class="flex justify-center space-x-4">
+            <a href="#bots" class="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-gray-950 px-8 py-3.5 rounded-xl font-bold text-lg transition shadow-lg shadow-emerald-500/20">
+                <span data-i18n="ctaPackages">Explore AI Bots</span>
             </a>
-            <a href="https://x.com/stakeeai" target="_blank" rel="noopener noreferrer me" aria-label="STAKEAI on X" class="footer-social-link" data-social="x">
-                <span class="footer-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M18.9 1.2h3.7l-8.1 9.3L24 22.8h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.8L0 1.2h7.6l5.2 6.9 6.1-6.9Zm-1.3 19.4h2L6.8 3.3H4.6l13 17.3Z"/></svg></span><span>X</span>
+            <a href="#tasks" class="border border-gray-700 hover:border-gray-500 text-gray-300 px-8 py-3.5 rounded-xl font-bold text-lg transition">
+                <span data-i18n="ctaTasks">Explore the community</span>
             </a>
-            <a href="https://t.me/stakeaiio" target="_blank" rel="noopener noreferrer me" aria-label="STAKEAI on Telegram" class="footer-social-link" data-social="telegram">
-                <span class="footer-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m21.7 4.2-3.3 15.5c-.2 1.1-.8 1.4-1.7.9l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.2L6.3 13.6 1.6 12c-1-.3-1-1 .2-1.5l18.3-7.1c.9-.3 1.7.2 1.6.8ZM8.9 14.5l9-8.1-7.5 6.7-.4 4.1-1.1-2.7Z"/></svg></span><span>Telegram</span>
-            </a>
-        </nav>
-        <p class="mt-5 text-xs text-gray-500" data-copy="legalNotice">Bu sayfa bilgilendirme amaçlıdır. Kripto madenciliği risk içerir; gelir veya getiri garantisi verilmez.</p>
-        <p class="mt-3">© 2026 STAKEAI</p>
+        </div>
+        <div class="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-3" hidden>
+            <span class="rounded-full border border-emerald-400/20 bg-emerald-400/5 px-4 py-2 text-sm text-emerald-200"><i class="fa-solid fa-shield-halved mr-2"></i><span data-i18n="heroPillTransparent">Transparent strategy previews</span></span>
+            <span class="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-sm text-cyan-200"><i class="fa-solid fa-flask mr-2"></i><span data-i18n="heroPillSimulation">Simulation only · no exchange connection</span></span>
+        </div>
+    </section>
+
+    <section id="bots" class="border-y border-gray-800 bg-gray-900/50 py-16">
+        <div class="mx-auto max-w-7xl px-4">
+            <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <span class="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-200"><i class="fa-solid fa-microchip"></i><span data-i18n="botsBadge">AI strategy lab</span></span>
+                    <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl" data-i18n="botsTitle">Meet your STAKEAI assistants</h2>
+                    <p class="mt-2 max-w-2xl text-gray-400" data-i18n="botsDescription">Ask the STAKEAI assistants for coding help, everyday conversation, or clear explanations of crypto strategies.</p>
+                </div>
+            </div>
+            <div class="grid gap-5 lg:grid-cols-3">
+                <article data-bot-card="code" class="rounded-2xl border border-gray-800 bg-cardbg p-5 transition hover:border-emerald-400/40">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-400/10 text-lg text-emerald-300"><i class="fa-solid fa-code"></i></span>
+                            <div><h3 class="font-bold text-white" data-i18n="botCodeTitle">STAKEAI Coding Assistant</h3><p class="text-xs text-gray-500" data-i18n="botAssistantLabel">AI assistant</p></div>
+                        </div>
+                        <span class="rounded-full border border-emerald-400/20 bg-emerald-400/5 px-2.5 py-1 text-xs text-emerald-200" data-i18n="botBrandBadge">STAKEAI</span>
+                    </div>
+                    <p class="mt-4 min-h-12 text-sm leading-6 text-gray-400" data-i18n="botCodeDescription">Get help writing code, debugging errors, and understanding code step by step.</p>
+                    <div class="my-5 min-h-24 rounded-xl border border-gray-800 bg-gray-950/70 p-4">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-emerald-300" data-i18n="botExampleLabel">Try asking</p>
+                        <p class="mt-2 text-sm text-gray-300" data-i18n="botCodeExample">"Can you find the bug in this JavaScript function?"</p>
+                    </div>
+                    <button type="button" data-open-assistant="code" class="w-full rounded-lg bg-emerald-500 px-4 py-3 text-sm font-bold text-gray-950 transition hover:bg-emerald-400"><i class="fa-regular fa-comments mr-2"></i><span data-i18n="botStartChat">Start a chat</span></button>
+                </article>
+                <article data-bot-card="companion" class="rounded-2xl border border-gray-800 bg-cardbg p-5 transition hover:border-cyan-400/40">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-400/10 text-lg text-cyan-300"><i class="fa-solid fa-comments"></i></span>
+                            <div><h3 class="font-bold text-white" data-i18n="botChatTitle">STAKEAI Chat Assistant</h3><p class="text-xs text-gray-500" data-i18n="botAssistantLabel">AI assistant</p></div>
+                        </div>
+                        <span class="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-2.5 py-1 text-xs text-cyan-200" data-i18n="botBrandBadge">STAKEAI</span>
+                    </div>
+                    <p class="mt-4 min-h-12 text-sm leading-6 text-gray-400" data-i18n="botChatDescription">Ask questions, explore ideas, and get clear explanations of everyday topics.</p>
+                    <div class="my-5 min-h-24 rounded-xl border border-gray-800 bg-gray-950/70 p-4">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-cyan-300" data-i18n="botExampleLabel">Try asking</p>
+                        <p class="mt-2 text-sm text-gray-300" data-i18n="botChatExample">"How were the STAKEAI assistants created?"</p>
+                    </div>
+                    <button type="button" data-open-assistant="companion" class="w-full rounded-lg bg-cyan-400 px-4 py-3 text-sm font-bold text-gray-950 transition hover:bg-cyan-300"><i class="fa-regular fa-comments mr-2"></i><span data-i18n="botStartChat">Start a chat</span></button>
+                </article>
+                <article data-bot-card="strategy" class="rounded-2xl border border-gray-800 bg-cardbg p-5 transition hover:border-violet-400/40">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-400/10 text-lg text-violet-300"><i class="fa-solid fa-chart-line"></i></span>
+                            <div><h3 class="font-bold text-white" data-i18n="botStrategyTitle">STAKEAI Crypto Guide</h3><p class="text-xs text-gray-500" data-i18n="botAssistantLabel">AI assistant</p></div>
+                        </div>
+                        <span class="rounded-full border border-violet-400/20 bg-violet-400/5 px-2.5 py-1 text-xs text-violet-200" data-i18n="botBrandBadge">STAKEAI</span>
+                    </div>
+                    <p class="mt-4 min-h-12 text-sm leading-6 text-gray-400" data-i18n="botStrategyDescription">Learn about crypto, risk management, and market concepts. It does not give investment advice.</p>
+                    <div class="my-5 min-h-24 rounded-xl border border-gray-800 bg-gray-950/70 p-4">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-violet-300" data-i18n="botExampleLabel">Try asking</p>
+                        <p class="mt-2 text-sm text-gray-300" data-i18n="botStrategyExample">"How does DCA work, and what are its risks?"</p>
+                    </div>
+                    <button type="button" data-open-assistant="strategy" class="w-full rounded-lg bg-violet-400 px-4 py-3 text-sm font-bold text-gray-950 transition hover:bg-violet-300"><i class="fa-regular fa-comments mr-2"></i><span data-i18n="botStartChat">Start a chat</span></button>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="paperTrading" class="border-b border-gray-800 bg-gray-950/50 py-16">
+        <div class="mx-auto max-w-7xl px-4">
+            <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <span class="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-200" data-i18n="paperBadge">Live market</span>
+                    <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl" data-i18n="paperTitle">BUY / SELL</h2>
+                    <p class="mt-2 max-w-2xl text-gray-400" data-i18n="paperDescription">BUY / SELL</p>
+                </div>
+                <p class="max-w-lg rounded-xl border border-amber-400/20 bg-amber-400/5 px-4 py-3 text-sm text-amber-100/90" data-i18n="paperWarning">Simulation only. Orders use virtual funds and never connect to a wallet or exchange.</p>
+            </div>
+            <div class="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+                <article class="rounded-2xl border border-gray-800 bg-cardbg p-5 sm:p-6">
+                    <div class="mb-4 flex items-center justify-between gap-3">
+                        <h3 class="font-bold text-white" data-i18n="paperMarkets">Live market prices</h3>
+                        <p id="paperMarketUpdated" class="text-right text-xs text-gray-500" data-i18n="paperLoading">Loading market data…</p>
+                    </div>
+                    <ul id="paperMarketCards" aria-live="polite" class="grid gap-3 sm:grid-cols-2"></ul>
+                    <p class="mt-3 text-xs text-gray-500" data-i18n="paperStkaiNotice">STKAI is displayed at a fixed 1.00 USDT app reference price. This is not an exchange quote or a redemption guarantee.</p>
+                    <p id="paperMarketStatus" role="status" aria-live="polite" class="mt-3 text-sm text-amber-200"></p>
+                    <div class="mt-7 border-t border-gray-800 pt-6">
+                        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+                            <h3 class="font-bold text-white" data-i18n="paperOrderForm">Place an order</h3>
+                            <span class="rounded-full border border-amber-400/25 bg-amber-400/5 px-3 py-1 text-xs font-semibold text-amber-200" data-i18n="paperFeeRate">Gas fees · 0.5%</span>
+                        </div>
+                        <form id="paperOrderForm" class="mx-auto grid w-full max-w-xl gap-4">
+                            <fieldset>
+                                <legend class="mb-2 text-sm font-medium text-gray-300" data-i18n="paperSide">Side</legend>
+                                <div class="grid grid-cols-2 gap-2 rounded-xl border border-gray-800 bg-gray-950 p-1.5">
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" type="radio" name="side" value="buy" checked>
+                                        <span class="block rounded-lg px-4 py-3 text-center text-sm font-bold text-gray-400 transition peer-checked:bg-emerald-400/15 peer-checked:text-emerald-200 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-emerald-300" data-i18n="paperBuy">Buy</span>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" type="radio" name="side" value="sell">
+                                        <span class="block rounded-lg px-4 py-3 text-center text-sm font-bold text-gray-400 transition peer-checked:bg-rose-400/15 peer-checked:text-rose-200 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-rose-300" data-i18n="paperSell">Sell</span>
+                                    </label>
+                                </div>
+                            </fieldset>
+                            <div class="paper-order-input rounded-2xl border border-gray-800 bg-gray-950/80 p-4 transition">
+                                <label for="paperQuantity" class="text-sm font-medium text-gray-400" data-i18n="paperQuantity">Quantity</label>
+                                <div class="mt-2 flex flex-col gap-3 sm:flex-row">
+                                    <input id="paperQuantity" name="quantity" type="text" inputmode="decimal" maxlength="48" pattern="[0-9]+([.][0-9]{1,8})?" required class="min-h-12 min-w-0 flex-1 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 font-mono text-lg text-white placeholder:text-gray-600" data-i18n-placeholder="e.g. 0.01" placeholder="e.g. 0.01">
+                                    <label class="sr-only" for="paperAsset" data-i18n="paperAsset">Asset to buy or sell</label>
+                                    <select id="paperAsset" name="asset" class="min-h-12 w-full rounded-xl border border-gray-700 bg-gray-900 px-4 py-3 text-base font-bold text-white sm:w-36">
+                                        <option value="BTC">BTC</option>
+                                        <option value="ETH">ETH</option>
+                                        <option value="BNB">BNB</option>
+                                        <option value="STKAI">STKAI</option>
+                                    </select>
+                                </div>
+                                <div id="paperQuote" class="mt-3 text-sm text-gray-400" aria-live="polite"></div>
+                            </div>
+                            <div class="flex justify-center -my-2" aria-hidden="true">
+                                <span class="z-10 flex h-10 w-10 items-center justify-center rounded-xl border border-gray-700 bg-cardbg text-lg text-emerald-200">↓</span>
+                            </div>
+                            <label id="paperQuoteAssetRow" class="paper-order-input block rounded-2xl border border-gray-800 bg-gray-950/80 p-4 text-sm font-medium text-gray-400 transition">
+                                <span data-i18n="paperPayWith">Payment asset</span>
+                                <select id="paperQuoteAsset" name="quoteAsset" class="mt-2 min-h-12 w-full rounded-xl border border-gray-700 bg-gray-900 px-4 py-3 text-base font-bold text-white">
+                                    <option value="USDT">USDT</option>
+                                    <option value="BTC">BTC</option>
+                                    <option value="ETH">ETH</option>
+                                    <option value="BNB">BNB</option>
+                                </select>
+                                <span class="mt-2 block text-xs font-normal leading-relaxed text-gray-500" data-i18n="paperQuoteHelp">USDT is always available. STKAI also supports BTC, ETH, and BNB.</span>
+                            </label>
+                            <div class="flex items-center justify-between gap-3 rounded-xl border border-gray-800/80 px-3 py-2.5 text-xs">
+                                <span class="text-gray-500" data-i18n="paperFeeRate">Gas fees · 0.5%</span>
+                                <span class="font-semibold text-amber-200">0.5%</span>
+                            </div>
+                            <button id="paperSubmit" type="submit" class="min-h-12 w-full rounded-xl bg-emerald-500 px-5 py-3 font-bold text-gray-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-50" data-i18n="paperPlaceOrder">Place order</button>
+                        </form>
+                        <p id="paperOrderStatus" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200"></p>
+                        <p class="mt-2 rounded-lg border border-gray-800 bg-gray-950/60 px-3 py-2.5 text-xs leading-relaxed text-gray-400" data-i18n="paperOrderNote">Please log in first to trade.</p>
+                    </div>
+                </article>
+                <article class="rounded-2xl border border-gray-800 bg-cardbg p-5 sm:p-6">
+                    <p id="paperCashBalance" class="hidden" aria-hidden="true">—</p>
+                    <div class="hidden" aria-hidden="true">
+                        <p class="text-xs text-gray-500" data-i18n="paperEstimatedTotal">Estimated portfolio value</p>
+                        <p id="paperTotalValue" class="mt-1 text-lg font-semibold tabular-nums text-white">—</p>
+                    </div>
+                    <div class="mt-5 border-t border-gray-800 pt-4">
+                        <div class="mb-3">
+                            <h3 class="font-bold text-white" data-i18n="paperStakingTitle">Stake</h3>
+                            <p class="mt-1 text-xs leading-relaxed text-amber-200/80" data-i18n="paperStakingNotice">Demo only. Coins and rewards are virtual; the listed rates are simulations, not promised returns.</p>
+                        </div>
+                        <form id="paperStakeForm" class="grid gap-3">
+                            <label class="block text-sm font-medium text-gray-300">
+                                <span data-i18n="paperStakeAsset">Coin to stake</span>
+                                <select name="asset" class="mt-2 min-h-11 w-full rounded-xl border border-gray-700 bg-gray-950 px-4 py-2.5 text-white">
+                                    <option value="STKAI">STKAI</option>
+                                    <option value="USDT">USDT</option>
+                                    <option value="BTC">BTC</option>
+                                    <option value="ETH">ETH</option>
+                                    <option value="BNB">BNB</option>
+                                </select>
+                            </label>
+                            <label class="block text-sm font-medium text-gray-300">
+                                <span data-i18n="paperStakeTerm">Term and rate</span>
+                                <select name="offerId" class="mt-2 min-h-11 w-full rounded-xl border border-gray-700 bg-gray-950 px-4 py-2.5 text-white">
+                                    <option value="0" data-i18n="paperStakeOffer7">7 days · 5%</option>
+                                    <option value="1" data-i18n="paperStakeOffer30">30 days · 25%</option>
+                                    <option value="2" data-i18n="paperStakeOffer180">180 days · 200%</option>
+                                </select>
+                            </label>
+                            <label class="block text-sm font-medium text-gray-300">
+                                <span data-i18n="paperStakeAmount">Amount</span>
+                                <input name="amount" type="text" inputmode="decimal" maxlength="48" pattern="[0-9]+([.][0-9]{1,8})?" required class="mt-2 min-h-11 w-full rounded-xl border border-gray-700 bg-gray-950 px-4 py-2.5 font-mono text-white" data-i18n-placeholder="e.g. 0.01" placeholder="e.g. 0.01">
+                            </label>
+                            <p id="paperStakePreview" aria-live="polite" class="min-h-5 text-xs text-gray-400"></p>
+                            <button id="paperStakeSubmit" type="submit" class="min-h-11 w-full rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-2.5 font-bold text-emerald-100 transition hover:bg-emerald-400/15 disabled:cursor-not-allowed disabled:opacity-50" data-i18n="paperStakeSubmit">Stake</button>
+                        </form>
+                        <p id="paperStakeStatus" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200"></p>
+                        <p id="paperStakeNoPositions" class="mt-3 text-sm text-gray-500" data-i18n="paperStakeNoPositions">No stakes yet.</p>
+                        <ul id="paperStakeList" class="mt-3 space-y-2 text-sm text-gray-300"></ul>
+                    </div>
+                    <div class="mt-5 border-t border-gray-800 pt-4">
+                        <h3 class="font-bold text-white" data-i18n="paperWalletBalances">Wallet balances</h3>
+                        <p id="paperNoPositions" class="mt-3 text-sm text-gray-500" data-i18n="paperNoPositions">No open positions yet.</p>
+                        <ul id="paperPositionList" class="mt-3 space-y-2 text-sm text-gray-300"></ul>
+                    </div>
+                    <div class="mt-5 border-t border-gray-800 pt-4">
+                        <h3 class="font-bold text-white" data-i18n="paperRecentTrades">Recent orders</h3>
+                        <p id="paperNoTrades" class="mt-3 text-sm text-gray-500" data-i18n="paperNoTrades">No orders yet.</p>
+                        <ul id="paperTradeList" class="mt-3 space-y-2 text-sm text-gray-300"></ul>
+                    </div>
+                    <div id="paperLoginNotice" class="mt-5 rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-4" hidden>
+                        <p class="text-sm text-cyan-100" data-i18n="paperLoginRequired">Log in to view your portfolio.</p>
+                        <button type="button" data-auth-mode="login" class="mt-3 rounded-lg border border-cyan-300/30 px-3 py-2 text-sm font-semibold text-cyan-100 hover:border-cyan-200" data-i18n="paperLoginButton">Log in</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <dialog id="assistantDialog" aria-labelledby="assistantDialogTitle" class="w-[calc(100%-2rem)] max-w-2xl rounded-2xl border border-gray-700 bg-cardbg p-0 text-gray-100 shadow-2xl backdrop:bg-black/70">
+        <div class="flex max-h-[85vh] flex-col">
+            <div class="flex items-center justify-between gap-4 border-b border-gray-800 px-5 py-4 sm:px-6">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-emerald-300" data-i18n="assistantBrand">STAKEAI assistant</p>
+                    <h2 id="assistantDialogTitle" class="mt-1 text-lg font-bold text-white"></h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="newAssistantChat" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm text-gray-300 hover:border-gray-500" data-i18n="assistantClear">New chat</button>
+                    <button id="closeAssistantDialog" type="button" class="rounded-lg border border-gray-700 px-3 py-2 text-sm text-gray-300 hover:border-gray-500" data-i18n="close">Close</button>
+                </div>
+            </div>
+            <div id="assistantMessages" role="log" aria-live="polite" aria-relevant="additions" class="min-h-64 flex-1 space-y-4 overflow-y-auto p-5 sm:p-6"></div>
+            <div class="border-t border-gray-800 p-5 sm:p-6">
+                <form id="assistantForm" class="flex items-end gap-2">
+                    <label class="sr-only" for="assistantInput" data-i18n="assistantInputLabel">Your message</label>
+                    <textarea id="assistantInput" rows="2" maxlength="4000" required placeholder="Type your message..." class="min-h-12 flex-1 resize-y rounded-xl border border-gray-700 bg-gray-950 px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-emerald-400 focus:outline-none" data-i18n-placeholder="assistantInputPlaceholder"></textarea>
+                    <button id="assistantSend" type="submit" class="inline-flex h-12 shrink-0 items-center gap-2 rounded-xl bg-emerald-500 px-4 font-bold text-gray-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-50"><i class="fa-solid fa-paper-plane"></i><span data-i18n="assistantSend">Send</span></button>
+                </form>
+                <p id="assistantStatus" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200"></p>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Staking Packages Section -->
+    <section id="packages" class="py-16 max-w-7xl mx-auto px-4 w-full">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="packagesTitle">STAKEAI Packages</h2>
+            <p class="text-gray-400" data-i18n="packagesDescription">Stake STAKEAI directly from your wallet on BNB Smart Chain testnet.</p>
+            <p class="mx-auto mt-3 max-w-3xl text-sm text-amber-200/90" data-i18n="packageProposalNotice">These packages lock STAKEAI on BNB Smart Chain testnet until maturity. Reward handling depends on the configured staking contract version.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Bronze -->
+            <div class="bg-cardbg border border-gray-800 rounded-2xl p-6 flex flex-col justify-between hover:border-indigo-500/50 transition">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full">Bronze</span>
+                    <h3 class="text-2xl font-bold mt-4" data-i18n="bronzeTerm">7-Day Stake</h3>
+                    <div class="my-6">
+                        <span class="text-4xl font-extrabold text-indigo-400" data-i18n="bronzePercent">5%</span>
+                        <span class="text-gray-400 text-sm" data-i18n="bronzePeriod">total over 7 days</span>
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-3 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-green-400 mr-2"></i> <span data-i18n="stakingLock7">7-day lock period</span></li>
+                        <li class="flex items-center"><i class="fa-solid fa-circle-info text-amber-300 mr-2"></i> <span data-i18n="stakingPoolOnly">Reward handling depends on the configured staking contract version.</span></li>
+                    </ul>
+                </div>
+                <button data-stake-package="0" data-i18n="selectPackage" class="w-full bg-gray-800 hover:bg-gray-700 text-white py-3 rounded-xl font-semibold transition">Select Package</button>
+            </div>
+
+            <!-- Silver -->
+            <div class="bg-cardbg border border-gray-800 rounded-2xl p-6 flex flex-col justify-between hover:border-indigo-500/50 transition">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-300 bg-slate-300/10 px-3 py-1 rounded-full">Silver</span>
+                    <h3 class="text-2xl font-bold mt-4" data-i18n="silverTerm">30-Day Stake</h3>
+                    <div class="my-6">
+                        <span class="text-4xl font-extrabold text-indigo-400" data-i18n="silverPercent">25%</span>
+                        <span class="text-gray-400 text-sm" data-i18n="silverPeriod">total over 30 days</span>
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-3 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-green-400 mr-2"></i> <span data-i18n="stakingLock30">30-day lock period</span></li>
+                        <li class="flex items-center"><i class="fa-solid fa-circle-info text-amber-300 mr-2"></i> <span data-i18n="stakingPoolOnly">Reward handling depends on the configured staking contract version.</span></li>
+                    </ul>
+                </div>
+                <button data-stake-package="1" data-i18n="selectPackage" class="w-full bg-gray-800 hover:bg-gray-700 text-white py-3 rounded-xl font-semibold transition">Select Package</button>
+            </div>
+
+            <!-- Gold -->
+            <div class="bg-cardbg border-2 border-indigo-500 rounded-2xl p-6 flex flex-col justify-between relative shadow-xl shadow-indigo-500/10">
+                <span data-i18n="mostPopular" class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Most Popular</span>
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-full">Gold</span>
+                    <h3 class="text-2xl font-bold mt-4" data-i18n="goldTerm">180-Day Stake</h3>
+                    <div class="my-6">
+                        <span class="text-4xl font-extrabold text-indigo-400" data-i18n="goldPercent">200%</span>
+                        <span class="text-gray-400 text-sm" data-i18n="goldPeriod">total over 180 days</span>
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-3 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-green-400 mr-2"></i> <span data-i18n="stakingLock180">180-day lock period</span></li>
+                        <li class="flex items-center"><i class="fa-solid fa-circle-info text-amber-300 mr-2"></i> <span data-i18n="stakingPoolOnly">Reward handling depends on the configured staking contract version.</span></li>
+                    </ul>
+                </div>
+                <button data-stake-package="2" data-i18n="selectPackage" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-semibold transition shadow-lg shadow-indigo-500/30">Select Package</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Task Center -->
+    <section id="tasks" class="py-16 bg-gray-900/50 border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-2" data-i18n="tasksTitle">Task Center</h2>
+                <p class="text-gray-400" data-i18n="tasksDescription">Complete social media tasks and earn 10 USDT for each task approved by an administrator.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <article data-task-card="telegram" class="bg-cardbg p-6 rounded-2xl border border-gray-800" data-configured="false">
+                    <div class="w-12 h-12 bg-sky-500/10 text-sky-300 rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+                    <h3 class="text-lg font-bold" data-i18n="taskTelegramTitle">Join the Telegram group</h3>
+                    <p class="text-gray-400 text-sm mt-1" data-i18n="taskTelegramDescription">Join the official STAKEAI Telegram group.</p>
+                    <p class="mt-4 font-semibold text-emerald-300" data-i18n="taskReward">Reward: 10 USDT after admin approval</p>
+                    <a data-task-link="telegram" hidden="" target="_blank" rel="noopener noreferrer" class="hidden mt-3 inline-flex text-sm text-cyan-200 underline" data-i18n="taskOpenLink" href="#">Open task link</a>
+                    <label class="mt-4 block text-sm text-gray-300">
+                        <span data-i18n="taskProofLabel">Your social username or evidence link</span>
+                        <input data-task-proof="" maxlength="1000" autocomplete="off" required="" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none" disabled="">
+                    </label>
+                    <button data-submit-task="telegram" type="button" class="mt-4 w-full rounded-lg bg-emerald-500 px-4 py-2.5 font-bold text-gray-950 hover:bg-emerald-400" data-i18n="taskSubmit" disabled="">Submit for review</button>
+                    <p data-task-status="" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200">Task links are not configured yet.</p>
+                </article>
+                <article data-task-card="x" class="bg-cardbg p-6 rounded-2xl border border-gray-800" data-configured="false">
+                    <div class="w-12 h-12 bg-gray-700/40 text-white rounded-xl flex items-center justify-center text-xl mb-4">
+                        <svg aria-label="X" role="img" viewBox="0 0 24 24" class="h-6 w-6 fill-current">
+                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.153h7.594l5.243 6.932zm-1.29 19.493h2.039L6.486 3.24H4.298z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold" data-i18n="taskXTitle">Follow and repost on X</h3>
+                    <p class="text-gray-400 text-sm mt-1" data-i18n="taskXDescription">Follow the official account and repost the linked post.</p>
+                    <p class="mt-4 font-semibold text-emerald-300" data-i18n="taskReward">Reward: 10 USDT after admin approval</p>
+                    <div class="mt-3 flex flex-col gap-2">
+                        <a data-task-link="x" data-task-link-index="0" hidden="" target="_blank" rel="noopener noreferrer" class="hidden text-sm text-cyan-200 underline" data-i18n="taskFollowLink" href="#">Open X account</a>
+                        <a data-task-link="x" data-task-link-index="1" hidden="" target="_blank" rel="noopener noreferrer" class="hidden text-sm text-cyan-200 underline" data-i18n="taskPostLink" href="#">Open X post to repost</a>
+                    </div>
+                    <label class="mt-4 block text-sm text-gray-300">
+                        <span data-i18n="taskProofLabel">Your social username or evidence link</span>
+                        <input data-task-proof="" maxlength="1000" autocomplete="off" required="" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none" disabled="">
+                    </label>
+                    <button data-submit-task="x" type="button" class="mt-4 w-full rounded-lg bg-emerald-500 px-4 py-2.5 font-bold text-gray-950 hover:bg-emerald-400" data-i18n="taskSubmit" disabled="">Submit for review</button>
+                    <p data-task-status="" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200">Task links are not configured yet.</p>
+                </article>
+                <article data-task-card="facebook" class="bg-cardbg p-6 rounded-2xl border border-gray-800" data-configured="false">
+                    <div class="w-12 h-12 bg-blue-500/10 text-blue-300 rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-brands fa-facebook"></i>
+                    </div>
+                    <h3 class="text-lg font-bold" data-i18n="taskFacebookTitle">Follow the Facebook page</h3>
+                    <p class="text-gray-400 text-sm mt-1" data-i18n="taskFacebookDescription">Follow the official STAKEAI Facebook page.</p>
+                    <p class="mt-4 font-semibold text-emerald-300" data-i18n="taskReward">Reward: 10 USDT after admin approval</p>
+                    <a data-task-link="facebook" hidden="" target="_blank" rel="noopener noreferrer" class="hidden mt-3 inline-flex text-sm text-cyan-200 underline" data-i18n="taskOpenLink" href="#">Open task link</a>
+                    <label class="mt-4 block text-sm text-gray-300">
+                        <span data-i18n="taskProofLabel">Your social username or evidence link</span>
+                        <input data-task-proof="" maxlength="1000" autocomplete="off" required="" class="mt-2 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2.5 text-white focus:border-emerald-400 focus:outline-none" disabled="">
+                    </label>
+                    <button data-submit-task="facebook" type="button" class="mt-4 w-full rounded-lg bg-emerald-500 px-4 py-2.5 font-bold text-gray-950 hover:bg-emerald-400" data-i18n="taskSubmit" disabled="">Submit for review</button>
+                    <p data-task-status="" role="status" aria-live="polite" class="mt-3 min-h-5 text-sm text-amber-200">Task links are not configured yet.</p>
+                </article>
+            </div>
+            <p id="taskDemoNotice" data-i18n="taskProgramNotice" role="status" aria-live="polite" class="mt-6 text-center text-sm text-amber-200">Submit your social username or evidence link. Approved tasks add 10 USDT to your platform balance after admin review. Social actions are not verified automatically, and no blockchain payment is sent.</p>
+        </div>
+    </section>
+
+    <section id="referrals" class="py-16 max-w-7xl mx-auto px-4 w-full">
+        <div class="text-center mb-10">
+            <span class="inline-flex rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-200" data-i18n="referralBadge">Planned program</span>
+            <h2 class="text-3xl font-bold text-white mt-4 mb-2" data-i18n="referralsTitle">STAKEAI Referral Program</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="referralsDescription">A proposed three-level referral structure. Rates are illustrative and subject to review.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <article class="bg-cardbg border border-gray-800 rounded-2xl p-6 text-center">
+                <span class="text-sm text-gray-400" data-i18n="referralLevel1">Level 1 · Direct referral</span>
+                <p class="text-4xl font-extrabold text-emerald-300 my-3">5%</p>
+                <p class="text-sm text-gray-400" data-i18n="referralFeeBase">of eligible platform service fees</p>
+            </article>
+            <article class="bg-cardbg border border-gray-800 rounded-2xl p-6 text-center">
+                <span class="text-sm text-gray-400" data-i18n="referralLevel2">Level 2</span>
+                <p class="text-4xl font-extrabold text-emerald-300 my-3">2%</p>
+                <p class="text-sm text-gray-400" data-i18n="referralFeeBase">of eligible platform service fees</p>
+            </article>
+            <article class="bg-cardbg border border-gray-800 rounded-2xl p-6 text-center">
+                <span class="text-sm text-gray-400" data-i18n="referralLevel3">Level 3</span>
+                <p class="text-4xl font-extrabold text-emerald-300 my-3">1%</p>
+                <p class="text-sm text-gray-400" data-i18n="referralFeeBase">of eligible platform service fees</p>
+            </article>
+        </div>
+        <p class="max-w-4xl mx-auto mt-6 rounded-xl border border-amber-400/20 bg-amber-400/5 px-5 py-4 text-center text-sm text-amber-100/80" data-i18n="referralDisclaimer">Referral commissions are not active. If introduced, they would be paid only from fees actually collected by the platform, never from user deposits. Rates are proposals, not guaranteed income.</p>
+    </section>
+
+    <section id="roadmap" class="py-16 bg-gray-900/50 border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <span class="inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-200" data-i18n="roadmapBadge">Proposed roadmap</span>
+                <h2 class="text-3xl font-bold text-white mt-4 mb-2" data-i18n="roadmapTitle">STAKEAI Roadmap</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="roadmapDescription">Proposed milestones for 2027. The sequence may change as the project develops.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                <article class="bg-cardbg border border-gray-800 rounded-2xl p-6">
+                    <span class="text-emerald-300 text-sm font-bold tracking-wider">Q1 · 2027</span>
+                    <h3 class="text-lg font-bold text-white mt-3 mb-2" data-i18n="roadmapQ1Title">Foundation &amp; token design</h3>
+                    <p class="text-sm text-gray-400" data-i18n="roadmapQ1Description">Draft the whitepaper, confirm tokenomics, choose a blockchain, and review legal requirements.</p>
+                </article>
+                <article class="bg-cardbg border border-gray-800 rounded-2xl p-6">
+                    <span class="text-emerald-300 text-sm font-bold tracking-wider">Q2 · 2027</span>
+                    <h3 class="text-lg font-bold text-white mt-3 mb-2" data-i18n="roadmapQ2Title">Contracts &amp; testnet</h3>
+                    <p class="text-sm text-gray-400" data-i18n="roadmapQ2Description">Develop token contracts, deploy a testnet prototype, and prepare an independent security review.</p>
+                </article>
+                <article class="bg-cardbg border border-gray-800 rounded-2xl p-6">
+                    <span class="text-emerald-300 text-sm font-bold tracking-wider">Q3 · 2027</span>
+                    <h3 class="text-lg font-bold text-white mt-3 mb-2" data-i18n="roadmapQ3Title">Platform &amp; closed beta</h3>
+                    <p class="text-sm text-gray-400" data-i18n="roadmapQ3Description">Build account services, the dashboard, and transparent fee-based referral tracking; run a closed beta.</p>
+                </article>
+                <article class="bg-cardbg border border-gray-800 rounded-2xl p-6">
+                    <span class="text-emerald-300 text-sm font-bold tracking-wider">Q4 · 2027</span>
+                    <h3 class="text-lg font-bold text-white mt-3 mb-2" data-i18n="roadmapQ4Title">Audit &amp; launch readiness</h3>
+                    <p class="text-sm text-gray-400" data-i18n="roadmapQ4Description">Complete security and compliance reviews, then consider a phased launch only when requirements are met.</p>
+                </article>
+            </div>
+            <p class="max-w-4xl mx-auto mt-6 text-center text-sm text-amber-200/80" data-i18n="roadmapDisclaimer">Internal transfer requests are processed after administrator approval. Balances and approved changes are recorded in the platform. Never share your account password.</p>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="py-16 max-w-4xl mx-auto px-4 w-full">
+        <div class="bg-cardbg border border-gray-800 rounded-3xl p-8 shadow-2xl">
+            <h3 class="text-2xl font-bold text-center mb-2" data-i18n="calculatorTitle">Illustrative Term Calculator</h3>
+            <p class="text-gray-500 text-sm text-center mb-6" data-i18n="calculatorDescription">Illustrative calculations only. Testnet offers are shown above; no mainnet staking is enabled.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                    <div>
+                        <label data-i18n="investmentAmount" class="text-sm text-gray-400 block mb-2">Investment Amount (USDT)</label>
+                        <input type="number" id="calcAmount" value="1000" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label data-i18n="packageChoice" class="text-sm text-gray-400 block mb-2">Package</label>
+                        <select id="calcPackage" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500">
+                            <option value="0.05" data-i18n="bronzeRate">7-Day Stake (5%)</option>
+                            <option value="0.25" data-i18n="silverRate">30-Day Stake (25%)</option>
+                            <option value="2" selected="" data-i18n="goldRate">180-Day Stake (200%)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bg-gray-900/80 p-6 rounded-2xl border border-gray-800 space-y-4 text-center">
+                    <div>
+                        <span class="text-xs text-gray-500 uppercase block" data-i18n="termEstimate">Example profit over selected term</span>
+                        <span id="weeklyReturn" class="text-3xl font-extrabold text-green-400">$2.000,00</span>
+                    </div>
+                    <div class="pt-2 border-t border-gray-800">
+                        <span class="text-xs text-gray-500 uppercase block" data-i18n="totalAfterTerm">Example total including principal</span>
+                        <span id="monthlyReturn" class="text-xl font-bold text-indigo-400">$3.000,00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" aria-labelledby="faqTitle" class="max-w-4xl mx-auto w-full px-4 py-12">
+        <h2 id="faqTitle" data-i18n="faqTitle" class="text-3xl font-bold text-white mb-6">Frequently asked questions</h2>
+        <div class="space-y-4 text-left">
+            <details class="bg-cardbg border border-gray-800 rounded-xl p-4">
+                <summary data-i18n="faqStakeaiQuestion" class="font-semibold text-white cursor-pointer">What is STAKEAI?</summary>
+                <p data-i18n="faqStakeaiAnswer" class="mt-3 text-gray-400">STAKEAI is an AI-powered crypto staking platform. It offers staking packages, strategy bots, a referral program and a task center in one place.</p>
+            </details>
+            <details class="bg-cardbg border border-gray-800 rounded-xl p-4">
+                <summary data-i18n="faqStakingQuestion" class="font-semibold text-white cursor-pointer">What is crypto staking?</summary>
+                <p class="mt-3 text-gray-400"><span data-i18n="faqStakingAnswerStart">Staking means locking crypto assets in a smart contract for a fixed period. When the term ends, the position can be withdrawn under the contract terms. See our</span> <a href="/staking-guide.html" data-i18n="faqGuideLink" data-i18n-href="faqGuideHref" class="text-emerald-300 underline">staking guide</a> <span data-i18n="faqStakingAnswerEnd">for details.</span></p>
+            </details>
+            <details class="bg-cardbg border border-gray-800 rounded-xl p-4">
+                <summary data-i18n="faqReturnsQuestion" class="font-semibold text-white cursor-pointer">Is any return guaranteed?</summary>
+                <p data-i18n="faqReturnsAnswer" class="mt-3 text-gray-400">No. Crypto assets involve risk and no return is guaranteed. The calculator on the site is for illustration only.</p>
+            </details>
+            <details class="bg-cardbg border border-gray-800 rounded-xl p-4">
+                <summary data-i18n="faqAccountQuestion" class="font-semibold text-white cursor-pointer">How do I create an account?</summary>
+                <p data-i18n="faqAccountAnswer" class="mt-3 text-gray-400">Sign up from the top right, click the verification link sent to your email, and log in. We recommend enabling two-factor authentication to secure your account.</p>
+            </details>
+        </div>
+    </section>
+    <footer class="mt-auto border-t border-gray-800 py-8 bg-cardbg text-center text-sm text-gray-500">
+        <div class="flex items-center justify-center gap-2 mb-3">
+            <img src="stakeai-logo.svg" alt="" class="w-7 h-7">
+            <span class="font-semibold tracking-wide text-gray-300">STAKEAI</span>
+        </div>
+        <section aria-labelledby="contactTitle" class="mb-5">
+            <h2 id="contactTitle" data-i18n="contactTitle" class="mb-2 font-semibold text-gray-300">Contact information</h2>
+            <address class="not-italic leading-6">
+                STAKE AI<br>
+                Flat 8, 75-42 Shelton Street<br>
+                Covent Garden<br>
+                London<br>
+                CRTCS KRE<br>
+                United Kingdom
+            </address>
+            <p class="mt-2">
+                <a href="mailto:info@stakeai.io" class="text-emerald-300 hover:text-emerald-200">info@stakeai.io</a>
+            </p>
+            <p class="mt-3">
+                <a href="/staking-guide.html" data-i18n="footerGuideLink" data-i18n-href="faqGuideHref" class="text-emerald-300 hover:text-emerald-200">Crypto staking guide</a>
+            </p>
+            <nav class="footer-social-links mt-5" aria-label="STAKEAI social media">
+                <a href="https://www.facebook.com/profile.php?id=61595915840204" target="_blank" rel="noopener noreferrer me" aria-label="STAKEAI on Facebook" class="footer-social-link" data-social="facebook">
+                    <span class="footer-social-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false"><path d="M13.4 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.5 1.6-1.5h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.2v3.2H10V21h3.4Z"/></svg>
+                    </span>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://x.com/stakeeai" target="_blank" rel="noopener noreferrer me" aria-label="STAKEAI on X" class="footer-social-link" data-social="x">
+                    <span class="footer-social-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false"><path d="M18.9 1.2h3.7l-8.1 9.3L24 22.8h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.8L0 1.2h7.6l5.2 6.9 6.1-6.9Zm-1.3 19.4h2L6.8 3.3H4.6l13 17.3Z"/></svg>
+                    </span>
+                    <span>Follow on X</span>
+                </a>
+                <a href="https://t.me/stakeaiio" target="_blank" rel="noopener noreferrer me" aria-label="STAKEAI on Telegram" class="footer-social-link" data-social="telegram">
+                    <span class="footer-social-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false"><path d="m21.7 4.2-3.3 15.5c-.2 1.1-.8 1.4-1.7.9l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.2L6.3 13.6 1.6 12c-1-.3-1-1 .2-1.5l18.3-7.1c.9-.3 1.7.2 1.6.8ZM8.9 14.5l9-8.1-7.5 6.7-.4 4.1-1.1-2.7Z"/></svg>
+                    </span>
+                    <span>Telegram</span>
+                </a>
+            </nav>
+        </section>
+        <p data-i18n="copyright">© 2026 STAKEAI. All rights reserved.</p>
     </footer>
-    <script src="/gpu-landing.js?v=20261023a"></script>
-</body>
-</html>
+
+    <!-- App JS -->
+    <script src="/vendor/ethers.umd.min.js"></script>
+    <script src="app.js?v=20261022c"></script>
+
+</body></html>
